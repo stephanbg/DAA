@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>  // Para rand() y srand()
-#include <ctime>    // Para time()
 #include <chrono> // Añadir esta línea para incluir la cabecera chrono
 
 #include "matriz.h"
@@ -14,7 +13,7 @@ Matriz::Matriz() {
   int columnasAleatorias = (rand() % 10) + 1;
   // Rellenar la matriz
   for (int i = 0; i < filasAleatorias; ++i) {
-    std::vector<int> cadaFila;
+    std::vector<long int> cadaFila;
     for (int j = 0; j < columnasAleatorias; ++j) {
       cadaFila.push_back(rand() % 100);
     }
@@ -22,12 +21,12 @@ Matriz::Matriz() {
   }
 }
 
-void Matriz::imprimirMatriz() const {
-  std::cout << "Matriz: " << std::endl;
-  for (int i = 0; i < matriz_.size(); ++i) {
-    for (int j = 0; j < matriz_[i].size(); ++j) {
-      std::cout << matriz_[i][j] << " ";
+std::ostream& operator<<(std::ostream& salida, const Matriz& matriz) {
+  for (int i = 0; i < matriz.matriz_.size(); ++i) {
+    for (int j = 0; j < matriz.matriz_[i].size(); ++j) {
+      salida << matriz.matriz_[i][j] << " ";
     }
-    std::cout << std::endl;
+    salida << std::endl;
   }
+  return salida;
 }
