@@ -1,16 +1,12 @@
 #include <iostream>
-#include <cstdlib>  // Para rand() y srand()
-#include <chrono> // Añadir esta línea para incluir la cabecera chrono
 
 #include "matriz.h"
+#include "funcionesNecesarias.h"
 
 Matriz::Matriz() {
-  // Inicializar la semilla con el tiempo actual
-  auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-  srand(static_cast<unsigned>(seed));
-  // Generar un número pseudoaleatorio entre 1 y 10
-  int filasAleatorias = (rand() % 100) + 1;
-  int columnasAleatorias = (rand() % 100) + 1;
+  generarSemillaRand();
+  int filasAleatorias = generarNumerosAleatorias();
+  int columnasAleatorias = generarNumerosAleatorias();
   // Rellenar la matriz
   for (int i = 0; i < filasAleatorias; ++i) {
     std::vector<long int> cadaFila;

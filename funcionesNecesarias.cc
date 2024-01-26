@@ -1,5 +1,16 @@
 #include "funcionesNecesarias.h"
 
+void generarSemillaRand() {
+  // Inicializar la semilla con el tiempo actual
+  auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+  srand(static_cast<unsigned>(seed));
+}
+    
+int generarNumerosAleatorias() {
+  // Generar un número pseudoaleatorio entre 1 y 100
+  return (rand() % 100) + 1;
+}
+
 // Función que devuelve el tiempo de ejecución en segundos
 double medirTiempoEjecucion(const MultiplicarMatriz& operacion, const Matriz& matriz1, const Matriz& matriz2) {
   // Registra el tiempo de inicio
