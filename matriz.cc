@@ -4,7 +4,6 @@
 #include "funcionesNecesarias.h"
 
 Matriz::Matriz() {
-  generarSemillaRand();
   int filasAleatorias = generarNumerosAleatorias();
   int columnasAleatorias = generarNumerosAleatorias();
   // Rellenar la matriz

@@ -1,6 +1,6 @@
 #include "funcionesNecesarias.h"
 
-void generarSemillaRand() {
+void iniciarSemilla() {
   // Inicializar la semilla con el tiempo actual
   auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
   srand(static_cast<unsigned>(seed));

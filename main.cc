@@ -2,6 +2,7 @@
 #include "funcionesNecesarias.h"
 
 int main() {
+  iniciarSemilla();
   Matriz matriz1, matriz2, resultadoAlgoritmoFilas, resultadoAlgoritmoColumnas;
   double tiempoAlgoritmoFilas, tiempoAlgoritmoColumnas;
   crearDatosParaMeterEnFichero(matriz1, matriz2, tiempoAlgoritmoFilas, tiempoAlgoritmoColumnas,
