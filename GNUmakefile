@@ -18,14 +18,14 @@ LDFLAGS =
 
 all: main
 
-main: main.o matriz.o multiplicarPorFilas.o multiplicarPorColumnas.o funcionesNecesarias.o comprobarFilasYColumnas.o
+main: main.o matriz.o multiplicar_por_filas.o multiplicar_por_columnas.o funciones_necesarias.o comprobar_filas_columnas.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean :
-	rm -rf *.o main matriz multiplicarPorFilas multiplicarPorColumnas funcionesNecesarias comprobarFilasYColumnas ../doc
+	rm -rf *.o main matriz multiplicar_por_filas multiplicar_por_columnas funciones_necesarias comprobar_filas_columnas ../doc
 	rm -rf *~ basura b i
 	rm -rf a.out
 	find . -name '*~' -exec rm {} \;
