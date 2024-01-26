@@ -9,8 +9,8 @@ Matriz::Matriz() {
   auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
   srand(static_cast<unsigned>(seed));
   // Generar un número pseudoaleatorio entre 1 y 10
-  int filasAleatorias = (rand() % 10) + 1;
-  int columnasAleatorias = (rand() % 10) + 1;
+  int filasAleatorias = (rand() % 100) + 1;
+  int columnasAleatorias = (rand() % 100) + 1;
   // Rellenar la matriz
   for (int i = 0; i < filasAleatorias; ++i) {
     std::vector<long int> cadaFila;
