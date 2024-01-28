@@ -36,13 +36,13 @@ int GenerarNumerosAleatorias() {
  * @param[in] kOperacion referencia (constante) de cualquier tipo de operación de multiplicación entre matrices 
  * @param[in] kMatriz1 referencia (constante) de la primera matriz
  * @param[in] kMatriz2 referencia (constante) de la segunda matriz
- * @returns Devuelve el tiempo de ejecución del algoritmo de multiplicación en segundos.
+ * @returns Devuelve el tiempo de ejecución del algoritmo de multiplicación en milisegundos.
  */
 double MedirTiempoEjecucion(const MultiplicarMatriz& kOperacion, const Matriz& kMatriz1, const Matriz& kMatriz2) {
-  const auto kInicio = std::chrono::high_resolution_clock::now();
+  const std::chrono::high_resolution_clock::time_point kInicio = std::chrono::high_resolution_clock::now();
   kOperacion.Multiplicar(kMatriz1, kMatriz2);
-  const auto kFin = std::chrono::high_resolution_clock::now();
-  const auto kDuracion = std::chrono::duration_cast<std::chrono::duration<double>>(kFin - kInicio);
+  const std::chrono::high_resolution_clock::time_point kFin = std::chrono::high_resolution_clock::now();
+  const std::chrono::duration<double, std::milli> kDuracion = (kFin - kInicio);
   return kDuracion.count();
 }
 
@@ -103,12 +103,12 @@ void MeterEnFichero(const Matriz& kMatriz1, const Matriz& kMatriz2, const double
   archivo_salida << "Nº Filas: " << kResultadoAlgoritmoFilas.get_matriz().size() << std::endl;
   archivo_salida << "Nº Columnas: " << kResultadoAlgoritmoFilas.get_matriz()[0].size() << std::endl << std::endl;  
   archivo_salida << kResultadoAlgoritmoFilas << std::endl;
-  archivo_salida << "Tiempo de ejecución: " << kTiempoAlgoritmoFilas << std::endl << std::endl;
+  archivo_salida << "Tiempo de ejecución: " << kTiempoAlgoritmoFilas << " ms" << std::endl << std::endl;
   archivo_salida << "---------------------------------" << std::endl << std::endl;
   archivo_salida << "Resultado multiplicación de matrices por columnas: " << std::endl;
   archivo_salida << "Nº Filas: " << kResultadoAlgoritmoColumnas.get_matriz().size() << std::endl;
   archivo_salida << "Nº Columnas: " << kResultadoAlgoritmoColumnas.get_matriz()[0].size() << std::endl << std::endl;    
   archivo_salida << kResultadoAlgoritmoColumnas << std::endl;
-  archivo_salida << "Tiempo de ejecución: " << kTiempoAlgoritmoColumnas << std::endl << std::endl;
+  archivo_salida << "Tiempo de ejecución: " << kTiempoAlgoritmoColumnas << " ms" << std::endl << std::endl;
   archivo_salida.close();
 }

@@ -27,5 +27,6 @@
  */
 class MultiplicarMatriz {
  public:
-  virtual Matriz Multiplicar(const Matriz&, const Matriz&) const = 0; 
+  virtual Matriz Multiplicar(const Matriz&, const Matriz&) const = 0;
+  virtual ~MultiplicarMatriz() {} /// Destructor virtual
 };
