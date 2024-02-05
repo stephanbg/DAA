@@ -15,16 +15,20 @@ class Compilador {
   std::unordered_map<std::string, int> tabla_etiqueta_valor_;
   std::vector<std::string> tabla_instrucciones_;
   int puntero_linea_;
+  // Comprueba errores
   void CompilarLinea(std::string&, std::vector<std::string>&);
   void ExtraerComentarios(std::string&);
   void SepararInstruccionEnPalabras(const std::string&, std::vector<std::string>&);
   void ComprobarInstruccion(const std::vector<std::string>&);
+  // AlmacenarDatos
   void AlmacenarInstruccion(const std::vector<std::string>&);
+  void AlmacenarEtiqueta(const std::string&);
+  // Comprobar el formato de las instrucciones
+  bool EsOperacionConstante(const std::vector<std::string>&);
+  bool EsOperacionDirecta(const std::vector<std::string>&);
+  bool EsOperacionIndirecta(const std::vector<std::string>&);
   bool EsEtiqueta(const std::string&);
+  // Mostrar fallo
   void MostrarInstruccionYLineaErronea(const std::vector<std::string>&);
-  // Comrpobar el formato de las instrucciones
-  bool ComprobarOperacionConstante(const std::vector<std::string>&);
-  bool ComprobarOperacionDirecta(const std::vector<std::string>&);
-  bool ComprobarOperacionIndirecta(const std::vector<std::string>&);
 
 };

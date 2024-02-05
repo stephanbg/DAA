@@ -20,7 +20,7 @@ bool EsNumero(const std::string& kCadena) {
   return std::regex_match(kCadena, kPatron);
 }
 
-std::string ConvertirAMayusculas(const std::string& kCadena) {
+const std::string ConvertirAMayusculas(const std::string& kCadena) {
   std::string palabras_en_mayusculas = kCadena;
   // Convertir a mayúsculas usando std::transform
   std::transform(palabras_en_mayusculas.begin(), palabras_en_mayusculas.end(),
@@ -32,5 +32,21 @@ void RotarUnoHaciaDerecha(std::vector<std::string>& vector) {
   // Rotar hacia la derecha
   if (!vector.empty()) {
     vector.erase(vector.begin());  // Eliminar el primer elemento
+  }
+}
+
+const std::string QuitarEspacios(const std::string& kCadena) {
+  std::string resultado = kCadena;
+  resultado.erase(std::remove_if(resultado.begin(), resultado.end(), ::isspace), resultado.end());
+  return resultado;
+}
+
+void EliminarCoincidencias(const std::vector<std::string>& kVectorCoincidencias,
+                           std::string& linea) {
+  const int kSizeVectorCoincidencias = kVectorCoincidencias.size();
+  size_t pos;
+  for (int i = 0; i < kSizeVectorCoincidencias; ++i) {
+    pos = linea.find(kVectorCoincidencias[i]);
+    if (pos != std::string::npos) linea.erase(pos, kVectorCoincidencias[i].size()); 
   }
 }

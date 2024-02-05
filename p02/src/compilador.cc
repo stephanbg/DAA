@@ -45,60 +45,76 @@ void Compilador::SepararInstruccionEnPalabras(const std::string& kLinea,
 void Compilador::ComprobarInstruccion(const std::vector<std::string>& kPalabrasInstruccion) {
   std::vector<std::string> palabras_instruccion = kPalabrasInstruccion;
   if (EsEtiqueta(palabras_instruccion[0])) {
-    // AlmacenarEtiqueta()
-    // Rodar vector 1 hacia la derecha
+    AlmacenarEtiqueta(palabras_instruccion[0]);
+    RotarUnoHaciaDerecha(palabras_instruccion);
   }
-  // Instrucción limpia
-  const std::string palabras_en_mayusculas = ConvertirAMayusculas(palabras_instruccion[0]);
-  bool instruccion_correcta = false;
-  if (palabras_en_mayusculas == "LOAD") {
-    if (ComprobarOperacionDirecta(palabras_instruccion)) { 
-      instruccion_correcta = true;
-    } else if ((!instruccion_correcta) &&
-               ComprobarOperacionIndirecta(palabras_instruccion)) {
-                instruccion_correcta = true;
+  // Si quito la etiqueta de la instrucción para saber si queda algo en la instrucción
+  if (!palabras_instruccion.empty()) {
+    // Instrucción limpia
+    const std::string palabras_en_mayusculas = ConvertirAMayusculas(palabras_instruccion[0]);
+    bool instruccion_correcta = false;
+    if (palabras_en_mayusculas == "LOAD") {
+    
+    } else if (palabras_en_mayusculas == "STORE") {
+
+    } else if (palabras_en_mayusculas == "ADD") {
+
+    } else if (palabras_en_mayusculas == "SUB") {
+
+    } else if (palabras_en_mayusculas == "MUL") {
+
+    } else if (palabras_en_mayusculas == "DIV") {
+
+    } else if (palabras_en_mayusculas == "READ") {
+
+    } else if (palabras_en_mayusculas == "WRITE") {
+
+    } else if (palabras_en_mayusculas == "JUMP") {
+
+    } else if (palabras_en_mayusculas == "JZERO") {
+
+    } else if (palabras_en_mayusculas == "JGTZ") {
+
+    } else if (palabras_en_mayusculas == "HALT") {
+
     }
-  } else if (palabras_en_mayusculas == "STORE") {
-
-  } else if (palabras_en_mayusculas == "ADD") {
-
-  } else if (palabras_en_mayusculas == "SUB") {
-
-  } else if (palabras_en_mayusculas == "MUL") {
-
-  } else if (palabras_en_mayusculas == "DIV") {
-
-  } else if (palabras_en_mayusculas == "READ") {
-
-  } else if (palabras_en_mayusculas == "WRITE") {
-
-  } else if (palabras_en_mayusculas == "JUMP") {
-
-  } else if (palabras_en_mayusculas == "JZERO") {
-
-  } else if (palabras_en_mayusculas == "JGTZ") {
-
-  } else if (palabras_en_mayusculas == "HALT") {
-
+    if (!instruccion_correcta) MostrarInstruccionYLineaErronea(kPalabrasInstruccion);
+    else AlmacenarInstruccion(palabras_instruccion);
   }
-  if (!instruccion_correcta) MostrarInstruccionYLineaErronea(kPalabrasInstruccion);
 }
 
-bool Compilador::ComprobarOperacionConstante(const std::vector<std::string>& kPalabrasInstruccion) {
+void Compilador::AlmacenarEtiqueta(const std::string& kEtiqueta) {
+  int valor = 0;
+  if (!tabla_instrucciones_.empty()) valor = tabla_instrucciones_.size();
+  std::string etiqueta_sin_dos_puntos = kEtiqueta.substr(0, kEtiqueta.size() - 1);
+  tabla_etiqueta_valor_[etiqueta_sin_dos_puntos] = valor;
+}
+
+void Compilador::AlmacenarInstruccion(const std::vector<std::string>& kPalabrasInstruccion) {
+  std::string instruccion = "";
+  const int kSizeInstruccion = kPalabrasInstruccion.size();
+  for (int i = 0; i < kSizeInstruccion; ++i) {
+    instruccion += kPalabrasInstruccion[i];
+    if (i < kSizeInstruccion - 1) instruccion += " ";
+  }
+  tabla_instrucciones_.push_back(instruccion);
+}
+
+bool Compilador::EsOperacionConstante(const std::vector<std::string>& kPalabrasInstruccion) {
   const std::regex kPatron("^\\d+$");
   if (std::regex_match(kPalabrasInstruccion[1], kPatron) == false) return false; // Si no sigue patrón error
   else if ((kPalabrasInstruccion.size() - 1) - (1) != 0) return false; // Si hay más de un operando error
   return true;
 }
 
-bool Compilador::ComprobarOperacionDirecta(const std::vector<std::string>& kPalabrasInstruccion) {
+bool Compilador::EsOperacionDirecta(const std::vector<std::string>& kPalabrasInstruccion) {
   const std::regex kPatron("^=\\d+$");
   if (std::regex_match(kPalabrasInstruccion[1], kPatron) == false) return false; // Si no sigue patrón error
   else if ((kPalabrasInstruccion.size() - 1) - (1) != 0) return false; // Si hay más de un operando error
   return true;
 }
 
-bool Compilador::ComprobarOperacionIndirecta(const std::vector<std::string>& kPalabrasInstruccion) {
+bool Compilador::EsOperacionIndirecta(const std::vector<std::string>& kPalabrasInstruccion) {
   const std::regex kPatron("^*\\d+$");
   if (std::regex_match(kPalabrasInstruccion[1], kPatron) == false) return false; // Si no sigue patrón error
   else if ((kPalabrasInstruccion.size() - 1) - (1) != 0) return false; // Si hay más de un operando error
@@ -119,8 +135,4 @@ void Compilador::MostrarInstruccionYLineaErronea(const std::vector<std::string>&
   std::string kError = "\n\nInstrucción --- " + instruccion + "\n";
   kError += "Línea --- " + std::to_string(puntero_linea_);
   throw (kError);
-}
-
-void Compilador::AlmacenarInstruccion(const std::vector<std::string>& kPalabrasInstruccion) {
-  
 }
