@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "comprobar_parametros.h"
-#include "cargar_programa.h"
-#include "alu.h"
-#include "estrategia_almacenamiento.h"
-#include "estrategia_almacenamiento_unico.h"
-#include "estrategia_almacenamiento_dinamico.h"
+#include "comprobar_parametros/comprobar_parametros.h"
+#include "cargar_programa/cargar_programa.h"
+#include "alu/alu.h"
+#include "estrategia_almacenamiento/estrategia_almacenamiento.h"
+#include "estrategia_almacenamiento/estrategia_almacenamiento_unico.h"
+#include "estrategia_almacenamiento/estrategia_almacenamiento_dinamico.h"
 
 int main(int argc, char *argv[]) {
   try {
@@ -13,14 +13,12 @@ int main(int argc, char *argv[]) {
     // Cargar Datos
     EstrategiaAlmacenamiento* estrategia = new EstrategiaUnicoEspacio();
     MemoriaDatos memoria_datos(32, estrategia); // 32 número de registros
-    std::cout << memoria_datos << std::endl;
-    exit(EXIT_FAILURE);
     //std::cout << memoria_datos << std::endl << std::endl;
     CintaIn cinta_entrada(argv[2]);
     //std::cout << cinta_entrada << std::endl << std::endl;
     MemoriaPrograma memoria_programa;
     CargarPrograma programa(argv[1], memoria_programa);
-    //std::cout << memoria_programa << std::endl;
+    std::cout << memoria_programa << std::endl;
     CintaOut cinta_salida;
     // Ejecutar Programa
     ALU alu;

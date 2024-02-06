@@ -18,15 +18,15 @@ LDFLAGS =
 
 all: main
 
-main: main.o comprobar_parametros.o funciones_necesarias.o cinta_in.o cinta_out.o cargar_programa.o instruccion.o memoria_programa.o memoria_datos.o alu.o operacion_constante.o operacion_directa.o operacion_indirecta.o
+main: main.o comprobar_parametros/comprobar_parametros.o funciones/funciones_necesarias.o cintas/cinta_in.o cintas/cinta_out.o cargar_programa/cargar_programa.o instruccion/instruccion.o memoria_programa/memoria_programa.o memoria_datos/memoria_datos.o alu/alu.o operaciones/add/add.o operaciones/div/div.o operaciones/error_tipo/error_tipo.o operaciones/halt/halt.o operaciones/jgtz/jgtz.o operaciones/jump/jump.o operaciones/jzero/jzero.o operaciones/load/load.o operaciones/mul/mul.o operaciones/read/read.o operaciones/store/store.o operaciones/sub/sub.o operaciones/write/write.o 
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean :
-	rm -rf *.o main comprobar_parametros funciones_necesarias cinta_in cinta_out cargar_programa instruccion memoria_programa memoria_datos alu operacion_constante operacion_directa operacion_indirecta ../doc
+	find . -name '*.o' -type f -delete
 	rm -rf *~ basura b i
-	rm -rf a.out
+	rm -rf a.out main
 	find . -name '*~' -exec rm {} \;
 	find . -name basura -exec rm {} \;
