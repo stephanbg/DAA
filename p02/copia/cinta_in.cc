@@ -5,11 +5,12 @@ CintaIn::CintaIn(const std::string& kNombreFicheroCintaIn) {
   std::ifstream archivo(kNombreFicheroCintaIn);
   std::string cinta_in = "";
   std::getline(archivo, cinta_in);
-  RellenarCola(cinta_in);
+  puntero_ = 0;
+  RellenarVector(cinta_in);
   archivo.close();  
 }
 
-void CintaIn::RellenarCola(const std::string& kCintaIn) {
+void CintaIn::RellenarVector(const std::string& kCintaIn) {
   std::string cintaReemplazada = kCintaIn;
   std::replace(cintaReemplazada.begin(), cintaReemplazada.end(), ',', '.');
   std::istringstream iss(cintaReemplazada);
@@ -19,18 +20,19 @@ void CintaIn::RellenarCola(const std::string& kCintaIn) {
   while (iss >> numero) {
     if (!EsNumero(numero)) throw kError;
     else {
-      cinta_.push(stold(numero));
+      cinta_.push_back(stold(numero));
     }
   }  
 }
 
 std::ostream& operator<<(std::ostream& os, const CintaIn& kCinta) {
-  std::queue<long double> cinta_copia = kCinta.get_cinta();
+  std::vector<long double> cinta_copia = kCinta.get_cinta();
   int numero_decimales = 0;
-  while (!cinta_copia.empty()) {
-    numero_decimales = ContarDecimales(cinta_copia.front());
-    os << std::fixed << std::setprecision(numero_decimales) << cinta_copia.front() << " ";
-    cinta_copia.pop();
+  const int kSizeCinta = cinta_copia.size();
+  for (int i = 0; i < kSizeCinta; ++i) {
+    numero_decimales = ContarDecimales(cinta_copia[i]);
+    os << std::fixed << std::setprecision(numero_decimales) << cinta_copia[i];
+    if (i < kSizeCinta - 1) os << " ";
   }
   return os;
 }

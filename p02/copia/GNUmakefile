@@ -18,14 +18,14 @@ LDFLAGS =
 
 all: main
 
-main: main.o comprobar_parametros.o funciones_necesarias.o cinta_in.o cinta_out.o cargar_programa.o instruccion.o memoria_programa.o memoria_datos.o alu.o
+main: main.o comprobar_parametros.o funciones_necesarias.o cinta_in.o cinta_out.o cargar_programa.o instruccion.o memoria_programa.o memoria_datos.o alu.o operacion_constante.o operacion_directa.o operacion_indirecta.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean :
-	rm -rf *.o main comprobar_parametros funciones_necesarias cinta_in cinta_out cargar_programa instruccion memoria_programa memoria_datos alu ../doc
+	rm -rf *.o main comprobar_parametros funciones_necesarias cinta_in cinta_out cargar_programa instruccion memoria_programa memoria_datos alu operacion_constante operacion_directa operacion_indirecta ../doc
 	rm -rf *~ basura b i
 	rm -rf a.out
 	find . -name '*~' -exec rm {} \;

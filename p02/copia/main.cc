@@ -3,12 +3,18 @@
 #include "comprobar_parametros.h"
 #include "cargar_programa.h"
 #include "alu.h"
+#include "estrategia_almacenamiento.h"
+#include "estrategia_almacenamiento_unico.h"
+#include "estrategia_almacenamiento_dinamico.h"
 
 int main(int argc, char *argv[]) {
   try {
     ComprobarParametros::ComprobarErrores(argc, argv);
     // Cargar Datos
-    MemoriaDatos memoria_datos(32); // 32 número de registros
+    EstrategiaAlmacenamiento* estrategia = new EstrategiaUnicoEspacio();
+    MemoriaDatos memoria_datos(32, estrategia); // 32 número de registros
+    std::cout << memoria_datos << std::endl;
+    exit(EXIT_FAILURE);
     //std::cout << memoria_datos << std::endl << std::endl;
     CintaIn cinta_entrada(argv[2]);
     //std::cout << cinta_entrada << std::endl << std::endl;

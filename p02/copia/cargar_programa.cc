@@ -101,8 +101,8 @@ void CargarPrograma::SustituirEtiquetasPorValor() {
         tabla_instrucciones_[i].get_instruccion()[0] == "JGTZ") {
       auto iterador = tabla_etiqueta_valor_.find(tabla_instrucciones_[i].get_instruccion()[1]);
       if (iterador != tabla_etiqueta_valor_.end()) {
-        tabla_instrucciones_[i].set_instruccion()[1] = std::to_string(iterador->second);
-      } else tabla_instrucciones_[i].set_instruccion()[1] = "-1";
+        tabla_instrucciones_[i].set_instruccion()[1] = "=" + std::to_string(iterador->second);
+      } else tabla_instrucciones_[i].set_instruccion()[1] = "=-1";
     }
   }
 }
