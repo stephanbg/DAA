@@ -68,7 +68,9 @@ void CargarPrograma::AlmacenarEtiqueta(const std::string& kEtiqueta) {
 }
 
 void CargarPrograma::AlmacenarInstruccion(const std::string& kInstruccion) {
-  Instruccion palabras_instruccion(kInstruccion);
+  std::string kInstruccionSinComas = kInstruccion;
+  std::replace(kInstruccionSinComas.begin(), kInstruccionSinComas.end(), ',', '.');
+  Instruccion palabras_instruccion(kInstruccionSinComas);
   if (!palabras_instruccion.get_instruccion().empty()) {
     tabla_instrucciones_.push_back(palabras_instruccion);
     GuardaPosInstruccionDelFichero();

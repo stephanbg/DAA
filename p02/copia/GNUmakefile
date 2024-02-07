@@ -18,7 +18,7 @@ LDFLAGS =
 
 all: main
 
-main: main.o comprobar_parametros/comprobar_parametros.o funciones/funciones_necesarias.o cintas/cinta_in.o cintas/cinta_out.o cargar_programa/cargar_programa.o instruccion/instruccion.o memoria_programa/memoria_programa.o memoria_datos/memoria_datos.o alu/alu.o operaciones/add/add.o operaciones/div/div.o operaciones/error_tipo/error_tipo.o operaciones/halt/halt.o operaciones/jgtz/jgtz.o operaciones/jump/jump.o operaciones/jzero/jzero.o operaciones/load/load.o operaciones/mul/mul.o operaciones/read/read.o operaciones/store/store.o operaciones/sub/sub.o operaciones/write/write.o 
+main: main.o comprobar_parametros/comprobar_parametros.o funciones/funciones_necesarias.o cintas/cinta_in.o cintas/cinta_out.o cargar_programa/cargar_programa.o instruccion/instruccion.o memoria_programa/memoria_programa.o memoria_datos/memoria_datos.o alu/alu.o operaciones/add/add.o operaciones/div/div.o operaciones/halt/halt.o operaciones/jgtz/jgtz.o operaciones/jump/jump.o operaciones/jzero/jzero.o operaciones/load/load.o operaciones/mul/mul.o operaciones/read/read.o operaciones/store/store.o operaciones/sub/sub.o operaciones/write/write.o 
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean

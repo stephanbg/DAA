@@ -13,7 +13,8 @@ class Instruccion {
   Instruccion() {}
   Instruccion(const std::string&);
   const std::string& TipoOperador() const;
-  const std::string TipoInstruccion() const;
+  const long double ObtenerConstante() const;
+  //const std::string TipoInstruccion() const;
   const Operacion* get_tipo_operacion() const { return tipo_operacion_; }
   const std::vector<std::string>& get_instruccion() const { return instruccion_; }
   std::vector<std::string>& set_instruccion() { return instruccion_; }

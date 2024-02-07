@@ -1,11 +1,13 @@
 #include "read.h"
 
-void READ::EjecutarInstruccion(MemoriaDatos& memoria_datos, const CintaIn& cinta_entrada,
-                               CintaOut& cinta_salida, int& pc) const {
-  std::cout << "SOY READ EJECUTAR" <<std::endl;
+bool READ::ValidarInstruccion(const Instruccion& kInstruccion) const {
+  const std::string operando = kInstruccion.get_instruccion()[1];
+  if (std::regex_match(operando, patron_.get_patron_directo_no_R0()) ||
+      std::regex_match(operando, patron_.get_patron_indirecto())) return true;
+  return false;
 }
 
-bool READ::ValidarInstruccion(const Instruccion& kInstruccion) const {
-  std::cout << "SOY READ VALIDAR" <<std::endl;
-  return true;
+void READ::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, const CintaIn& cinta_entrada,
+                               CintaOut& cinta_salida, int& pc) const {
+  std::cout << "SOY READ EJECUTAR" <<std::endl;
 }

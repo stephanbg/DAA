@@ -4,6 +4,6 @@
 
 class ErrorTipo : public Operacion {
  public:
-  void EjecutarInstruccion(MemoriaDatos&, const CintaIn&, CintaOut&, int&) const override;
-  bool ValidarInstruccion(const Instruccion&) const override;
+  bool ValidarInstruccion(const Instruccion&) const override { return false; }
+  void EjecutarInstruccion(const Instruccion&, MemoriaDatos&, const CintaIn&, CintaOut&, int&) const override {}
 };

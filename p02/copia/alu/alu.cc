@@ -9,8 +9,12 @@ void ALU::EjecutarPrograma(const MemoriaPrograma& kMemoriaPrograma,
     if (!kMemoriaPrograma.get_programa()[pc_].get_tipo_operacion()->ValidarInstruccion(kMemoriaPrograma.get_programa()[pc_])) {
       throw (pc_);
     }    
-    kMemoriaPrograma.get_programa()[pc_].get_tipo_operacion()->EjecutarInstruccion(memoria_datos, cinta_in, cinta_out, pc_);
-    pc_++; // Se borrará
+    try { /// Si al ejecutar detecta error reenvía la línea errónea hacia el main
+      kMemoriaPrograma.get_programa()[pc_].get_tipo_operacion()->EjecutarInstruccion(kMemoriaPrograma.get_programa()[pc_],
+                                                                                   memoria_datos, cinta_in, cinta_out, pc_);
+    } catch (...) {
+        throw(pc_);
+    }
   }
 }
 

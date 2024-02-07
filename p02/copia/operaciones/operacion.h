@@ -6,10 +6,13 @@
 #include "../cintas/cinta_in.h"
 #include "../cintas/cinta_out.h"
 #include "../instruccion/instruccion.h"
+#include "../expresiones_regulares/expresiones_regulares.h"
 
 class Operacion {
  public:
   virtual bool ValidarInstruccion(const Instruccion&) const = 0;
-  virtual void EjecutarInstruccion(MemoriaDatos&, const CintaIn&, CintaOut&, int&) const = 0;
+  virtual void EjecutarInstruccion(const Instruccion&, MemoriaDatos&, const CintaIn&, CintaOut&, int&) const = 0;
   virtual ~Operacion() {} /// Destructor virtual
+ protected:
+  ExpresionesRegulares patron_;
 };

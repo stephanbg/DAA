@@ -4,6 +4,6 @@
 
 class SUB : public Operacion {
  public:
-  void EjecutarInstruccion(MemoriaDatos&, const CintaIn&, CintaOut&, int&) const override;
   bool ValidarInstruccion(const Instruccion&) const override;
+  void EjecutarInstruccion(const Instruccion&, MemoriaDatos&, const CintaIn&, CintaOut&, int&) const override;
 };

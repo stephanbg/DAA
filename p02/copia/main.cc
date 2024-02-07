@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
     //std::cout << cinta_entrada << std::endl << std::endl;
     MemoriaPrograma memoria_programa;
     CargarPrograma programa(argv[1], memoria_programa);
-    std::cout << memoria_programa << std::endl;
     CintaOut cinta_salida;
     // Ejecutar Programa
     ALU alu;
@@ -31,6 +30,7 @@ int main(int argc, char *argv[]) {
       std::cout << "Instrucción: " << programa.get_lineas_fichero()[kLineaOriginal - 1] << std::endl;
       return EXIT_FAILURE;
     }
+    std::cout << memoria_datos << std::endl << std::endl;
     // Volcar Cinta salida a Fichero
     //cinta_salida.MeterEnFichero(argv[3]);
   } catch (const std::string& mensaje) {
