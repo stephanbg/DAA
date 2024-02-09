@@ -8,12 +8,12 @@ void ALU::EjecutarPrograma(const MemoriaPrograma& kMemoriaPrograma,
   while (pc_ < kSizeMemoriaPrograma) {
     if (!kMemoriaPrograma.get_programa()[pc_].get_tipo_operacion()->ValidarInstruccion(kMemoriaPrograma.get_programa()[pc_])) {
       throw (pc_);
-    }    
+    }
     try { /// Si al ejecutar detecta error reenvía la línea errónea hacia el main
       kMemoriaPrograma.get_programa()[pc_].get_tipo_operacion()->EjecutarInstruccion(kMemoriaPrograma.get_programa()[pc_],
-                                                                                   memoria_datos, cinta_in, cinta_out, pc_);
-    } catch (...) {
-        throw(pc_);
+                                                                                     memoria_datos, cinta_in, cinta_out, pc_);
+    } catch (const std::string& kError) {
+      throw(kError);
     }
   }
 }

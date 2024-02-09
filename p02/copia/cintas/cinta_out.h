@@ -3,9 +3,13 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <iomanip>
+
+#include "../funciones/funciones_necesarias.h"
 
 class CintaOut {
  public:
+  CintaOut() : puntero_(-1) {}
   const int get_puntero() const { return puntero_; }
   int& set_puntero() { return puntero_; } 
   const std::vector<long double>& get_cinta() const { return cinta_; }

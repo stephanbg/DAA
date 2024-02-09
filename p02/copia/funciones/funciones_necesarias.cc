@@ -50,3 +50,13 @@ void EliminarCoincidencias(const std::vector<std::string>& kVectorCoincidencias,
     if (pos != std::string::npos) linea.erase(pos, kVectorCoincidencias[i].size()); 
   }
 }
+
+bool sonTodoDigitos(const std::string& kCadena) {
+  // Verificar si todos los caracteres en operando son dígitos
+  for (char c : kCadena) {
+    if (!std::isdigit(c)) {
+      return false;
+    }
+  }
+  return true;
+}

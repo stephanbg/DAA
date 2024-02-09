@@ -1,14 +1,25 @@
 #include "write.h"
 
-bool WRITE::ValidarInstruccion(const Instruccion& kInstruccion) const {
-  const std::string operando = kInstruccion.get_instruccion()[1];
-  if (std::regex_match(operando, patron_.get_patron_constante()) ||
-      std::regex_match(operando, patron_.get_patron_directo_no_R0()) ||
-      std::regex_match(operando, patron_.get_patron_indirecto())) return true;
+bool Write::ValidarInstruccion(const Instruccion& kInstruccion) const {
+  if (kInstruccion.get_tipo_operando()->compruebaPatron(kInstruccion.get_instruccion()[1])) return true;
   return false;
 }
 
-void WRITE::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, const CintaIn& cinta_entrada,
+void Write::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                 CintaOut& cinta_salida, int& pc) const {
-  std::cout << "SOY WRITE EJECUTAR" <<std::endl;
+  try {
+    const std::string kErrorWriteEnCero = "No se puede escribir en la cinta de salida con WRITE desde R0";
+    const long double kValor = kInstruccion.ObtenerConstante();
+    long double resultado = kValor;
+    if (kInstruccion.get_instruccion()[1][0] != '=') {
+      resultado = kInstruccion.get_tipo_operando()->get_registro(memoria_datos, kValor);
+      if (resultado == 0) throw (kErrorWriteEnCero);
+      resultado = memoria_datos.obtenerDato(resultado);
+    }
+    cinta_salida.set_cinta().push_back(resultado);
+    cinta_salida.set_puntero() = cinta_salida.get_puntero() + 1;
+    pc++;
+  } catch (const std::string& kError) {
+    throw (kError);
+  }
 }
