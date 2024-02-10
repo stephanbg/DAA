@@ -26,12 +26,13 @@ int main(int argc, char *argv[]) {
       std::cout << "Error:" << std::endl;
       std::cout << "Línea: " << kLineaOriginal << std::endl;
       std::cout << "Instrucción: " << programa.get_lineas_fichero()[kLineaOriginal - 1] << std::endl;
-    } catch (const std::string& kErrorAccediendoFueraDeRango) { /// Error al ejecutar la instrucción
-      std::cout << "Error: " << kErrorAccediendoFueraDeRango << std::endl;
+    } catch (const std::string& kErrorEjecucion) { /// Error al ejecutar la instrucción
+      std::cout << "Error: " << kErrorEjecucion << std::endl;
     }
+    //std::cout << memoria_datos << std::endl;
     // Volcar Cinta salida a Fichero
     cinta_salida.MeterEnFichero(argv[3]);
-  } catch (const std::string& mensaje) {
+  } catch (const std::string& mensaje) { /// Carga el progrma en memoria
     std::cout << "Error: " << mensaje << std::endl;
     return EXIT_FAILURE;
   }

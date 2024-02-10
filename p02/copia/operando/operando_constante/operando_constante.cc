@@ -6,6 +6,7 @@ bool OperandoConstante::compruebaPatron(const std::string& kOperando) const {
   return false;
 }
 
-const long double OperandoConstante::get_valor(const MemoriaDatos& kMemoriaDatos, const long double kValor) const {
+const long double OperandoConstante::get_valor(const Instruccion& kInstruccion, const MemoriaDatos& kMemoriaDatos,
+                                               const long double kValor) const {
   return kValor;
 }

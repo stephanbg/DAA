@@ -8,6 +8,7 @@ bool Jump::ValidarInstruccion(const Instruccion& kInstruccion) const {
 void Jump::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                CintaOut& cinta_salida, int& pc) const {
   const std::string kErrorSalto = "Se accede a etiqueta inexistente o fuera de rango.";
-  if (kInstruccion.ObtenerConstante() == -1) throw (kErrorSalto);
-  pc = kInstruccion.ObtenerConstante();
+  const int kSalto = kInstruccion.ObtenerConstante();
+  if (kSalto == -1) throw (kErrorSalto);
+  pc = kSalto;
 }
