@@ -30,8 +30,10 @@ Instruccion::Instruccion(const std::string& kInstruccion) {
     operador = ConvertirAMayusculas(operador);
     instruccion_[0] = operador;
   }
-  if (!ConstruirOperador(operador) || !ConstruirOperando(operador, operando)) {
+  if (!ConstruirOperador(operador)) {
     tipo_operacion_ = new ErrorTipo();
+  }
+  if (!ConstruirOperando(operador, operando)) {
     tipo_operando_ = new ErrorOperando();
   }
 }
@@ -86,6 +88,7 @@ bool Instruccion::ConstruirOperando(const std::string& kOperador, const std::str
     tipo_operando_ = new OperandoConstante();
   } else if (kOperador == "HALT") return true;
     else return false;
+  tipo_operando_->set_lecturaOEscritura(kOperador);
   return true;
 }
 

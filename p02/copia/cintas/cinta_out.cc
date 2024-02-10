@@ -2,12 +2,16 @@
 
 void CintaOut::MeterEnFichero(const std::string& kNombreFichero) {
   std::ofstream archivoSalida(kNombreFichero);
+  const std::string kErrorApertura = "Apertura de archivo de salida.";
+  const std::string kErrorCierre = "Cierre de archivo de salida.";
+  if (!archivoSalida.is_open()) throw (kErrorApertura);
   const int kSizeCintaOut = this->cinta_.size();
   for (int i = 0; i < kSizeCintaOut; ++i) {
     archivoSalida << this->cinta_[i];
     if (i < kSizeCintaOut - 1) archivoSalida << " ";
   }
   archivoSalida.close();
+  if (archivoSalida.is_open()) throw (kErrorCierre);
 }
 
 std::ostream& operator<<(std::ostream& os, const CintaOut& kCinta) {

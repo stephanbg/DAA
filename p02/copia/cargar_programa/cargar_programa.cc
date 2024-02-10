@@ -2,6 +2,9 @@
 
 CargarPrograma::CargarPrograma(const::std::string& kNombreFicheroRam, MemoriaPrograma& memoria) {
   std::ifstream archivo(kNombreFicheroRam);
+  const std::string kErrorApertura = "Apertura de archivo de entrada.";
+  const std::string kErrorCierre = "Cierre de archivo de entrada.";
+  if (!archivo.is_open()) throw (kErrorApertura);
   std::string cada_linea = "";
   puntero_fichero_ = 0;
   while (std::getline(archivo, cada_linea)) {
@@ -16,6 +19,8 @@ CargarPrograma::CargarPrograma(const::std::string& kNombreFicheroRam, MemoriaPro
       }
     }
   }
+  archivo.close();
+  if (archivo.is_open()) throw (kErrorCierre);
   SustituirEtiquetasPorValor();
   memoria = MemoriaPrograma(tabla_instrucciones_);
 }

@@ -7,5 +7,5 @@ bool Halt::ValidarInstruccion(const Instruccion& kInstruccion) const {
 
 void Halt::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                CintaOut& cinta_salida, int& pc) const {
-  pc = memoria_datos.get_registros().size();
+  pc = -1;
 }
