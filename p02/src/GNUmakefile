@@ -8,9 +8,6 @@
 # Correo: alu0101493497@ull.es
 # Fecha: 30/01/2024
 # Archivo GNUMakefile
-#
-# Historial de revisiones
-# 24/01/2023 - Creación (primera versión) del código
 
 CXX = g++
 CXXFLAGS = -std=c++17 -g
@@ -18,15 +15,15 @@ LDFLAGS =
 
 all: main
 
-main: main.o comprobar_parametros.o funciones_necesarias.o cinta_in.o compilador.o
+main: main.o comprobar_parametros/comprobar_parametros.o funciones/funciones_necesarias.o cintas/cinta_in.o cintas/cinta_out.o cargar_programa/cargar_programa.o instruccion/instruccion.o memoria_programa/memoria_programa.o memoria_datos/memoria_datos.o alu/alu.o operaciones/load/load.o operaciones/store/store.o operaciones/add/add.o operaciones/sub/sub.o operaciones/mul/mul.o operaciones/div/div.o operaciones/read/read.o operaciones/write/write.o operaciones/jump/jump.o operaciones/jzero/jzero.o operaciones/jgtz/jgtz.o operaciones/halt/halt.o operando/operando.o operando/operando_constante/operando_constante.o operando/operando_directo/operando_directo.o operando/operando_indirecto/operando_indirecto.o estrategia_almacenamiento/estrategia_almacenamiento_unico.o estrategia_almacenamiento/estrategia_almacenamiento_dinamico.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean
 	$(CXX) $(CXXFLAGS) -c $<
 
 clean :
-	rm -rf *.o main comprobar_parametros funciones_necesarias cinta_in compilador ../doc
+	find . -name '*.o' -type f -delete
 	rm -rf *~ basura b i
-	rm -rf a.out
+	rm -rf a.out main
 	find . -name '*~' -exec rm {} \;
 	find . -name basura -exec rm {} \;
