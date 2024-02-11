@@ -45,12 +45,15 @@ class Instruccion {
   const Operando* get_tipo_operando() const { return tipo_operando_; }
   const std::vector<std::string>& get_instruccion() const { return instruccion_; }
   std::vector<std::string>& set_instruccion() { return instruccion_; }
+  const std::string& get_lectura_escritura() const { return lectura_escritura_; }
+  void set_lectura_escritura(const std::string&);
   // Sobrecarga del operador de inserción
   friend std::ostream& operator<<(std::ostream&, const Instruccion&);
  private:
   std::vector<std::string> instruccion_; // La instrucción
   Operacion* tipo_operacion_; // Puntero a la clase Operación (Load, Add, ...)
   Operando* tipo_operando_; // Puntero a la clase Operando (constante, directo, ...)
+  std::string lectura_escritura_{""}; // Determina si la instrucción es de lectura o de escritura
   // Operaciones sobre la instrucción
   void SepararInstruccionEnPalabras(const std::string&);
   bool ConstruirOperador(const std::string&);

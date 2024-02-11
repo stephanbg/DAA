@@ -57,6 +57,7 @@ Instruccion::Instruccion(const std::string& kInstruccion) {
   if (!ConstruirOperando(operador, operando)) { // Si no existe el operando es error
     tipo_operando_ = new ErrorOperando();
   }
+  set_lectura_escritura(operador);
 }
 
 /**
@@ -122,8 +123,23 @@ bool Instruccion::ConstruirOperando(const std::string& kOperador, const std::str
     tipo_operando_ = new OperandoConstante();
   } else if (kOperador == "HALT") return true; // Halt no tiene operando cuidado (no puede usar set_lecturaOEscritura)
     else return false;
-  tipo_operando_->set_lecturaOEscritura(kOperador);
   return true;
+}
+
+/**
+ * @brief Recibe un operador y dice si la instrucción es de
+ *        lectura o escritura
+ * 
+ * @param kOperador el operador
+ */
+void Instruccion::set_lectura_escritura(const std::string& kOperador) { 
+  if (kOperador == "LOAD" || kOperador == "ADD" || kOperador == "SUB" ||
+      kOperador == "MUL" || kOperador == "DIV" || kOperador == "JUMP" ||
+      kOperador == "JZERO" || kOperador == "JGTZ") {
+    lectura_escritura_ = "Lectura"; // Lectura
+  } else if (kOperador == "WRITE" || kOperador == "STORE" || kOperador == "READ") {
+    lectura_escritura_ = "Escritura"; // Escritura
+  } else lectura_escritura_ = "Ninguna"; // Ninguna
 }
 
 /**

@@ -8,8 +8,7 @@
  * @since 30 de Enero de 2024
  * @file div.cc
  * @brief Implementación de la clase Div derivada de la clase abstracta Operacion, que se
- *        encargará de validar si la instrucción Div junto a un opernando es válida
- *        y la ejecutará.
+ *        encargará de ejecutar la instrucción Div.
  * 
  * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
@@ -28,7 +27,7 @@
  * @param cinta_entrada La cinta de entrada utilizada durante la ejecución.
  * @param cinta_salida La cinta de salida utilizada durante la ejecución.
  * @param pc El contador de programa, que se incrementará después de ejecutar la instrucción.
- * @throw Lanza una excepción si el valor del divisor es 0.
+ * @throw Lanza una excepción si el valor del divisor es 0 o si accede fuera de memoria.
  */
 void Div::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                CintaOut& cinta_salida, int& pc) const {

@@ -22,7 +22,6 @@
 #include "alu/alu.h"
 #include "estrategia_almacenamiento/estrategia_almacenamiento.h"
 #include "estrategia_almacenamiento/estrategia_almacenamiento_unico.h"
-#include "estrategia_almacenamiento/estrategia_almacenamiento_dinamico.h"
 
 /**
  * @brief Función principal del programa, se encarga de comprobar parámetrosd e entrada,

@@ -8,7 +8,7 @@
  * @since 30 de Enero de 2024
  * @file jzero.cc
  * @brief Implementación de la clase Jzero derivada de la clase abstracta Operacion, que se
- *        encargará de validar si la instrucción Jzero es válida y la ejecutará.
+ *        encargará de ejecutar la instrucción Jzero.
  * 
  * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
