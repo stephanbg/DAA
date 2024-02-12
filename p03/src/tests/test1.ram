@@ -14,7 +14,7 @@ Store 0[5]
 Mul 3[2]
 Store 3[4]
 div 2[1]
-HALT
+READ *1
 ADD =1
 
 fin:

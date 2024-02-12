@@ -33,15 +33,9 @@
 void Write::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                 CintaOut& cinta_salida, int& pc) const {
   try {
-    const long double kValor = kInstruccion.ObtenerConstante();
-    long double resultado = kValor;
-    if (kInstruccion.get_instruccion()[1][0] != '=') {
-      const long double kRegistro = kInstruccion.get_tipo_operando()->get_registro_o_valor(kInstruccion, memoria_datos);
-      int columna = 0;
-      if (const OperandoDirectoVectorial* op_vectorial = dynamic_cast<const OperandoDirectoVectorial*>(kInstruccion.get_tipo_operando())) {
-        columna = op_vectorial->get_columna_registro_o_valor(kInstruccion, memoria_datos);
-      }
-      resultado = memoria_datos.obtenerDato(kRegistro, columna);
+    long double resultado = kInstruccion.get_tipo_operando()->get_registro_o_valor(kInstruccion, memoria_datos);
+    if (const OperandoDirectoVectorial* op_vectorial = dynamic_cast<const OperandoDirectoVectorial*>(kInstruccion.get_tipo_operando())) {
+      resultado = op_vectorial->get_columna_registro_o_valor(kInstruccion, memoria_datos);
     }
     cinta_salida.set_cinta().push_back(resultado);
     cinta_salida.set_puntero() = cinta_salida.get_puntero() + 1;
