@@ -26,7 +26,7 @@ class ErrorOperando : public Operando {
   // El patrón siempre es falso 
   virtual bool compruebaPatron(const std::string&) const override { return false; }
   // No se puede obtener ningún valor si no hay que leer ni escribir.
-  virtual const long double get_valor(const Instruccion&, const MemoriaDatos&, const long double) const { 
+  virtual const long double get_registro_o_valor(const Instruccion&, const MemoriaDatos&) const { 
     const std::string kErrorLecturaEscritura = "Este operador no es de escritura, ni de lectura.";
     throw (kErrorLecturaEscritura);
     return EXIT_FAILURE; // Por si no es escritura ni lectura

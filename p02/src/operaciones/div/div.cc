@@ -33,8 +33,7 @@ void Div::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& mem
                                CintaOut& cinta_salida, int& pc) const {
   try {
     const std::string& kErrorDivisionPor0 = "No se puede dividir por 0";
-    const long double kValor = kInstruccion.ObtenerConstante();
-    const long double kResultado = kInstruccion.get_tipo_operando()->get_valor(kInstruccion, memoria_datos, kValor);
+    const long double kResultado = kInstruccion.get_tipo_operando()->get_registro_o_valor(kInstruccion, memoria_datos);
     if (kResultado == 0) throw (kErrorDivisionPor0);
     const long double R0 = (double) (memoria_datos.obtenerDato(0) / kResultado);
     memoria_datos.almacenarDato(R0, 0);

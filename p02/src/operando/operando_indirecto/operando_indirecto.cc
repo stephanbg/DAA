@@ -43,19 +43,22 @@ bool OperandoIndirecto::compruebaPatron(const std::string& kOperando) const {
  *        o si la operación no es ni de escritura ni de lectura.
  * @return El valor del operando indirecto.
  */
-const long double OperandoIndirecto::get_valor(const Instruccion& kInstruccion, const MemoriaDatos& kMemoriaDatos,
-                                               const long double kNumRegistro) const {
+const long double OperandoIndirecto::get_registro_o_valor(const Instruccion& kInstruccion,
+                                                          const MemoriaDatos& kMemoriaDatos) const {
+  long double registro = kInstruccion.ObtenerConstante();
   const std::string kOperador = kInstruccion.get_instruccion()[0];
   const std::string kErrorAccesoFueraDeMemoria = "Accediendo fuera de rango.";
   const std::string kErrorLecturaEscritura = "Este operador no es de escritura, ni de lectura.";
+  const std::string kErrorReadEnCero = "No se puede guardar un elemento en R0 mediante READ";
   const std::string kErrorWriteEnCero = "No se puede escribir en la cinta de salida con WRITE desde R0";
-  int registro = kNumRegistro;
   if (registro < 0 || registro >= kMemoriaDatos.get_registros().size()) throw (kErrorAccesoFueraDeMemoria);
   registro = kMemoriaDatos.obtenerDato(registro);
   if (registro < 0 || registro >= kMemoriaDatos.get_registros().size()) throw (kErrorAccesoFueraDeMemoria);
-  if (kInstruccion.get_lectura_escritura() == "Lectura") return kMemoriaDatos.obtenerDato(registro);
-  else if (kInstruccion.get_lectura_escritura() == "Escritura") {
-    if (kInstruccion.get_instruccion()[0] == "WRITE" && registro == 0) throw (kErrorWriteEnCero);
+  if (kInstruccion.get_lectura_escritura() == "Lectura") {
+    if (kOperador == "WRITE" && registro == 0) throw (kErrorWriteEnCero);
+    return kMemoriaDatos.obtenerDato(registro);
+  } else if (kInstruccion.get_lectura_escritura() == "Escritura") {
+    if (kOperador == "READ" && registro == 0) throw (kErrorReadEnCero);
     return registro;
   }
   throw (kErrorLecturaEscritura);

@@ -32,8 +32,7 @@
 void Mul::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                CintaOut& cinta_salida, int& pc) const {
   try {
-    const long double kValor = kInstruccion.ObtenerConstante();
-    const long double kResultado = kInstruccion.get_tipo_operando()->get_valor(kInstruccion, memoria_datos, kValor);
+    const long double kResultado = kInstruccion.get_tipo_operando()->get_registro_o_valor(kInstruccion, memoria_datos);
     const long double R0 = memoria_datos.obtenerDato(0) * kResultado;
     memoria_datos.almacenarDato(R0, 0);
     pc++;

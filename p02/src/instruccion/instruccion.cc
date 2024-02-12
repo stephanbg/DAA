@@ -134,11 +134,11 @@ bool Instruccion::ConstruirOperando(const std::string& kOperador, const std::str
  */
 void Instruccion::set_lectura_escritura(const std::string& kOperador) { 
   if (kOperador == "LOAD" || kOperador == "ADD" || kOperador == "SUB" ||
-      kOperador == "MUL" || kOperador == "DIV" || kOperador == "JUMP" ||
-      kOperador == "JZERO" || kOperador == "JGTZ") {
-    lectura_escritura_ = "Lectura"; // Lectura
-  } else if (kOperador == "WRITE" || kOperador == "STORE" || kOperador == "READ") {
-    lectura_escritura_ = "Escritura"; // Escritura
+      kOperador == "MUL" || kOperador == "DIV" || kOperador == "WRITE" ||
+      kOperador == "JUMP" || kOperador == "JZERO" || kOperador == "JGTZ") {
+    lectura_escritura_ = "Lectura"; // Lectura de un registro
+  } else if (kOperador == "STORE" || kOperador == "READ") {
+    lectura_escritura_ = "Escritura"; // Escritura en un registro
   } else lectura_escritura_ = "Ninguna"; // Ninguna
 }
 

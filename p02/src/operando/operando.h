@@ -27,6 +27,6 @@
 class Operando {
  public:
   virtual bool compruebaPatron(const std::string&) const = 0;
-  virtual const long double get_valor(const Instruccion&, const MemoriaDatos&, const long double) const = 0;
+  virtual const long double get_registro_o_valor(const Instruccion&, const MemoriaDatos&) const = 0;
   virtual ~Operando() {} // Destructor virtual
 };

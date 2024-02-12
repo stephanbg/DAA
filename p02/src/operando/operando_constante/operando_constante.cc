@@ -38,7 +38,6 @@ bool OperandoConstante::compruebaPatron(const std::string& kOperando) const {
  * @param kValor El valor de la constante.
  * @return El valor de la constante.
  */
-const long double OperandoConstante::get_valor(const Instruccion& kInstruccion, const MemoriaDatos& kMemoriaDatos,
-                                               const long double kValor) const {
-  return kValor;
+const long double OperandoConstante::get_registro_o_valor(const Instruccion& kInstruccion, const MemoriaDatos& kMemoriaDatos) const {
+  return kInstruccion.ObtenerConstante();
 }

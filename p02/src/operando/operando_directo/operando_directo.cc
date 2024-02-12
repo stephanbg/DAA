@@ -42,16 +42,20 @@ bool OperandoDirecto::compruebaPatron(const std::string& kOperando) const {
  *        ni de escritura ni de lectura.
  * @return El valor del operando directo.
  */
-const long double OperandoDirecto::get_valor(const Instruccion& kInstruccion, const MemoriaDatos& kMemoriaDatos,
-                                             const long double kNumRegistro) const {
+const long double OperandoDirecto::get_registro_o_valor(const Instruccion& kInstruccion,
+                                                        const MemoriaDatos& kMemoriaDatos) const {
+  const long double kNumRegistro = kInstruccion.ObtenerConstante();
   const std::string kOperador = kInstruccion.get_instruccion()[0];
   const std::string kErrorAccesoFueraDeMemoria = "Accediendo fuera de rango.";
   const std::string kErrorLecturaEscritura = "Este operador no es de escritura, ni de lectura.";
+  const std::string kErrorReadEnCero = "No se puede guardar un elemento en R0 mediante READ";
   const std::string kErrorWriteEnCero = "No se puede escribir en la cinta de salida con WRITE desde R0";
   if (kNumRegistro < 0 || kNumRegistro >= kMemoriaDatos.get_registros().size()) throw (kErrorAccesoFueraDeMemoria);
-  if (kInstruccion.get_lectura_escritura() == "Lectura") return kMemoriaDatos.obtenerDato(kNumRegistro);
-  else if (kInstruccion.get_lectura_escritura() == "Escritura") {
-    if (kInstruccion.get_instruccion()[0] == "WRITE" && kNumRegistro == 0) throw (kErrorWriteEnCero);
+  if (kInstruccion.get_lectura_escritura() == "Lectura") {
+    if (kOperador == "WRITE" && kNumRegistro == 0) throw (kErrorWriteEnCero);
+    return kMemoriaDatos.obtenerDato(kNumRegistro);
+  } else if (kInstruccion.get_lectura_escritura() == "Escritura") {
+    if (kOperador == "READ" && kNumRegistro == 0) throw (kErrorReadEnCero);
     return kNumRegistro;
   }
   throw (kErrorLecturaEscritura);
