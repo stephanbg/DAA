@@ -1,0 +1,19 @@
+# Algoritmo de inserción
+# 
+   
+    LOAD =1       # Cargo contador del for (j) en R0
+    STORE 7       # R7 <= R0
+for:
+    
+    READ 7[8]     # R1 <= valor cinta
+    LOAD 1        # R0 <= R1
+    JZERO fin_for # Si encuentro 0 FIN
+    
+    while:  
+
+    fin_while:
+    
+    JUMP for
+fin_for:
+
+    HALT

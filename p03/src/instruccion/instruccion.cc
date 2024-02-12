@@ -189,6 +189,9 @@ const long double Instruccion::ObtenerConstante() const {
   std::string constanteNumerica = instruccion_[1];
   if (kOperando[0] == '=' || kOperando[0] == '*' ) {
     constanteNumerica = constanteNumerica.substr(1);
+  } else if (esOperandoVectorial(kOperando)) {
+    const size_t primerParentesis = get_instruccion()[1].find("[");
+    constanteNumerica = constanteNumerica.substr(0, primerParentesis);
   }
   return stold(constanteNumerica);
 }
