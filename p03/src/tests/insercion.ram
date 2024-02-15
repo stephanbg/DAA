@@ -1,19 +1,63 @@
-# Algoritmo de inserción
-# 
-   
-    LOAD =1       # Cargo contador del for (j) en R0
-    STORE 7       # R7 <= R0
-for:
+# ALGORITMO INSERCION
+# R0 = ACC
+# R1 = i
+# R2 = j
+# R3 = Resultado
+# R4 = key
+# R5 = aux
     
-    READ 7[8]     # R1 <= valor cinta
-    LOAD 1        # R0 <= R1
-    JZERO fin_for # Si encuentro 0 FIN
-    
-    while:  
-
-    fin_while:
-    
+    READ 3                              # R3 primer elemento
+    LOAD 3                              # R0 = R3
+    JZERO fin_escribiendo               # Elemento es 0 FIN    
+    LOAD =1                             # R0 = j = 1
+    STORE 2                             # R2 = j 
+for:    
+    READ 3[2]                           # R3 = leo de cinta
+    LOAD 3[2]                           # R0 = R3
+    JZERO fin_for                       # Elemento es 0 FIN
+    LOAD 3[2]                           # R0 = key
+    STORE 4                             # R4 = key
+    LOAD 2                              # R0 = R2 = j
+    SUB =1                              # R0 = j - 1
+    STORE 1                             # R1 = i
+    while:
+        JZERO continue1                 # i == 0 sigue
+        JGTZ continue1                  # i > 0 sigue
+        JUMP while_fin
+        continue1:
+        LOAD 3[1]                       # R0 = R3[i]
+        SUB 4                           # R0 = R3[i] - R4
+        JGTZ continue2                  # R3[i] > key sigue
+        JUMP while_fin
+        continue2:
+        LOAD 1                          # R0 = R1
+        ADD =1                          # R0 = i + 1
+        STORE 5                         # R5 = R0
+        LOAD 3[1]                       # R0 = R3[i]
+        STORE 3[5]                      # R3[i + 1] = R0
+        LOAD 1                          # R0 = i
+        SUB =1                          # R0 = i - 1
+        STORE 1                         # R1 = R0
+        JUMP while
+    while_fin:
+    LOAD 1                              # R0 = i
+    ADD =1                              # R0 = i + 1
+    STORE 5                             # R5 = i + 1
+    LOAD 4                              # R0 = key
+    STORE 3[5]                          # R3[i + 1] = key
+    LOAD 2                              # R0 = j
+    ADD =1                              # R0 = j + 1
+    STORE 2                             # R2 = R0
     JUMP for
 fin_for:
 
-    HALT
+escribiendo:
+    STORE 2                             # R2 = R0 (contador)
+    LOAD 3[2]                           # R0 = cada elemento
+    JZERO fin_escribiendo               # Último elemento 0 no se copia
+    WRITE 3[2]                          # CINTA SALIDA = R3[R2]
+    LOAD 2                              # R0 = R2
+    ADD =1                              # R0 = R0 + 1
+    JUMP escribiendo
+fin_escribiendo:
+HALT                                    # FINALIZAMOS PROGRAMA

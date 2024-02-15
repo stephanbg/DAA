@@ -1,0 +1,7 @@
+# ALGORITMO BUBBLESORT
+# R0 = ACC
+# R1 = i
+# R2 = j
+# R3 = Resultado
+# R4 = Aux
+# R5 = temp

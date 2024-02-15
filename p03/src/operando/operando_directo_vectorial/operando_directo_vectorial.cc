@@ -57,10 +57,13 @@ const long double OperandoDirectoVectorial::get_registro_o_valor(const Instrucci
 
 const long double OperandoDirectoVectorial::get_columna_registro_o_valor(const Instruccion& kInstruccion,
                                                                          const MemoriaDatos& kMemoriaDatos) const {
-  const int kRegistro = kInstruccion.ObtenerConstante();
+  const int kRegistroOriginal = kInstruccion.ObtenerConstante();
   const size_t primerParentesis = kInstruccion.get_instruccion()[1].find("[");
   const size_t segundoParentesis = kInstruccion.get_instruccion()[1].find("]");
-  const int kColumna = stoi(kInstruccion.get_instruccion()[1].substr(primerParentesis + 1, segundoParentesis));
-  if (kInstruccion.get_lectura_escritura() == "Lectura") return kMemoriaDatos.obtenerDato(kRegistro, kColumna);
+  const int kRegistroAux = stoi(kInstruccion.get_instruccion()[1].substr(primerParentesis + 1, segundoParentesis));
+  const std::string kErrorAccesoFueraDeMemoria = "Accediendo fuera de rango.";
+  if (kRegistroAux < 0 || kRegistroAux >= kMemoriaDatos.get_registros().size()) throw (kErrorAccesoFueraDeMemoria);
+  const int kColumna = kMemoriaDatos.obtenerDato(kRegistroAux);
+  if (kInstruccion.get_lectura_escritura() == "Lectura") return kMemoriaDatos.obtenerDato(kRegistroOriginal, kColumna);
   if (kInstruccion.get_lectura_escritura() == "Escritura") return kColumna;
 }
