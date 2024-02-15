@@ -3,5 +3,81 @@
 # R1 = i
 # R2 = j
 # R3 = Resultado
-# R4 = Aux
+# R4 = n
 # R5 = temp
+# R6 = aux
+
+IniciarR3:
+    READ 3[2]       # R3[j] = elemento de la cinta
+    LOAD 3[2]       # R0 = R3[j]
+    JZERO fin_R3    # Si es 0 ya lo inicialicé
+    LOAD 2          # R0 = R2
+    ADD =1          # R0 = R0 + 1
+    STORE 2         # R2 = R0
+    JUMP IniciarR3
+fin_R3:
+
+    LOAD 2          # R0 = R2
+    SUB =1          # R0 = R0 - 1
+    STORE 4         # R4 = R0 (n)
+for1:
+    LOAD 4          # R0 = R4
+    SUB =1          # R0 = R0 - 1
+    STORE 6         # R6 = R0
+    LOAD 1          # R0 = R1
+    SUB 6           # R0 = R0 - R6
+    JGTZ fin_for1   # Si la i > n - 1 SALGO
+    LOAD =1         # R0 = 1 = j
+    STORE 2         # R2 = R0 = j
+    for2:
+        LOAD 4          # R0 = R4 = n
+        SUB 1           # R0 = R0 - R1 = n - i
+        STORE 6         # R6 = R0
+        LOAD 2          # R0 = R2 = j
+        SUB 6           # R0 = R0 - R6
+        JGTZ fin_for2   # Si la j > n - i SALGO
+        LOAD 3[2]       # R0 = R3[j]
+        STORE 6         # R6 = R0
+        LOAD 2          # R0 = R2
+        SUB =1          # R0 = R0 - 1 = j - 1
+        LOAD 3[0]       # R0 = R3[j - 1]
+        SUB 6           # R0 = R0 - R6
+        JGTZ continue   # Si R3[j - 1] > R3[j] ENTRO AL IF
+        JUMP no_if      # Si no se cumple no entro al if
+        continue:
+        LOAD 2          # R0 = R2
+        SUB =1          # R0 = R0 - 1 = j - 1
+        LOAD 3[0]       # R0 = R3[j - 1]
+        STORE 5         # R5 = temp = R3[j - 1]
+        LOAD 2          # R0 = j
+        STORE 6         # R6 = R0
+        SUB =1          # R0 = R0 - 1 = j - 1
+        STORE 2         # R2 = R0 = j - 1
+        LOAD 3[6]       # R0 = R3[j]
+        STORE 3[2]      # R3[j - 1] = R3[j]
+        LOAD 6          # R0 = R6 = j
+        STORE 2         # R2 = j
+        LOAD 5          # R0 = temp
+        STORE 3[2]      # R3[j] = temp
+        no_if:
+        LOAD 2          # R0 = R2
+        ADD =1          # R0 = R0 + 1
+        STORE 2         # R2 = j++
+        JUMP for2
+    fin_for2:
+    LOAD 1          # R0 = R1
+    ADD =1          # R0 = R0 + 1
+    STORE 1         # R1 = i++    
+    JUMP for1    
+fin_for1:
+    LOAD =0
+escribiendo:
+    STORE 2                             # R2 = R0 (contador)
+    LOAD 3[2]                           # R0 = cada elemento
+    JZERO fin_escribiendo               # Último elemento 0 no se copia
+    WRITE 3[2]                          # CINTA SALIDA = R3[R2]
+    LOAD 2                              # R0 = R2
+    ADD =1                              # R0 = R0 + 1
+    JUMP escribiendo
+fin_escribiendo:
+HALT                                    # FINALIZAMOS PROGRAMA
