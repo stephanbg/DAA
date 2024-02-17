@@ -62,8 +62,11 @@ const long double OperandoDirectoVectorial::get_columna_registro_o_valor(const I
   const size_t segundoParentesis = kInstruccion.get_instruccion()[1].find("]");
   const int kRegistroAux = stoi(kInstruccion.get_instruccion()[1].substr(primerParentesis + 1, segundoParentesis));
   const std::string kErrorAccesoFueraDeMemoria = "Accediendo fuera de rango.";
+  const std::string kErrorLecturaEscritura = "Este operador no es de escritura, ni de lectura.";
   if (kRegistroAux < 0 || kRegistroAux >= kMemoriaDatos.get_registros().size()) throw (kErrorAccesoFueraDeMemoria);
   const int kColumna = kMemoriaDatos.obtenerDato(kRegistroAux);
   if (kInstruccion.get_lectura_escritura() == "Lectura") return kMemoriaDatos.obtenerDato(kRegistroOriginal, kColumna);
   if (kInstruccion.get_lectura_escritura() == "Escritura") return kColumna;
+  throw (kErrorLecturaEscritura);
+  return EXIT_FAILURE; // Por si no es escritura ni lectura
 }

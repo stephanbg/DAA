@@ -2,18 +2,9 @@
 # que encuentre un 0 y copia los valores leídos a la cinta 
 # de salida (el valor 0 no se copia)
 
-read 2[1]
-read 3[2]
-read 2[1]
-Load =5
-Store 5[4]
-Load 3[2]
-Add 5[4]
-Add =4
-Store 0[5]
-Mul 3[2]
-Store 3[4]
-div 2[1]
-ADD =1
-
-fin:
+lee:	read 1
+			load 1
+			jzero fin
+			write 1
+			jump lee
+fin:	halt
