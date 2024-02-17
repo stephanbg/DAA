@@ -11,8 +11,8 @@
  *        según las especificaciones dadas. La Máquina RAM se utiliza para calcular
  *        la complejidad de los algoritmos mediante la ejecución de un conjunto de
  *        instrucciones sobre una memoria de programa y una memoria de datos.
- * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
+ * @see {@link https://docs.google.com/document/d/1zf_w2HtS4zJX3iqr9yPm6f7rRNsrBxL7afCsMapujMQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p03}
  */
 
 #include <iostream>
@@ -50,20 +50,20 @@ int main(int argc, char *argv[]) {
     // Ejecutar Programa
     ALU alu;
     try {
-      alu.EjecutarPrograma(memoria_programa, memoria_datos, cinta_entrada, cinta_salida, debugger);
-    } catch (const int kLineaErroneaMemoria) { // Error al validar la instrucción
-      const int kLineaOriginal = programa.get_direcciones_fichero()[kLineaErroneaMemoria];
+      alu.EjecutarPrograma(memoria_programa, memoria_datos, cinta_entrada,
+                           cinta_salida, debugger, programa.get_direcciones_fichero(),
+                           programa.get_lineas_fichero());
+    } catch (const int kLineaOriginal) { // Error al validar la instrucción
       std::cout << "Error: Sintaxis" << std::endl;
       std::cout << "Línea: " << kLineaOriginal << std::endl;
       std::cout << "Instrucción: " << programa.get_lineas_fichero()[kLineaOriginal - 1] << std::endl;
     } catch (const std::string& kErrorEjecucion) { // Error al ejecutar la instrucción
       const size_t pos_barra = kErrorEjecucion.find('|');
       std::string error_ejecucion = kErrorEjecucion.substr(0, pos_barra);
-      int linea_original = stoi(kErrorEjecucion.substr(pos_barra + 1));
-      linea_original = programa.get_direcciones_fichero()[linea_original];
+      const int kLineaOriginal = stoi(kErrorEjecucion.substr(pos_barra + 1));
       std::cout << "Error: " << error_ejecucion << std::endl;
-      std::cout << "Línea: " << linea_original << std::endl;
-      std::cout << "Instrucción: " << programa.get_lineas_fichero()[linea_original - 1] << std::endl;      
+      std::cout << "Línea: " << kLineaOriginal << std::endl;
+      std::cout << "Instrucción: " << programa.get_lineas_fichero()[kLineaOriginal - 1] << std::endl;      
     }
     // Volcar Cinta salida a Fichero
     cinta_salida.MeterEnFichero(argv[3]);

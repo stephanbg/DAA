@@ -10,8 +10,8 @@
  * @brief Implementación de la clase OperandoDirecto derivada de Operando, que representa cuando un
  *        operando es directo, es decir, cuando se accede a un registro ese es el valor.
  * 
- * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
+ * @see {@link https://docs.google.com/document/d/1zf_w2HtS4zJX3iqr9yPm6f7rRNsrBxL7afCsMapujMQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p03}
  */
 
 #include "operando_directo.h"

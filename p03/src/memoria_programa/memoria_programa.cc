@@ -10,8 +10,8 @@
  * @brief Implementación de la clase MemoriaPrograma, que representa la memoria del programa de la Máquina RAM.
  *        Es decir, contiene todas las instrucciones que se tienen que ejecutar.
  * 
- * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
+ * @see {@link https://docs.google.com/document/d/1zf_w2HtS4zJX3iqr9yPm6f7rRNsrBxL7afCsMapujMQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p03}
  */
 
 #include "memoria_programa.h"

@@ -70,6 +70,7 @@ for1:
     STORE 1         # R1 = i++    
     JUMP for1    
 fin_for1:
+
     LOAD =0
 escribiendo:
     STORE 2                             # R2 = R0 (contador)
@@ -80,4 +81,5 @@ escribiendo:
     ADD =1                              # R0 = R0 + 1
     JUMP escribiendo
 fin_escribiendo:
+
 HALT                                    # FINALIZAMOS PROGRAMA

@@ -6,21 +6,22 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 30 de Enero de 2024
- * @file operando_directo.cc
- * @brief Implementación de la clase OperandoDirecto derivada de Operando, que representa cuando un
- *        operando es directo, es decir, cuando se accede a un registro ese es el valor.
+ * @file operando_directo_vectorial.cc
+ * @brief Implementación de la clase OperandoDirectoVectorial derivada de Operando, que representa cuando un
+ *        operando es directo, es decir, cuando se accede a un registro, ese es el valor, pero en este caso
+ *        un registro es un vector dinámico.
  * 
- * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
+ * @see {@link https://docs.google.com/document/d/1zf_w2HtS4zJX3iqr9yPm6f7rRNsrBxL7afCsMapujMQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p03}
  */
 
 #include "operando_directo_vectorial.h"
 
 /**
- * @brief Comprueba si una cadena de texto cumple con el patrón de un operando directo.
+ * @brief Comprueba si una cadena de texto cumple con el patrón de un operando directo vectorial.
  * 
  * @param kOperando La cadena de texto a comprobar.
- * @return true si la cadena cumple con el patrón de un operando directo, false en caso contrario.
+ * @return true si la cadena cumple con el patrón de un operando directo vectorial, false en caso contrario.
  */
 bool OperandoDirectoVectorial::compruebaPatron(const std::string& kOperando) const {
   // Permite cualquier (excepto 0 dígitos) número de dígitos sin signo 
@@ -30,17 +31,16 @@ bool OperandoDirectoVectorial::compruebaPatron(const std::string& kOperando) con
 }
 
 /**
- * @brief Obtiene el valor de un operando directo. (Si la operación es
- *        de lectura te da el contenido del registro y si es de 
- *        escritura te da el registro)
+ * @brief Obtiene el valor de un operando directo vectorial. Siempre
+ *        devuelve el registro al que hay que ir a mirar sus columnas
  * 
  * @param kInstruccion La instrucción actual.
  * @param kMemoriaDatos La memoria de datos del sistema.
- * @param kNumRegistro El número de registro asociado al operando directo.
+ * @param kNumRegistro El número de registro asociado al operando directo vectorial.
  * @throw Lanza una excepción si se accede fuera de la memoria, o si la
  *        instrucción es WRITE y el registro es 0, o si la operación no es
  *        ni de escritura ni de lectura.
- * @return El valor del operando directo.
+ * @return El registro que es vectorial.
  */
 const long double OperandoDirectoVectorial::get_registro_o_valor(const Instruccion& kInstruccion,
                                                                  const MemoriaDatos& kMemoriaDatos) const {
@@ -55,6 +55,14 @@ const long double OperandoDirectoVectorial::get_registro_o_valor(const Instrucci
   return kNumRegistro;
 }
 
+/**
+ * @brief Si la operación es de lectura te da el contenido de la columna del registro vectorial,
+ *        si es de escritura de ta la columna del registro vectorial.
+ * 
+ * @param kInstruccion La instrucción actual.
+ * @param kMemoriaDatos La memoria de datos del sistema.
+ * @return Devuelve el contenido de la columna o la columna del registro vectorial. 
+ */
 const long double OperandoDirectoVectorial::get_columna_registro_o_valor(const Instruccion& kInstruccion,
                                                                          const MemoriaDatos& kMemoriaDatos) const {
   const int kRegistroOriginal = kInstruccion.ObtenerConstante();

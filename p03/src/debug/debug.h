@@ -15,8 +15,8 @@
  *        los registros en cada instrucción, la cinta de entrada y la posición actual del puntero,
  *        y la cinta de salida y la posición actual del puntero.
  * 
- * @see {@link https://docs.google.com/document/d/1n6iua2wSG2UVns-mTA4YdMBVKfKIazkJi4HRzKVKS78/edit}
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p02}
+ * @see {@link https://docs.google.com/document/d/1zf_w2HtS4zJX3iqr9yPm6f7rRNsrBxL7afCsMapujMQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p03}
  */
 
 #pragma once
@@ -43,7 +43,8 @@ class Debug {
   virtual void MostrarNumeroInstruccionesEjecutadas(const int kNumInstrucciones) const {
     std::cout << "Número de instrucciones ejecutadas: " << kNumInstrucciones << std::endl;
   } 
-  virtual void InfoDuranteEjecucion(const Instruccion&, const MemoriaDatos&,
-                                    const CintaIn&, const CintaOut&) const = 0;
+  virtual void InfoDuranteEjecucion(const MemoriaDatos&, const CintaIn&,
+                                    const CintaOut&, const int,
+                                    const std::vector<std::string>&) const = 0;
   virtual ~Debug() {} // Destructor virtual
 };
