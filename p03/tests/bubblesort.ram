@@ -6,6 +6,7 @@
 # R4 = n
 # R5 = temp
 # R6 = aux
+# R7 = j - 1
 
 IniciarR3:
     READ 3[2]       # R3[j] = elemento de la cinta
@@ -40,23 +41,16 @@ for1:
         STORE 6         # R6 = R0
         LOAD 2          # R0 = R2
         SUB =1          # R0 = R0 - 1 = j - 1
+        STORE 7         # R7 = j - 1
         LOAD 3[0]       # R0 = R3[j - 1]
         SUB 6           # R0 = R0 - R6
         JGTZ continue   # Si R3[j - 1] > R3[j] ENTRO AL IF
         JUMP no_if      # Si no se cumple no entro al if
         continue:
-        LOAD 2          # R0 = R2
-        SUB =1          # R0 = R0 - 1 = j - 1
-        LOAD 3[0]       # R0 = R3[j - 1]
+        LOAD 3[7]       # R0 = R3[j - 1]
         STORE 5         # R5 = temp = R3[j - 1]
-        LOAD 2          # R0 = j
-        STORE 6         # R6 = R0
-        SUB =1          # R0 = R0 - 1 = j - 1
-        STORE 2         # R2 = R0 = j - 1
-        LOAD 3[6]       # R0 = R3[j]
-        STORE 3[2]      # R3[j - 1] = R3[j]
-        LOAD 6          # R0 = R6 = j
-        STORE 2         # R2 = j
+        LOAD 3[2]       # R0 = R3[j]
+        STORE 3[7]      # R3[j - 1] = R3[j]
         LOAD 5          # R0 = temp
         STORE 3[2]      # R3[j] = temp
         no_if:
