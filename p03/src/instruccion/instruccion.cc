@@ -18,6 +18,7 @@
 
 #include "../operaciones/load/load.h"
 #include "../operaciones/store/store.h"
+#include "../operaciones/adv/adv.h"
 #include "../operaciones/add/add.h"
 #include "../operaciones/sub/sub.h"
 #include "../operaciones/mul/mul.h"
@@ -80,6 +81,8 @@ bool Instruccion::ConstruirOperador(const std::string& kOperador) {
     tipo_operacion_ = new Mul();
   } else if (kOperador == "DIV") {
     tipo_operacion_ = new Div();
+  } else if (kOperador == "ADV") {
+    tipo_operacion_ = new Adv();
   } else if (kOperador == "READ") {
     tipo_operacion_ = new Read();
   } else if (kOperador == "WRITE") {
@@ -126,8 +129,15 @@ bool Instruccion::ConstruirOperando(const std::string& kOperador, const std::str
     // Solo puede ser constante porque si hay error fuerzo a -1 y si no es una dirección de la memoria
   } else if (kOperador == "JUMP" || kOperador == "JZERO" || kOperador == "JGTZ") {
     tipo_operando_ = new OperandoConstante();
-  } else if (kOperador == "HALT") return true; // Halt no tiene operando cuidado (no puede usar set_lecturaOEscritura)
-    else return false;
+  } else if (kOperador == "HALT") { // Halt no tiene operando cuidado (no puede usar set_lecturaOEscritura)
+    return true; 
+  } else if (kOperador == "ADV") {
+    if (sonTodoDigitos(kOperando)) {
+      tipo_operando_ = new OperandoDirecto();
+    } else if (kOperando[0] == '*') {
+      tipo_operando_ = new OperandoIndirecto();
+    } else return false;
+  } else return false;
   return true;
 }
 
@@ -142,7 +152,7 @@ void Instruccion::set_lectura_escritura(const std::string& kOperador) {
       kOperador == "MUL" || kOperador == "DIV" || kOperador == "WRITE" ||
       kOperador == "JUMP" || kOperador == "JZERO" || kOperador == "JGTZ") {
     lectura_escritura_ = "Lectura"; // Lectura de registros
-  } else if (kOperador == "STORE" || kOperador == "READ") {
+  } else if (kOperador == "STORE" || kOperador == "READ" || kOperador == "ADV") {
     lectura_escritura_ = "Escritura"; // Escritura en registros
   } else lectura_escritura_ = "Ninguna"; // Ninguna
 }

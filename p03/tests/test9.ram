@@ -1,0 +1,14 @@
+lee:	read 1
+			load 1
+			jzero fin
+			Store 3[2]
+            Load 2
+            ADD =1
+            STORE 2
+			jump lee
+fin:	
+
+LOAD =3
+STORE 4
+ADV *4
+HALT
