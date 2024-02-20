@@ -33,7 +33,7 @@
 void Write::EjecutarInstruccion(const Instruccion& kInstruccion, MemoriaDatos& memoria_datos, CintaIn& cinta_entrada,
                                 CintaOut& cinta_salida, int& pc) const {
   try {
-    long double resultado = resultado = kInstruccion.get_tipo_operando()->get_registro_o_valor(kInstruccion, memoria_datos);
+    long double resultado = kInstruccion.get_tipo_operando()->get_registro_o_valor(kInstruccion, memoria_datos);
     cinta_salida.set_cinta().push_back(resultado);
     cinta_salida.set_puntero() = cinta_salida.get_puntero() + 1;
     pc++;
