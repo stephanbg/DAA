@@ -8,8 +8,13 @@
 
 class Instancia {
  public:
-  Instancia() { this->instancia_ = Instancia::generadorInstanciaAleatoria(); }
+  Instancia(const bool generarAleatorio = false) { 
+    if (generarAleatorio) {
+      this->instancia_ = Instancia::generadorInstanciaAleatoria();
+    }
+  }
   static std::set<std::vector<int>> getConjuntos() { return conjuntos_; }
+  std::vector<int>& setInstancia() { return instancia_; }
   const std::vector<int>& getInstancia() const { return instancia_; }
   friend std::ostream& operator<<(std::ostream&, const Instancia&);
  private:

@@ -6,15 +6,18 @@
 int main() {
   // Genere un conjunto de instancias aleatorias de diferentes tamaños.
   do {
-    Instancia cadaInstancia;
+    Instancia cadaInstancia(true);
   } while (rand() % 10 != 0);
   AlgoritmoDyV* mergesort = new MergeSort();
   AlgoritmoDyV* quicksort = new QuickSort();
   // Para cada instancia, ejecute los algoritmos MergeSort y QuickSort.
-  /*for (auto it = Instancia::getConjuntos().begin(); it != Instancia::getConjuntos().end(); ++it) {
-    //mergesort->Solve(*it, it->size());
-    //quicksort->Solve(*it, it->size());
-  }*/
+  for (auto instancia : Instancia::getConjuntos()) {
+    Instancia cada_instancia;
+    cada_instancia.setInstancia() = instancia;
+    std::cout << cada_instancia << std::endl;
+    quicksort->Solve(cada_instancia, cada_instancia.getInstancia().size());
+    exit(EXIT_FAILURE);
+  }
   /* Muestre por pantalla (y opcionalmente por fichero) una tabla con
   la comparación de tiempos de ejecución de los algoritmos para diferentes tamaños de instancia.*/
 
