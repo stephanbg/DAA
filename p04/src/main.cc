@@ -1,3 +1,5 @@
+#include <set>
+
 #include "instancia/instancia.h"
 #include "framework/algoritmoDyV.h"
 #include "algoritmos-DyV/mergesort.h"
@@ -5,17 +7,20 @@
 
 int main() {
   // Genere un conjunto de instancias aleatorias de diferentes tamaños.
+  srand(time(nullptr));
+  std::set<std::vector<int>> conjunto;
   do {
     Instancia cadaInstancia(true);
+    conjunto.insert(cadaInstancia.getInstancia());
   } while (rand() % 10 != 0);
   AlgoritmoDyV* mergesort = new MergeSort();
   AlgoritmoDyV* quicksort = new QuickSort();
   // Para cada instancia, ejecute los algoritmos MergeSort y QuickSort.
-  for (auto instancia : Instancia::getConjuntos()) {
-    Instancia cada_instancia;
-    cada_instancia.setInstancia() = instancia;
-    std::cout << cada_instancia << std::endl;
-    quicksort->Solve(cada_instancia, cada_instancia.getInstancia().size());
+  for (auto instancia : conjunto) {
+    Instancia cada_instancia(instancia);
+    std::cout << "Instancia inicial" << cada_instancia << std::endl;
+    Instancia fin = mergesort->Solve(cada_instancia, cada_instancia.size());
+    std::cout << "Instancia final" << fin << std::endl;
     exit(EXIT_FAILURE);
   }
   /* Muestre por pantalla (y opcionalmente por fichero) una tabla con

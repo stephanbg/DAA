@@ -5,6 +5,7 @@
 class AlgoritmoDyV {
  public:
   const Instancia Solve(const Instancia&, const int); 
+  virtual ~AlgoritmoDyV() {};
  protected:
   virtual bool Small(const Instancia&) const = 0;
   virtual const Instancia SolveSmall(const Instancia&) const = 0;

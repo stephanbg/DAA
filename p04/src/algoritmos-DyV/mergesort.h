@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../framework/algoritmoDyV.h"
+#include <algorithm> // Para std::copy
+#include <iterator>  // Para std::back_inserter
 
 class MergeSort: public AlgoritmoDyV {
   virtual bool Small(const Instancia&) const override;
