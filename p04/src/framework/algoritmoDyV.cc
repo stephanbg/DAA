@@ -1,13 +1,17 @@
 #include "algoritmoDyV.h"
 
-const Instancia AlgoritmoDyV::Solve(const Instancia& kProblema, const int kSize) {
-  if (Small(kProblema)) return SolveSmall(kProblema);
+const Instancia AlgoritmoDyV::Solve(Instancia& problema, const int kSize) {
+  if (Small(problema)) return SolveSmall(problema);
   else {
-    const std::vector<Instancia> kProblemaDividido = Divide(kProblema, kSize);
-    const Instancia kSolucion1 = Solve(kProblemaDividido[0], kProblemaDividido[0].size());
-    const Instancia kSolucion2 = Solve(kProblemaDividido[1], kProblemaDividido[1].size());
-    const Instancia kSolucion = Combine(kSolucion1, kSolucion2);
-    return kSolucion;
+    std::vector<Instancia> kProblemaDividido = Divide(problema, kSize);
+    const int kSizeProblemaDividido = kProblemaDividido.size();
+    std::vector<Instancia> kSoluciones;
+    for (int n = 0; n < kSizeProblemaDividido; ++n) {
+      kSoluciones.push_back(Solve(kProblemaDividido[n], kProblemaDividido[n].size()));
+    }
+    std::cout << "Problema en Solve: " << problema << std::endl;
+    Combine(problema, kSoluciones);
+    return problema;
   }
 }
 
