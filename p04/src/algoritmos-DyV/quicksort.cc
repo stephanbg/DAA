@@ -13,15 +13,13 @@ const std::vector<Instancia> QuickSort::Divide(const Instancia& kProblema,
   Instancia menores;
   Instancia mayores;
   const int kPivote = kProblema[kSize - 1];
-  Instancia pivote;
-  pivote.setInstancia().push_back(kPivote);
+  mayores.setInstancia().push_back(kPivote);
   for (int i = 0; i < kSize - 1; i++) {
-    if (kProblema[i] < kPivote) menores.setInstancia().push_back(kProblema[i]);
+    if (kProblema[i] <= kPivote) menores.setInstancia().push_back(kProblema[i]);
     else mayores.setInstancia().push_back(kProblema[i]);
   }
   std::vector<Instancia> resultado;
   resultado.push_back(menores);
-  resultado.push_back(pivote);
   resultado.push_back(mayores);
   return resultado;
 }

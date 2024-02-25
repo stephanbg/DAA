@@ -31,13 +31,13 @@ int main() {
     tabla.setSizeInstancias().push_back(instancia.size()); 
     // MergeSort
     cada_instancia = instancia;
+    std::cout << "Problema: " << cada_instancia << std::endl << std::endl;
     auto start_time = std::chrono::steady_clock::now();
     cada_instancia = mergesort->Solve(cada_instancia, cada_instancia.size());
     auto end_time = std::chrono::steady_clock::now();
     auto elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
     tiempos_por_instancia.push_back(elapsed_time.count());
     nombres_algoritmos.push_back("MergeSort");
-    std::cout << "Problema: " << cada_instancia << std::endl << std::endl;
     std::cout << RED << "Mergesort: " << cada_instancia << std::endl;
     std::cout << "Fórmula recurrencia: " << mergesort->Recurrence() << RESET << std::endl << std::endl;
     // QuickSort
