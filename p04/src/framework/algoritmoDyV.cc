@@ -1,6 +1,6 @@
 #include "algoritmoDyV.h"
 
-const Instancia AlgoritmoDyV::Solve(Instancia& problema, const int kSize) {
+const Instancia AlgoritmoDyV::Solve(Instancia& problema, const int kSize) const {
   if (Small(problema)) return SolveSmall(problema);
   else {
     std::vector<Instancia> kProblemaDividido = Divide(problema, kSize);
@@ -12,4 +12,8 @@ const Instancia AlgoritmoDyV::Solve(Instancia& problema, const int kSize) {
     Combine(problema, kSoluciones);
     return problema;
   }
+}
+
+const std::string AlgoritmoDyV::Recurrence() const {
+  return ("T(n) <= " + getA() + "T(" + getB() + ") + " + getC());
 }

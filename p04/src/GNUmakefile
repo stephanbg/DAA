@@ -15,7 +15,7 @@ LDFLAGS =
 
 all: main
 
-main: main.o instancia/instancia.o framework/algoritmoDyV.o algoritmos-DyV/mergesort.o algoritmos-DyV/quicksort.o
+main: main.o instancia/instancia.o framework/algoritmoDyV.o algoritmos-DyV/mergesort.o algoritmos-DyV/quicksort.o tablaAlgoritmos/tablaAlgoritmos.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean

@@ -1,10 +1,10 @@
 #include "instancia.h"
 
 void Instancia::generadorInstanciaAleatoria() {
-  const int kSizeInstancia = rand() % 10 + 1;
+  const int kSizeInstancia = rand() % 10000 + 1;
   instancia_.resize(kSizeInstancia);
   for (int pos = 0; pos < kSizeInstancia; ++pos) {
-    instancia_[pos] = rand() % 100 + 1;
+    instancia_[pos] = rand() % 1000 + 1;
   }
 }
 
