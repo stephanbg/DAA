@@ -24,7 +24,7 @@ const std::vector<Instancia> QuickSort::Divide(const Instancia& kProblema,
   return resultado;
 }
 
-void QuickSort::Combine(Instancia& problema,
+const Instancia QuickSort::Combine(const Instancia& kProblema,
     const std::vector<Instancia>& kSoluciones) const {
   Instancia resultado;
   for (const Instancia subproblema : kSoluciones) {
@@ -32,5 +32,5 @@ void QuickSort::Combine(Instancia& problema,
       resultado.setInstancia().push_back(elemento);
     }
   }
-  problema = resultado;
+  return resultado;
 }

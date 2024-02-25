@@ -1,0 +1,175 @@
+Tamaño instancia: 5
+------------------------------------------
+MergeSort: 28 µs
+QuickSort: 28 µs
+
+Tamaño instancia: 8
+------------------------------------------
+MergeSort: 53 µs
+QuickSort: 63 µs
+
+Tamaño instancia: 4
+------------------------------------------
+MergeSort: 34 µs
+QuickSort: 20 µs
+
+Tamaño instancia: 7
+------------------------------------------
+MergeSort: 42 µs
+QuickSort: 44 µs
+
+Tamaño instancia: 2
+------------------------------------------
+MergeSort: 10 µs
+QuickSort: 8 µs
+
+Tamaño instancia: 1
+------------------------------------------
+MergeSort: 2 µs
+QuickSort: 0 µs
+
+Tamaño instancia: 7
+------------------------------------------
+MergeSort: 43 µs
+QuickSort: 58 µs
+
+Tamaño instancia: 10
+------------------------------------------
+MergeSort: 66 µs
+QuickSort: 86 µs
+
+Tamaño instancia: 6
+------------------------------------------
+MergeSort: 36 µs
+QuickSort: 40 µs
+
+Tamaño instancia: 6
+------------------------------------------
+MergeSort: 38 µs
+QuickSort: 42 µs
+
+Tamaño instancia: 6
+------------------------------------------
+MergeSort: 50 µs
+QuickSort: 43 µs
+
+Tamaño instancia: 5
+------------------------------------------
+MergeSort: 30 µs
+QuickSort: 37 µs
+
+Tamaño instancia: 1
+------------------------------------------
+MergeSort: 2 µs
+QuickSort: 0 µs
+
+Tamaño instancia: 8
+------------------------------------------
+MergeSort: 44 µs
+QuickSort: 37 µs
+
+Tamaño instancia: 3
+------------------------------------------
+MergeSort: 11 µs
+QuickSort: 10 µs
+
+Tamaño instancia: 8
+------------------------------------------
+MergeSort: 36 µs
+QuickSort: 40 µs
+
+Tamaño instancia: 6
+------------------------------------------
+MergeSort: 24 µs
+QuickSort: 42 µs
+
+Tamaño instancia: 2
+------------------------------------------
+MergeSort: 5 µs
+QuickSort: 9 µs
+
+Tamaño instancia: 4
+------------------------------------------
+MergeSort: 14 µs
+QuickSort: 19 µs
+
+Tamaño instancia: 2
+------------------------------------------
+MergeSort: 4 µs
+QuickSort: 4 µs
+
+Tamaño instancia: 3
+------------------------------------------
+MergeSort: 9 µs
+QuickSort: 9 µs
+
+Tamaño instancia: 9
+------------------------------------------
+MergeSort: 39 µs
+QuickSort: 45 µs
+
+Tamaño instancia: 3
+------------------------------------------
+MergeSort: 9 µs
+QuickSort: 13 µs
+
+Tamaño instancia: 3
+------------------------------------------
+MergeSort: 11 µs
+QuickSort: 10 µs
+
+Tamaño instancia: 5
+------------------------------------------
+MergeSort: 22 µs
+QuickSort: 21 µs
+
+Tamaño instancia: 1
+------------------------------------------
+MergeSort: 0 µs
+QuickSort: 0 µs
+
+Tamaño instancia: 2
+------------------------------------------
+MergeSort: 6 µs
+QuickSort: 9 µs
+
+Tamaño instancia: 1
+------------------------------------------
+MergeSort: 0 µs
+QuickSort: 0 µs
+
+Tamaño instancia: 6
+------------------------------------------
+MergeSort: 27 µs
+QuickSort: 39 µs
+
+Tamaño instancia: 4
+------------------------------------------
+MergeSort: 16 µs
+QuickSort: 16 µs
+
+Tamaño instancia: 4
+------------------------------------------
+MergeSort: 15 µs
+QuickSort: 15 µs
+
+Tamaño instancia: 6
+------------------------------------------
+MergeSort: 26 µs
+QuickSort: 31 µs
+
+Tamaño instancia: 7
+------------------------------------------
+MergeSort: 42 µs
+QuickSort: 47 µs
+
+Tamaño instancia: 4
+------------------------------------------
+MergeSort: 13 µs
+QuickSort: 14 µs
+
+Tamaño instancia: 2
+------------------------------------------
+MergeSort: 8 µs
+QuickSort: 10 µs
+

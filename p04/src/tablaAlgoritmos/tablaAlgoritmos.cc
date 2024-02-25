@@ -14,7 +14,17 @@ void TablaAlgoritmos::imprimirTabla() const {
 }
 
 void TablaAlgoritmos::meterEnFicheroTabla() const {
-
+  std::ofstream archivo("tablaAlgoritmos.txt", std::ios::app);
+  for (int i = 0; i < sizeInstancias_.size(); ++i) {
+    archivo << "Tamaño instancia: " << sizeInstancias_[i] << std::endl;
+    archivo << "------------------------------------------" << std::endl;
+    for (int j = 0; j < tiempoAlgoritmos_[i].size(); ++j) {
+      archivo << nombresAlgoritmos_[i][j] << ": " << tiempoAlgoritmos_[i][j] << " µs";
+      if (j < tiempoAlgoritmos_[i].size() - 1) archivo << std::endl;
+    }
+    archivo << std::endl << std::endl;
+  }
+  archivo.close(); 
 }
 
 void TablaAlgoritmos::peticionUsuario() const {

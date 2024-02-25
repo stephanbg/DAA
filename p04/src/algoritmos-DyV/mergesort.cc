@@ -13,17 +13,16 @@ const std::vector<Instancia> MergeSort::Divide(const Instancia& kProblema,
   Instancia elementos_izquierda;
   Instancia elementos_derecha;
   const size_t kMitad = kSize / 2;
+  std::vector<Instancia> resultado(2); 
   for (int i = 0; i < kSize; ++i) {
-    if (i < kMitad) elementos_izquierda.setInstancia().push_back(kProblema[i]);
-    else elementos_derecha.setInstancia().push_back(kProblema[i]);
+    if (i < kMitad) resultado[0].setInstancia().push_back(kProblema[i]);
+    else resultado[1].setInstancia().push_back(kProblema[i]);
   }
-  std::vector<Instancia> resultado; 
-  resultado.push_back(elementos_izquierda);
-  resultado.push_back(elementos_derecha);
   return resultado;
 }
 
-void MergeSort::Combine(Instancia& problema, const std::vector<Instancia>& kSoluciones) const {
+const Instancia MergeSort::Combine(const Instancia& kProblema,
+    const std::vector<Instancia>& kSoluciones) const {
   Instancia resultado;
   Instancia kProblemaIzq = kSoluciones[0];
   Instancia kProblemaDerech = kSoluciones[1];
@@ -45,5 +44,5 @@ void MergeSort::Combine(Instancia& problema, const std::vector<Instancia>& kSolu
   while (indice_derecha < kProblemaDerech.size()) {
     resultado.setInstancia().push_back(kProblemaDerech[indice_derecha++]);
   }
-  problema = resultado;
+  return resultado;
 }
