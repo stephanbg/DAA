@@ -8,14 +8,14 @@ const Instancia MergeSort::SolveSmall(const Instancia& kProblema) const {
   return kProblema;
 }
 
-const std::vector<Instancia> MergeSort::Divide(Instancia& problema,
+const std::vector<Instancia> MergeSort::Divide(const Instancia& kProblema,
     const int kSize) const {
   Instancia elementos_izquierda;
   Instancia elementos_derecha;
   const size_t kMitad = kSize / 2;
   for (int i = 0; i < kSize; ++i) {
-    if (i < kMitad) elementos_izquierda.setInstancia().push_back(problema[i]);
-    else elementos_derecha.setInstancia().push_back(problema[i]);
+    if (i < kMitad) elementos_izquierda.setInstancia().push_back(kProblema[i]);
+    else elementos_derecha.setInstancia().push_back(kProblema[i]);
   }
   std::vector<Instancia> resultado; 
   resultado.push_back(elementos_izquierda);

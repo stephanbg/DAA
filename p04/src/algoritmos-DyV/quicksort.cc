@@ -8,33 +8,31 @@ const Instancia QuickSort::SolveSmall(const Instancia& kProblema) const {
   return kProblema;
 }
 
-const std::vector<Instancia> QuickSort::Divide(Instancia& problema,
+const std::vector<Instancia> QuickSort::Divide(const Instancia& kProblema,
     const int kSize) const {
-  std::cout << "ResultadoIni: " << std::endl;
-  std::cout << problema << std::endl;  
   Instancia menores;
   Instancia mayores;
-  const int kPivote = problema[kSize - 1];
+  const int kPivote = kProblema[kSize - 1];
+  Instancia pivote;
+  pivote.setInstancia().push_back(kPivote);
   for (int i = 0; i < kSize - 1; i++) {
-    if (problema[i] < kPivote) menores.setInstancia().push_back(problema[i]);
-    else mayores.setInstancia().push_back(problema[i]);
-  }
-  problema = menores;
-  problema.setInstancia().push_back(kPivote);
-  for (auto a : mayores.getInstancia()) {
-    problema.setInstancia().push_back(a);
+    if (kProblema[i] < kPivote) menores.setInstancia().push_back(kProblema[i]);
+    else mayores.setInstancia().push_back(kProblema[i]);
   }
   std::vector<Instancia> resultado;
   resultado.push_back(menores);
+  resultado.push_back(pivote);
   resultado.push_back(mayores);
-
-  std::cout << "Pivote: " << kPivote << std::endl;
-  std::cout << "Menores a pivote: " << std::endl;
-  std::cout << menores << std::endl;
-  std::cout << "Mayores a pivote: " << std::endl;
-  std::cout << mayores << std::endl;
-  std::cout << "Resultado: " << std::endl;
-  std::cout << problema << std::endl;
-  
   return resultado;
+}
+
+void QuickSort::Combine(Instancia& problema,
+    const std::vector<Instancia>& kSoluciones) const {
+  Instancia resultado;
+  for (const Instancia subproblema : kSoluciones) {
+    for (int elemento : subproblema.getInstancia()) {
+      resultado.setInstancia().push_back(elemento);
+    }
+  }
+  problema = resultado;
 }
