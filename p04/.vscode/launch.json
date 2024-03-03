@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DyV frameWork",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/main",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb", // Cambia esto a la ruta de tu gdb
+            "setupCommands": [
+                {
+                    "description": "Habilitar impresión de errores al intentar acceder a datos sin inicializar",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
