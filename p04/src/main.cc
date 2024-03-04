@@ -6,6 +6,7 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 27 de Febrero de 2024
+ * @file main.cc
  * @brief Práctica 4, framework DyV
  *        Implementación de un framework para realizar
  *        algoritmos de DyV
