@@ -20,30 +20,31 @@
 
 #include "../problema/problema.h"
 #include "../solucion/solucion.h"
+#include "../solucion/solucion-pila.h"
 
 /**
- * @brief Clase AlgoritmoDyV, representa un framework (clase abstracta)
+ * @brief Clase AlgoritmoDyVAccion, representa un framework (clase abstracta)
  * para cualquier algoritmo de DyV
  * @tparam TipoProblema el tipo de problema que se tiene que resolver
  * @tparam TipoSolucion el tipo de la solución que surge de ejecutar el
  *    algoritmo de DyV
  */
-template<typename TipoProblema, typename TipoSolucion>
-class AlgoritmoDyV {
+template<typename TipoProblema, typename TipoProblemaContenido, typename TipoSolucion>
+class AlgoritmoDyVAccion {
  public:
   // Métodos que servirán de esqueleto para todas las clases hijas
   Solucion<TipoSolucion>* Solve(const Problema<TipoProblema>*, const int) const;
   const std::string Recurrence() const;
-  ~AlgoritmoDyV() {}
+  ~AlgoritmoDyVAccion() {}
  protected:
   // Todos los métodos virtuales que se implementarán para todos los algoritmos de DyV
-  virtual bool Small(const Problema<TipoProblema>*) const = 0;
-  virtual Solucion<TipoSolucion>* SolveSmall(const Problema<TipoProblema>*) const = 0;
-  virtual const std::vector<Problema<TipoProblema>*> Divide(const Problema<TipoProblema>*, const int) const = 0;
-  virtual Solucion<TipoSolucion>* Combine(const std::vector<const Solucion<TipoSolucion>*>&) const = 0;
+  virtual bool Small(const int) const = 0;
+  virtual void SolveSmall(TipoProblemaContenido&, TipoProblemaContenido&) const = 0;
   virtual const std::string getA() const = 0;
   virtual const std::string getB() const = 0;
   virtual const std::string getC() const = 0;
+ private:
+  void SolveOculto(TipoProblemaContenido&, TipoProblemaContenido&, TipoProblemaContenido&, const int) const;
 };
 
-#include "algoritmoDyV.cc"
+#include "algoritmoDyVAccion.cc"

@@ -7,8 +7,9 @@
  * @return true Si el problema es pequeño y QuickSort puede aplicarse,
  *    false en caso contrario.
  */
-bool Hanoi::Small(const Problema<std::stack<int>>* kProblema) const {
-  
+bool Hanoi::Small(const int kSize) const {
+  // El problema es pequeño si solo hay un disco en la pila de origen
+  return kSize == 1;
 }
 
 /**
@@ -16,30 +17,9 @@ bool Hanoi::Small(const Problema<std::stack<int>>* kProblema) const {
  * @param kProblema Problema pequeño a resolver.
  * @return Solución al problema.
  */
-Solucion<std::stack<int>>* Hanoi::SolveSmall(const Problema<std::stack<int>>* kProblema) const {
-
-}
-
-/**
- * @brief Divide el problema en dos subproblemas separados por
- * un pivote para aplicar QuickSort recursivamente.
- * @param kProblema Problema a dividir.
- * @param kSize Tamaño del problema.
- * @return Vector con los dos subproblemas resultantes
- *     de la división por el pivote.
- */
-const std::vector<Problema<std::stack<int>>*> Hanoi::Divide(
-    const Problema<std::stack<int>>* kProblema,
-    const int kSize) const {
-
-}
-
-/**
- * @brief Combina las soluciones de los subproblemas resultantes de la división.
- * @param kSoluciones Vector de soluciones de los subproblemas.
- * @return Solución combinada.
- */
-Solucion<std::stack<int>>* Hanoi::Combine(
-    const std::vector<const Solucion<std::stack<int>>*>& kSoluciones) const {
-
+void Hanoi::SolveSmall(std::stack<int>& origen, std::stack<int>& destino) const {
+  std::stack<int> copiaOrigen = origen;
+  int disco = origen.top();
+  destino.push(disco);
+  origen.pop();
 }

@@ -253,3 +253,38 @@ Tamaño instancia: 22
 MergeSort: 72 µs
 QuickSort: 84 µs
 
+Tamaño instancia: 86
+------------------------------------------
+MergeSort: 350 µs
+QuickSort: 456 µs
+
+Tamaño instancia: 81
+------------------------------------------
+MergeSort: 330 µs
+QuickSort: 386 µs
+
+Tamaño instancia: 79
+------------------------------------------
+MergeSort: 355 µs
+QuickSort: 946 µs
+
+Tamaño instancia: 61
+------------------------------------------
+MergeSort: 227 µs
+QuickSort: 295 µs
+
+Tamaño instancia: 18
+------------------------------------------
+MergeSort: 58 µs
+QuickSort: 81 µs
+
+Tamaño instancia: 39
+------------------------------------------
+MergeSort: 150 µs
+QuickSort: 165 µs
+
+Tamaño instancia: 32
+------------------------------------------
+MergeSort: 105 µs
+QuickSort: 201 µs
+

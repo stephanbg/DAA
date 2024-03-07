@@ -18,15 +18,19 @@
 #include <stack>
 
 #include "framework/algoritmoDyV.h"
+#include "framework/algoritmoDyVAccion.h"
 #include "algoritmos-DyV/mergesort.h"
 #include "algoritmos-DyV/quicksort.h"
 #include "algoritmos-DyV/busqueda_binaria.h"
 #include "algoritmos-DyV/hanoi.h"
+#include "algoritmos-DyV/strassen.h"
 #include "problema/problema.h"
 #include "problema/problema-vectorial.h"
-#include "problema/problema-pila.h"
+#include "problema/problema-vector-pilas.h"
+#include "problema/problema-vector-matricial.h"
 #include "solucion/solucion.h"
 #include "solucion/solucion-vectorial.h"
+#include "solucion/solucion-matricial.h"
 #include "solucion/solucion-integer.h"
 #include "solucion/solucion-pila.h"
 #include "calculos/calculos.h"
@@ -44,33 +48,27 @@
  */
 int main() {
   srand(time(nullptr));
-  std::vector<int> vector = {3, 4, 5, 6, 8, 9};
-  /*Problema<std::vector<int>>* cada_instancia = new ProblemaVectorial(vector);
-  //Solucion<std::vector<int>>* cada_solucion = new SolucionVectorial;
-  //AlgoritmoDyV<std::vector<int>, std::vector<int>>* mergesort = new MergeSort();
-  //cada_solucion = mergesort->Solve(cada_instancia, cada_instancia->getProblema().size());
-  //cada_instancia->setProblema() = cada_solucion->getSolucion();
-  //cada_instancia->setProblema() = 
-  Solucion<int>* solucion_integer = new SolucionInteger;
-  AlgoritmoDyV<std::vector<int>, int>* busqueda_binaria = new BusquedaBinaria(cada_instancia, 4);
-  cada_instancia->mostrarProblema();
-  std::cout << std::endl;
-  solucion_integer = busqueda_binaria->Solve(cada_instancia, cada_instancia->getProblema().size());
-  std::cout << "Pos: ";
-  solucion_integer->mostrarSolucion();
-  std::cout << std::endl;*/
-  const int kNumeroDiscos = 3; 
-  Problema<std::stack<int>>* origen = new ProblemaPila(3);
-  Solucion<std::stack<int>>* destino = new SolucionPila();
-  std::cout << "PILA ORIGEN\n";
-  origen->mostrarProblema();
-  AlgoritmoDyV<std::stack<int>, std::stack<int>>* hanoi = new Hanoi;
-  destino = hanoi->Solve(origen, kNumeroDiscos);
-  std::cout << "PILA DESTINO\n";
-  destino->mostrarSolucion();
-
-
-
+  std::vector<std::vector<int>> vector1 = {{3, 4, 5},
+                                           {6, 8, 9},
+                                           {7, 2, 1} };
+  std::vector<std::vector<int>> vector2 = {{1, 2, 5},
+                                           {6, 4, 1},
+                                           {5, 2, 6} };                                           
+  std::vector<std::vector<std::vector<int>>> todasLasMatrices;
+  todasLasMatrices.push_back(vector1);
+  todasLasMatrices.push_back(vector2);
+  AlgoritmoDyV<std::vector<std::vector<std::vector<int>>>,
+               std::vector<std::vector<int>>>* strassen = new Strassen();
+  const int kCantidadMatrices = 2;               
+  Problema<std::vector<std::vector<std::vector<int>>>>* cada_problema = new ProblemaVectorMatricial(kCantidadMatrices);
+  ProblemaVectorMatricial matrices(kCantidadMatrices);
+  matrices.meterValores(todasLasMatrices);
+  cada_problema->setProblema() = matrices.getProblema();
+  cada_problema->mostrarProblema();
+  Solucion<std::vector<std::vector<int>>>* cada_solucion = new SolucionMatricial();
+  cada_solucion->mostrarSolucion();
+  cada_solucion = strassen->Solve(cada_problema, cada_problema->getProblema().size());
+  cada_solucion->mostrarSolucion();
 
 
 
