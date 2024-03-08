@@ -6,10 +6,10 @@
 
 class BusquedaBinaria: public AlgoritmoDyV<std::vector<int>, int> {
  public:
-  BusquedaBinaria(const Problema<std::vector<int>>* kProblema, const int kValor) {
+  BusquedaBinaria(const int kSize, const int kValor) {
     valor_ = kValor;
     ini_ = 0;
-    fin_ = kProblema->getProblema().size() - 1;
+    fin_ = kSize - 1;
     solucion_integer = new SolucionInteger;
   }
  private:

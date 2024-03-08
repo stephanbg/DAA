@@ -20,7 +20,7 @@
  * y sus valores también son aleatorios
  */
 void ProblemaVectorial::generadorInstanciaAleatoria() {
-  const int kSizeInstancia = rand() % 100 + 1;
+  const int kSizeInstancia = rand() % 10 + 1;
   problema_.resize(kSizeInstancia);
   for (int pos = 0; pos < kSizeInstancia; ++pos) {
     problema_[pos] = rand() % 1000 + 1;

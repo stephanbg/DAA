@@ -44,4 +44,13 @@ void calcularQuickSort(
     std::vector<std::string>&
 );
 
+template<typename TipoProblema, typename TipoSolucion>
+void calcularBusquedaBinaria(
+    const AlgoritmoDyV<TipoProblema, TipoSolucion>*,
+    const Problema<TipoProblema>*,
+    Solucion<TipoSolucion>*&,
+    std::vector<double>&,
+    std::vector<std::string>&
+);
+
 #include "calculos.cc"

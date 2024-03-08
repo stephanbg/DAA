@@ -13,33 +13,8 @@
  * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
  */
 
-#include <set>
-#include <array>
-#include <stack>
-
-#include "framework/algoritmoDyV.h"
-#include "framework/algoritmoDyVAccion.h"
-#include "algoritmos-DyV/mergesort.h"
-#include "algoritmos-DyV/quicksort.h"
-#include "algoritmos-DyV/busqueda_binaria.h"
-#include "algoritmos-DyV/hanoi.h"
-#include "algoritmos-DyV/strassen.h"
-#include "problema/problema.h"
-#include "problema/problema-vectorial.h"
-#include "problema/problema-vector-pilas.h"
-#include "problema/problema-vector-matricial.h"
-#include "solucion/solucion.h"
-#include "solucion/solucion-vectorial.h"
-#include "solucion/solucion-matricial.h"
-#include "solucion/solucion-integer.h"
-#include "solucion/solucion-pila.h"
-#include "calculos/calculos.h"
+#include "debug/debug.h"
 #include "tablaAlgoritmos/tablaAlgoritmos.h"
-
-// Definición de códigos de colores ANSI
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define BLUE    "\033[34m"
 
 /**
  * @brief Función principal del programa.
@@ -48,7 +23,13 @@
  */
 int main() {
   srand(time(nullptr));
-  std::vector<std::vector<int>> vector1 = {{3, 4, 5},
+  Debug* modo_depurador = Debug::crearModo();
+  TablaAlgoritmos tabla;
+  modo_depurador->ejecutar(tabla);
+  tabla.peticionUsuario();
+
+  //srand(time(nullptr));
+  /*std::vector<std::vector<int>> vector1 = {{3, 4, 5},
                                            {6, 8, 9},
                                            {7, 2, 1} };
   std::vector<std::vector<int>> vector2 = {{1, 2, 5},
@@ -68,7 +49,7 @@ int main() {
   Solucion<std::vector<std::vector<int>>>* cada_solucion = new SolucionMatricial();
   cada_solucion->mostrarSolucion();
   cada_solucion = strassen->Solve(cada_problema, cada_problema->getProblema().size());
-  cada_solucion->mostrarSolucion();
+  cada_solucion->mostrarSolucion();*/
 
 
 
@@ -90,7 +71,6 @@ int main() {
   AlgoritmoDyV<std::vector<int>, std::vector<int>>* quicksort = new QuickSort();
   Problema<std::vector<int>>* cada_problema = new ProblemaVectorial;
   Solucion<std::vector<int>>* cada_solucion = new SolucionVectorial;
-  TablaAlgoritmos tabla;
   // Para cada instancia, ejecute los algoritmos MergeSort y QuickSort.
   for (const std::vector<int>& instancia : conjunto) {
     std::vector<double> tiempos_por_instancia;

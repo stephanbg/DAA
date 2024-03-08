@@ -15,7 +15,7 @@ LDFLAGS =
 
 all: main
 
-main: main.o problema/problema-vectorial.o problema/problema-vector-matricial.o solucion/solucion-vectorial.o framework/algoritmoDyV.o framework/algoritmoDyVAccion.o algoritmos-DyV/mergesort.o algoritmos-DyV/quicksort.o algoritmos-DyV/busqueda_binaria.o algoritmos-DyV/hanoi.o algoritmos-DyV/strassen.o problema/problema-vector-pilas.o solucion/solucion-pila.o solucion/solucion-matricial.o tablaAlgoritmos/tablaAlgoritmos.o calculos/calculos.o
+main: main.o debug/debug.o debug/modoNormal.o debug/modoDepurador.o problema/problema-vectorial.o problema/problema-vector-matricial.o solucion/solucion-vectorial.o framework/algoritmoDyV.o framework/algoritmoDyVAccion.o algoritmos-DyV/mergesort.o algoritmos-DyV/quicksort.o algoritmos-DyV/busqueda_binaria.o algoritmos-DyV/hanoi.o algoritmos-DyV/strassen.o problema/problema-vector-pilas.o solucion/solucion-pila.o solucion/solucion-matricial.o tablaAlgoritmos/tablaAlgoritmos.o calculos/calculos.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean
