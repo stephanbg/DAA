@@ -3,6 +3,7 @@
 #include <vector>
 #include <stack>
 #include <iostream>
+#include <algorithm>
 
 #include "problema.h"
 
@@ -14,8 +15,9 @@
 class ProblemaVectorPilas: public Problema<std::vector<std::stack<int>>> {
  public:
   ProblemaVectorPilas() {}
-  ProblemaVectorPilas(const int kCantidadPilas) {
+  ProblemaVectorPilas(const int kCantidadPilas, const bool randomDatosPila0 = false) {
     pilas_.resize(kCantidadPilas);
+    if (randomDatosPila0) generadorInstanciaAleatoria();
   }
   // Getters y Setters
   virtual const std::vector<std::stack<int>>& getProblema() const override { return pilas_; }
@@ -23,5 +25,6 @@ class ProblemaVectorPilas: public Problema<std::vector<std::stack<int>>> {
   virtual void mostrarProblema() const override;
   void meterValores(const int, const std::vector<int>&);
  private:
+  void generadorInstanciaAleatoria();
   std::vector<std::stack<int>> pilas_;
 };

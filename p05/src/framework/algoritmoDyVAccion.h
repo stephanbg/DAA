@@ -29,7 +29,7 @@
  * @tparam TipoSolucion el tipo de la solución que surge de ejecutar el
  *    algoritmo de DyV
  */
-template<typename TipoProblema, typename TipoProblemaContenido, typename TipoSolucion>
+template<typename TipoProblema, typename TipoSolucion>
 class AlgoritmoDyVAccion {
  public:
   // Métodos que servirán de esqueleto para todas las clases hijas
@@ -39,12 +39,12 @@ class AlgoritmoDyVAccion {
  protected:
   // Todos los métodos virtuales que se implementarán para todos los algoritmos de DyV
   virtual bool Small(const int) const = 0;
-  virtual void SolveSmall(TipoProblemaContenido&, TipoProblemaContenido&) const = 0;
+  virtual void SolveSmall(TipoSolucion&, TipoSolucion&) const = 0;
   virtual const std::string getA() const = 0;
   virtual const std::string getB() const = 0;
   virtual const std::string getC() const = 0;
  private:
-  void SolveOculto(TipoProblemaContenido&, TipoProblemaContenido&, TipoProblemaContenido&, const int) const;
+  void SolveOculto(TipoSolucion&, TipoSolucion&, TipoSolucion&, const int) const;
 };
 
 #include "algoritmoDyVAccion.cc"

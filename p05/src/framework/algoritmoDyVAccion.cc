@@ -19,14 +19,14 @@
 #include "algoritmoDyVAccion.h"
 #include "../problema/problema-vector-pilas.h"
 
-template<typename TipoProblema, typename TipoProblemaContenido, typename TipoSolucion>
-Solucion<TipoSolucion>* AlgoritmoDyVAccion<TipoProblema, TipoProblemaContenido, TipoSolucion>::Solve(
+template<typename TipoProblema, typename TipoSolucion>
+Solucion<TipoSolucion>* AlgoritmoDyVAccion<TipoProblema, TipoSolucion>::Solve(
     const Problema<TipoProblema>* problema, const int kSize) const {
-  TipoProblemaContenido original, destino, auxiliar;
-  original = problema->getProblema()[0];
+  TipoSolucion origen, destino, auxiliar;
+  origen = problema->getProblema()[0];
   destino = problema->getProblema()[1];
   auxiliar = problema->getProblema()[2];
-  this->SolveOculto(original, destino, auxiliar, kSize);
+  this->SolveOculto(origen, destino, auxiliar, kSize);
   Solucion<TipoSolucion>* solucion = new SolucionPila();
   solucion->setSolucion() = destino;
   return solucion;
@@ -41,11 +41,11 @@ Solucion<TipoSolucion>* AlgoritmoDyVAccion<TipoProblema, TipoProblemaContenido, 
  * @param kSize Tamaño del problema.
  * @return Puntero a la solución del problema.
  */
-template<typename TipoProblema, typename TipoProblemaContenido, typename TipoSolucion>
-void AlgoritmoDyVAccion<TipoProblema, TipoProblemaContenido, TipoSolucion>::SolveOculto(
-    TipoProblemaContenido& origen,
-    TipoProblemaContenido& destino,
-    TipoProblemaContenido& auxiliar,
+template<typename TipoProblema, typename TipoSolucion>
+void AlgoritmoDyVAccion<TipoProblema, TipoSolucion>::SolveOculto(
+    TipoSolucion& origen,
+    TipoSolucion& destino,
+    TipoSolucion& auxiliar,
     const int kSize) const {
   if (Small(kSize)) SolveSmall(origen, destino);
   else {
@@ -62,8 +62,8 @@ void AlgoritmoDyVAccion<TipoProblema, TipoProblemaContenido, TipoSolucion>::Solv
  * @tparam TipoSolucion Tipo de datos de la solución.
  * @return Recurrencia del algoritmo.
  */
-template<typename TipoProblema, typename TipoProblemaContenido, typename TipoSolucion>
-const std::string AlgoritmoDyVAccion<TipoProblema, TipoProblemaContenido, TipoSolucion>::Recurrence() const {
+template<typename TipoProblema, typename TipoSolucion>
+const std::string AlgoritmoDyVAccion<TipoProblema, TipoSolucion>::Recurrence() const {
   return ("T(n) <= " + getA() + "T(" + getB() + ") + " + getC());
 }
 

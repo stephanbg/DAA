@@ -22,6 +22,7 @@
 #include <chrono>
 
 #include "../framework/algoritmoDyV.h"
+#include "../framework/algoritmoDyVAccion.h"
 #include "../problema/problema.h"
 #include "../solucion/solucion.h"
 
@@ -47,6 +48,15 @@ void calcularQuickSort(
 template<typename TipoProblema, typename TipoSolucion>
 void calcularBusquedaBinaria(
     const AlgoritmoDyV<TipoProblema, TipoSolucion>*,
+    const Problema<TipoProblema>*,
+    Solucion<TipoSolucion>*&,
+    std::vector<double>&,
+    std::vector<std::string>&
+);
+
+template<typename TipoProblema, typename TipoSolucion>
+void calcularHanoi(
+    const AlgoritmoDyVAccion<TipoProblema, TipoSolucion>*,
     const Problema<TipoProblema>*,
     Solucion<TipoSolucion>*&,
     std::vector<double>&,

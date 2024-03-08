@@ -7,10 +7,17 @@ void introducirDatosRandEnConjunto(std::set<void*>& conjunto, const std::string&
       conjunto.insert(cada_instancia);
     } while (rand() % 10 != 0);
   } else if (kTipoDatos == "Pilas") {
-    /*do {
-      Problema<std::vector<std::stack<int>>>* cada_instancia = new ProblemaVectorPilas(true);     
+    std::cout << "Dime la cantidad de Pilas que desea: ";
+    std::string numero;
+    while (std::cin >> numero) {
+      if (contieneSoloDigitos(numero) && numero >= "3") break;
+      std::cout << "Tienen que ser mínimo 3 pilas." << std::endl;
+      std::cout << "Que número de pilas desea: ";
+    }    
+    do {
+      Problema<std::vector<std::stack<int>>>* cada_instancia = new ProblemaVectorPilas(stoi(numero), true);     
       conjunto.insert(cada_instancia);
-    } while (rand() % 10 != 0);*/
+    } while (rand() % 10 != 0);
   } else if (kTipoDatos == "Matrices") {
     /*do {
       Problema<std::vector<std::vector<std::vector<int>>>>* cada_instancia = new ProblemaVectorMatricial(true);     

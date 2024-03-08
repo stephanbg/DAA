@@ -29,7 +29,7 @@ const std::string Debug::eleccionDeAlgoritmo() const {
   std::cout << "Elija el algoritmo que desea ejecutar:\n";
   std::cout << "MergeSort: [1]" << std::endl;
   std::cout << "QuickSort: [2]" << std::endl;
-  std::cout << "BinarySort: [3]" << std::endl;
+  std::cout << "BusquedaBinaria: [3]" << std::endl;
   std::cout << "Hanoi: [4]" << std::endl;
   std::cout << "Strassen: [5]" << std::endl;
   std::string eleccion = "";

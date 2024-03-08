@@ -24,6 +24,7 @@
 #include "../calculos/calculos.h"
 #include "../tablaAlgoritmos/tablaAlgoritmos.h"
 #include "../introducirDatosEnConjunto/introducirDatosEnConjunto.h"
+#include "../funcionesNecesarias/funcionesNecesarias.h"
 
 // Definición de códigos de colores ANSI
 #define RESET   "\033[0m"

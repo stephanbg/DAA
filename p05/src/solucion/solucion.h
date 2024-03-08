@@ -37,7 +37,7 @@ class Solucion {
     const std::string& kNombreAlgoritmo,
     const std::string& kFormulaRecurrencia
   ) const {
-    std::cout << kNombreAlgoritmo;
+    std::cout << kNombreAlgoritmo << ": ";
     mostrarSolucion();   
     std::cout << "\nFórmula recurrencia: " << kFormulaRecurrencia;
   }

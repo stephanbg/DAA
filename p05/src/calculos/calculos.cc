@@ -104,4 +104,20 @@ void calcularBusquedaBinaria(
   nombres_algoritmos.push_back("BusquedaBinaria"); 
 }
 
+template<typename TipoProblema, typename TipoSolucion>
+void calcularHanoi(
+    const AlgoritmoDyVAccion<TipoProblema, TipoSolucion>* kHanoi,
+    const Problema<TipoProblema>* kCadaProblema,
+    Solucion<TipoSolucion>*& cada_solucion,
+    std::vector<double>& tiempos_por_instancia,
+    std::vector<std::string>& nombres_algoritmos
+) {
+  const auto kInicioTiempo = std::chrono::steady_clock::now();
+  cada_solucion = kHanoi->Solve(kCadaProblema, kCadaProblema->getProblema()[0].size());
+  const auto kFinTiempo = std::chrono::steady_clock::now();
+  const auto kDuracion = std::chrono::duration_cast<std::chrono::microseconds>(kFinTiempo - kInicioTiempo);
+  tiempos_por_instancia.push_back(kDuracion.count());
+  nombres_algoritmos.push_back("Hanoi"); 
+}
+
 #endif

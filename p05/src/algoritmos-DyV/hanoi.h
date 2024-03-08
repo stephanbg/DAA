@@ -9,7 +9,7 @@
  * Recibiendo como plantilla un problema vectorial de enteros y
  * devuelve una solución vectorial de enteros
  */
-class Hanoi: public AlgoritmoDyVAccion<std::vector<std::stack<int>>, std::stack<int>, std::stack<int>> {
+class Hanoi: public AlgoritmoDyVAccion<std::vector<std::stack<int>>, std::stack<int>> {
  private:
   virtual bool Small(const int) const override;
   virtual void SolveSmall(std::stack<int>&, std::stack<int>&) const override;
