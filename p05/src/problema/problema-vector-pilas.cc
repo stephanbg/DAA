@@ -33,3 +33,25 @@ void ProblemaVectorPilas::generadorInstanciaAleatoria() {
     pilas_[0].push(elemento);
   }
 }
+
+void ProblemaVectorPilas::generadorInstanciaAleatoriaSizeFijo(const int kCantidadElementosPila0) {
+  std::vector<int> pilaOrigen;
+  for (int pos = 0; pos < kCantidadElementosPila0; ++pos) {
+    pilaOrigen.push_back(rand() % 1000 + 1);
+  }
+  std::sort(pilaOrigen.begin(), pilaOrigen.end());
+  for (const auto& elemento : pilaOrigen) {
+    pilas_[0].push(elemento);
+  }
+}
+
+const int ProblemaVectorPilas::cantidadPilas() {
+  std::cout << "Dime la cantidad de Pilas que desea: ";
+  std::string numero;
+  while (std::cin >> numero) {
+    if (contieneSoloDigitos(numero) && numero >= "3") break;
+    std::cout << "Tienen que ser mínimo 3 pilas." << std::endl;
+    std::cout << "Que número de pilas desea: ";
+  }
+  return stoi(numero);
+} 

@@ -37,6 +37,10 @@ class ProblemaVectorial: public Problema<std::vector<int>> {
   ProblemaVectorial(const bool generarAleatorio = false) { 
     if (generarAleatorio) generadorInstanciaAleatoria();
   }
+  ProblemaVectorial(const int kCantidadElementos, const bool generarAleatorio = false) { 
+    problema_.resize(kCantidadElementos);
+    if (generarAleatorio) generadorInstanciaAleatoriaSizeFijo();
+  }  
   /**
    * @brief Constructor de problemas con copia de vector
    * @param instancia el vector que se va a copiar como problema 
@@ -52,5 +56,6 @@ class ProblemaVectorial: public Problema<std::vector<int>> {
   const int operator[](const size_t kIndice) const { return problema_[kIndice]; }
  private:
   void generadorInstanciaAleatoria();
+  void generadorInstanciaAleatoriaSizeFijo();
   std::vector<int> problema_;
 };

@@ -14,6 +14,10 @@
 
 #pragma once
 
+#include <iostream>
+
+#include "../funcionesNecesarias/funcionesNecesarias.h"
+
 /**
  * @brief La clase Problema representa cualquier problema de DyV.
  * @tparam TipoProblema Tipo del problema generado por el algoritmo.
@@ -21,6 +25,14 @@
 template<typename TipoProblema>
 class Problema {
  public:
+  static const int eleccionSizeInstancia() {
+    std::cout << "Cuantos número de elementos quieres para el problema?: ";
+    std::string resultado = "";
+    while (std::cin >> resultado && (!contieneSoloDigitos(resultado) || resultado == "0")) {
+      std::cout << "Tiene que ser un número natural estrictamente positivo: ";
+    }
+    return stoi(resultado);
+  } 
   virtual const TipoProblema& getProblema() const = 0;
   virtual TipoProblema& setProblema() = 0;
   virtual void mostrarProblema() const = 0;

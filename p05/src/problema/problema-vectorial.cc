@@ -27,6 +27,13 @@ void ProblemaVectorial::generadorInstanciaAleatoria() {
   }
 }
 
+void ProblemaVectorial::generadorInstanciaAleatoriaSizeFijo() {
+  const int kSizeInstancia = problema_.size();
+  for (int pos = 0; pos < kSizeInstancia; ++pos) {
+    problema_[pos] = rand() % 1000 + 1;
+  }
+}
+
 /**
  * @brief Muestra el problema vectorial
  */

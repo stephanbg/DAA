@@ -69,3 +69,13 @@ const std::vector<Problema<std::vector<int>>*> BusquedaBinaria::Divide(
 Solucion<int>* BusquedaBinaria::Combine(const std::vector<const Solucion<int>*>& kSoluciones) const {
   return solucion_integer;
 }
+
+const int BusquedaBinaria::numeroABuscar() {
+  std::cout << "\nQue número desea buscar: ";
+  std::string numero;
+  while (std::cin >> numero && !esNumero(numero)) {
+    std::cout << "Tiene que buscar un valor numérico entero." << std::endl;
+    std::cout << "Que número desea buscar: ";
+  }
+  return stoi(numero);
+}

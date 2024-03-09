@@ -25,7 +25,11 @@ int main() {
   srand(time(nullptr));
   Debug* modo_depurador = Debug::crearModo();
   TablaAlgoritmos tabla;
-  modo_depurador->ejecutar(tabla);
+  try {
+    modo_depurador->ejecutar(tabla);
+  } catch(const std::string& kPararEjecucion) {
+    return 0;
+  }
   tabla.peticionUsuario();
 
   //srand(time(nullptr));

@@ -1,8 +1,11 @@
 #pragma once
 
+#include <iostream>
+
 #include "../framework/algoritmoDyV.h"
 #include "../problema/problema-vectorial.h"
 #include "../solucion/solucion-integer.h"
+#include "../funcionesNecesarias/funcionesNecesarias.h"
 
 class BusquedaBinaria: public AlgoritmoDyV<std::vector<int>, int> {
  public:
@@ -12,6 +15,7 @@ class BusquedaBinaria: public AlgoritmoDyV<std::vector<int>, int> {
     fin_ = kSize - 1;
     solucion_integer = new SolucionInteger;
   }
+  static const int numeroABuscar();
  private:
   virtual bool Small(const Problema<std::vector<int>>*) const override;
   virtual Solucion<int>* SolveSmall(const Problema<std::vector<int>>*) const override;

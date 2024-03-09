@@ -21,7 +21,13 @@ class ProblemaVectorMatricial: public Problema<std::vector<std::vector<std::vect
    */
   ProblemaVectorMatricial(const int kCantidadMatrices) { 
     problema_.resize(kCantidadMatrices);
-  } 
+  }
+  ProblemaVectorMatricial(const int kCantidadMatrices, const std::vector<std::pair<int, int>> kFilasColumnas) { 
+    problema_.resize(kCantidadMatrices);
+    for (int i = 0; i < kCantidadMatrices; ++i) {
+      problema_[i].resize(kFilasColumnas[i].first, std::vector<int>(kFilasColumnas[i].second));
+    }
+  }   
   // Getters y Setters
   virtual const std::vector<std::vector<std::vector<int>>>& getProblema() const override { return problema_; }
   virtual std::vector<std::vector<std::vector<int>>>& setProblema() override { return problema_; }
