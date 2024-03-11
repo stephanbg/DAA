@@ -1,3 +1,18 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 6 de Marzo de 2024
+ * @file debug.h
+ * @brief Definición de la clase Debug, que servirá
+ * de clase base abstracta para los diferentes modos debug que hayan
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
+ */
+
 #pragma once
 
 #include <iostream>
@@ -26,12 +41,11 @@
 #include "../introducirDatosEnConjunto/introducirDatosEnConjunto.h"
 #include "../funcionesNecesarias/funcionesNecesarias.h"
 
-// Definición de códigos de colores ANSI
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define BLUE    "\033[34m"
-
-class Debug{
+/**
+ * @brief Clase Debug, clase base abstracta
+ * que define los diferentes modos de depuración
+ */
+class Debug {
  public:
   static Debug* crearModo();
   virtual void ejecutar(TablaAlgoritmos&) const = 0;

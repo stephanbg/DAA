@@ -5,21 +5,21 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 27 de Febrero de 2024
- * @file mergesort.cc
- * @brief Implementación de la clase MergeSort, que se encarga de
+ * @since 6 de Marzo de 2024
+ * @file busqueda_binaria.cc
+ * @brief Implementación de la clase BusquedaBinaria, que se encarga de
  * realizar dicho algoritmo
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p04/src}
- * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
  */
 
 #include "busqueda_binaria.h"
 
 /**
  * @brief Verifica si el problema dado es lo suficientemente pequeño
- * como para aplicar MergeSort.
+ * como para aplicar BusquedaBinaria.
  * @param kProblema Problema a evaluar.
- * @return true Si el problema es pequeño y MergeSort puede aplicarse,
+ * @return true Si el problema es pequeño y BusquedaBinaria puede aplicarse,
  *    false en caso contrario.
  */
 bool BusquedaBinaria::Small(const Problema<std::vector<int>>* kProblema) const {
@@ -27,7 +27,7 @@ bool BusquedaBinaria::Small(const Problema<std::vector<int>>* kProblema) const {
 }
 
 /**
- * @brief Resuelve un problema pequeño utilizando MergeSort.
+ * @brief Resuelve un problema pequeño utilizando BusquedaBinaria.
  * @param kProblema Problema pequeño a resolver.
  * @return Solución al problema.
  */
@@ -38,12 +38,12 @@ Solucion<int>* BusquedaBinaria::SolveSmall(const Problema<std::vector<int>>* kPr
 }
 
 /**
- * @brief Divide el problema en dos subproblemas separados por
- * la mitad para aplicar MergeSort recursivamente.
- * @param kProblema Problema a dividir.
+ * @brief Mueve los indices de inicio y fin, a las
+ * posiciones necesarias para la siguiente recursividad.
+ * Dependiendo de donde esté el valor a buscar
+ * @param kProblema Problema.
  * @param kSize Tamaño del problema.
- * @return Vector con los dos subproblemas resultantes
- *     de la división por la mitad.
+ * @return El mismo problema.
  */
 const std::vector<Problema<std::vector<int>>*> BusquedaBinaria::Divide(
     const Problema<std::vector<int>>* kProblema,
@@ -62,14 +62,18 @@ const std::vector<Problema<std::vector<int>>*> BusquedaBinaria::Divide(
 }
 
 /**
- * @brief Combina las soluciones de los subproblemas resultantes de la división.
+ * @brief No realiza nada, solamente tiene que estar porque se hereda del framework
  * @param kSoluciones Vector de soluciones de los subproblemas.
- * @return Solución combinada.
+ * @return la misma solución.
  */
 Solucion<int>* BusquedaBinaria::Combine(const std::vector<const Solucion<int>*>& kSoluciones) const {
   return solucion_integer;
 }
 
+/**
+ * @brief Pregunta al usuario que número se desea buscar en el problema
+ * @return Devuelve el número
+ */
 const int BusquedaBinaria::numeroABuscar() {
   std::cout << "\nQue número desea buscar: ";
   std::string numero;

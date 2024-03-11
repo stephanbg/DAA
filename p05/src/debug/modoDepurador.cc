@@ -1,12 +1,31 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 6 de Marzo de 2024
+ * @file modoDepurador.cc
+ * @brief Implementación de la clase ModoDepurador, que hereda
+ * de la clase base Debug, y permite elegir el algoritmo y tamaño de instancia
+ * y se muestra por pantalla tanto la instancia como la solución obtenida.
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
+ */
+
 #include "modoDepurador.h"
 
+/**
+ * @brief Ejecuta el modo Depurador.
+ * @param tabla Tabla de tiempos y tamaños de las instancias de los alogoritmos.
+ */
 void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
   std::cout << "\nHa elegido el modo Depurador" << std::endl << std::endl;
   const std::string kEleccion = this->eleccionDeAlgoritmo();
   const int kSizeInstancia = Problema<void*>::eleccionSizeInstancia();
   std::vector<double> tiempos_por_instancia;
   std::vector<std::string> nombres_algoritmos;
-  // Genere un conjunto de instancias aleatorias de diferentes tamaños. 
   if (kEleccion == "1") {
     AlgoritmoDyV<std::vector<int>, std::vector<int>>* mergesort = new MergeSort();
     Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(kSizeInstancia, true);
@@ -62,6 +81,6 @@ void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
   } else if (kEleccion == "5") {
     std::cout << "Strassen: [5]" << std::endl;
   }
-  const std::string kPara = "Se lanza excepción para no mostrar tabla de tiempos.\n";
-  throw (kPara);
+  const std::string kParaLanzamientoDatosATabla = "Se lanza excepción para no mostrar tabla de tiempos.\n";
+  throw (kParaLanzamientoDatosATabla);
 }

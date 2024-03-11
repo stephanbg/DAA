@@ -1,7 +1,26 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 6 de Marzo de 2024
+ * @file debug.h
+ * @brief Definición de la clase Debug, que servirá
+ * de clase base abstracta para los diferentes modos debug que hayan
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
+ */
+
 #include "debug.h"
 #include "modoDepurador.h"
 #include "modoNormal.h"
 
+/**
+ * @brief Función para crear un objeto de tipo Debug dependiendo del modo seleccionado.
+ * @return Puntero al objeto Debug creado.
+ */
 Debug* Debug::crearModo() {
   std::cout << "Bienvenido al modo elección de depuración:" << std::endl << std::endl;
   std::cout << "Modo Normal: [1]" << std::endl;
@@ -25,6 +44,10 @@ Debug* Debug::crearModo() {
   }
 }
 
+/**
+ * @brief Función para solicitar al usuario la elección de un algoritmo.
+ * @return Cadena que representa la elección del algoritmo.
+ */
 const std::string Debug::eleccionDeAlgoritmo() const {
   std::cout << "Elija el algoritmo que desea ejecutar:\n";
   std::cout << "MergeSort: [1]" << std::endl;

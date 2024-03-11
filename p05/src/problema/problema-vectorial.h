@@ -9,8 +9,8 @@
  * @file problema-vectorial.h
  * @brief Definición de la clase ProblemaVectorial, que representa
  * cualquier problema vectorial de DyV, clase hija de la clase abstracta Problema
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p04/src}
- * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
  */
 
 #pragma once
@@ -29,23 +29,10 @@
  */
 class ProblemaVectorial: public Problema<std::vector<int>> {
  public:
-  /**
-   * @brief Constructor de problemas aleatorios
-   * @param generarAleatorio Si se indica como true se genera aleatorio
-   *     el problema, si no está vacío
-   */
-  ProblemaVectorial(const bool generarAleatorio = false) { 
-    if (generarAleatorio) generadorInstanciaAleatoria();
-  }
-  ProblemaVectorial(const int kCantidadElementos, const bool generarAleatorio = false) { 
-    problema_.resize(kCantidadElementos);
-    if (generarAleatorio) generadorInstanciaAleatoriaSizeFijo();
-  }  
-  /**
-   * @brief Constructor de problemas con copia de vector
-   * @param instancia el vector que se va a copiar como problema 
-   */
-  ProblemaVectorial(const std::vector<int>& instancia): problema_(instancia) {} 
+  // Constructores
+  ProblemaVectorial(const bool kGenerarAleatorio = false); 
+  ProblemaVectorial(const int, const bool kGenerarAleatorio = false);
+  ProblemaVectorial(const std::vector<int>&);
   // Getters y Setters
   virtual const std::vector<int>& getProblema() const override { return problema_; }
   virtual std::vector<int>& setProblema() override { return problema_; }

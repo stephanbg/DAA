@@ -5,14 +5,14 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 27 de Febrero de 2024
- * @file calculos.cc
- * @brief Implementación de funciones, que se usarán en el main
- * para simplificarlo. Solamente llaman internamente a los métodos
- * de la clase AlgoritmoDyV para resolver los problemas y calculan los tiempos
+ * @since 6 de Marzo de 2024
+ * @file calculos.h
+ * @brief Implementación de funciones, para simplificar el cálculo
+ * de los algoritmos de DyV. Solamente llaman internamente a los algoritmos
+ * de DyV para resolver los problemas y calculan los tiempos
  * que se tardan.
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p04/src}
- * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
  */
 
 #ifndef CALCULOS_CC
@@ -77,12 +77,12 @@ void calcularQuickSort(
 }
 
 /**
- * @brief Resuelve el problema con el algoritmo QuickSort y
- * calcula el tiempo de ejecución del algoritmo QuickSort
+ * @brief Resuelve el problema con el algoritmo BusquedaBinaria y
+ * calcula el tiempo de ejecución del algoritmo BusquedaBinaria
  * para resolver un problema dado.
  * @tparam TipoProblema Tipo de datos del problema.
  * @tparam TipoSolucion Tipo de datos de la solución.
- * @param kQuicksort Instancia del algoritmo QuickSort.
+ * @param kBusquedaBinaria Instancia del algoritmo BusquedaBinaria.
  * @param kCadaProblema Problema a resolver.
  * @param cada_solucion Referencia al puntero que contendrá la solución obtenida.
  * @param tiempos_por_instancia Vector donde se almacenarán los tiempos de ejecución.
@@ -104,6 +104,18 @@ void calcularBusquedaBinaria(
   nombres_algoritmos.push_back("BusquedaBinaria"); 
 }
 
+/**
+ * @brief Resuelve el problema con el algoritmo Hanoi y
+ * calcula el tiempo de ejecución del algoritmo Hanoi
+ * para resolver un problema dado.
+ * @tparam TipoProblema Tipo de datos del problema.
+ * @tparam TipoSolucion Tipo de datos de la solución.
+ * @param kHanoi Instancia del algoritmo Hanoi.
+ * @param kCadaProblema Problema a resolver.
+ * @param cada_solucion Referencia al puntero que contendrá la solución obtenida.
+ * @param tiempos_por_instancia Vector donde se almacenarán los tiempos de ejecución.
+ * @param nombres_algoritmos Vector donde se almacenarán los nombres de los algoritmos.
+ */
 template<typename TipoProblema, typename TipoSolucion>
 void calcularHanoi(
     const AlgoritmoDyVAccion<TipoProblema, TipoSolucion>* kHanoi,

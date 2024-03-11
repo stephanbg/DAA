@@ -5,11 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 27 de Febrero de 2024
+ * @since 6 de marzo de 2024
  * @file problema.h
  * @brief Definición de la clase Problema, que representa cualquier problema de DyV
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p04/src}
- * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
  */
 
 #pragma once
@@ -25,6 +25,10 @@
 template<typename TipoProblema>
 class Problema {
  public:
+  /**
+   * @brief Devuelve la elección del tamaño de la instancia del problema.
+   * @return Tamaño de la instancia elegido por el usuario.
+   */
   static const int eleccionSizeInstancia() {
     std::cout << "Cuantos número de elementos quieres para el problema?: ";
     std::string resultado = "";
@@ -36,5 +40,5 @@ class Problema {
   virtual const TipoProblema& getProblema() const = 0;
   virtual TipoProblema& setProblema() = 0;
   virtual void mostrarProblema() const = 0;
-  virtual ~Problema() {}
+  virtual ~Problema() {};
 };

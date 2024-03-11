@@ -5,7 +5,7 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 27 de Febrero de 2024
+ * @since 6 de marzo de 2024
  * @file problema-vectorial.cc
  * @brief Implementación de la clase ProblemaVectorial, que representa
  * cualquier problema vectorial de DyV, clase hija de la clase abstracta Problema
@@ -14,6 +14,32 @@
  */
 
 #include "problema-vectorial.h"
+
+/**
+ * @brief Constructor de problemas aleatorios con tamaños aleatorios (si se indica)
+ * @param generarAleatorio Si se indica como true se genera aleatorio
+ *     el problema, si no está vacío
+ */
+ProblemaVectorial::ProblemaVectorial(const bool kGenerarAleatorio) { 
+  if (kGenerarAleatorio) generadorInstanciaAleatoria();
+}
+
+/**
+ * @brief Constructor de problemas aleatorios (si se indica) con tamaños fijos
+ * @param kCantidadElementos Tamaño del problema
+ * @param generarAleatorio Si se indica como true se genera aleatorio
+ *     el problema, si no está vacío
+ */  
+ProblemaVectorial::ProblemaVectorial(const int kCantidadElementos, const bool kGenerarAleatorio) { 
+  problema_.resize(kCantidadElementos);
+  if (kGenerarAleatorio) generadorInstanciaAleatoriaSizeFijo();
+}
+
+/**
+ * @brief Constructor de problemas con copia de vector
+ * @param instancia el vector que se va a copiar como problema 
+ */
+ProblemaVectorial::ProblemaVectorial(const std::vector<int>& kInstancia): problema_(kInstancia) {} 
 
 /**
  * @brief Genera problemas de tamaño aleatorio
@@ -27,6 +53,10 @@ void ProblemaVectorial::generadorInstanciaAleatoria() {
   }
 }
 
+/**
+ * @brief Genera problemas de tamaño fijo
+ * y sus valores son aleatorios
+ */
 void ProblemaVectorial::generadorInstanciaAleatoriaSizeFijo() {
   const int kSizeInstancia = problema_.size();
   for (int pos = 0; pos < kSizeInstancia; ++pos) {

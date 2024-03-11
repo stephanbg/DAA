@@ -5,14 +5,14 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 27 de Febrero de 2024
+ * @since 6 de Marzo de 2024
  * @file calculos.h
- * @brief Definición de funciones, que se usarán en el main
- * para simplificarlo. Solamente llaman internamente a los métodos
- * de la clase AlgoritmoDyV para resolver los problemas y calculan los tiempos
+ * @brief Definición de funciones, para simplificar el cálculo
+ * de los algoritmos de DyV. Solamente llaman internamente a los algoritmos
+ * de DyV para resolver los problemas y calculan los tiempos
  * que se tardan.
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p04/src}
- * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
  */
 
 #pragma once

@@ -1,29 +1,9 @@
-/**
- * Universidad de La Laguna
- * Escuela Superior de Ingeniería y Tecnología
- * Grado en Ingeniería Informática
- * Diseño y Análisis de Algoritmos
- *
- * @author Stephan Brommer Gutiérrez
- * @since 27 de Febrero de 2024
- * @file mergesort.h
- * @brief Definición de la clase MergeSort, que se encarga de
- * realizar dicho algoritmo
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p04/src}
- * @see {@link https://docs.google.com/document/d/1CcrG-85_oTdAkTo-zgXkudKT8C8z7T7m2hUHVLGUReQ/edit#heading=h.5bq8rsdy1ujx}
- */
-
 #pragma once
 
 #include "../framework/algoritmoDyV.h"
 #include "../problema/problema-vector-matricial.h"
 #include "../solucion/solucion-matricial.h"
 
-/**
- * @brief Clase MergeSort, hereda de AlgoritmoDyV
- * Recibiendo como plantilla un problema vectorial de enteros y
- * devuelve una solución vectorial de enteros
- */
 class Strassen: public AlgoritmoDyV<std::vector<std::vector<std::vector<int>>>, std::vector<std::vector<int>>> {
  private:
   virtual bool Small(const Problema<std::vector<std::vector<std::vector<int>>>>*) const override;

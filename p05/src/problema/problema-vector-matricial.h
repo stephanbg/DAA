@@ -1,3 +1,18 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 6 de Marzo de 2024
+ * @file problema-vector-matricial.h
+ * @brief Definición de la clase ProblemaVectorMatricial, que representa
+ * cualquier problema vectorial de matrices, clase hija de la clase abstracta Problema
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
+ */
+
 #pragma once
 
 #include <vector>
@@ -8,30 +23,20 @@
 #include "problema.h"
 
 /**
- * @brief La clase ProblemaVectorial representa un problema vectorial.
+ * @brief La clase ProblemaVectorMatricial representa un problema vectorial de matrices.
  * Hereda de la clase Problema y proporciona funcionalidades
- * específicas para manipular vectores de enteros.
+ * específicas para manipular vectores de matrices de enteros.
  */
 class ProblemaVectorMatricial: public Problema<std::vector<std::vector<std::vector<int>>>> {
  public:
-  /**
-   * @brief Constructor de problemas aleatorios
-   * @param generarAleatorio Si se indica como true se genera aleatorio
-   *     el problema, si no está vacío
-   */
-  ProblemaVectorMatricial(const int kCantidadMatrices) { 
-    problema_.resize(kCantidadMatrices);
-  }
-  ProblemaVectorMatricial(const int kCantidadMatrices, const std::vector<std::pair<int, int>> kFilasColumnas) { 
-    problema_.resize(kCantidadMatrices);
-    for (int i = 0; i < kCantidadMatrices; ++i) {
-      problema_[i].resize(kFilasColumnas[i].first, std::vector<int>(kFilasColumnas[i].second));
-    }
-  }   
+  // Constructores
+  ProblemaVectorMatricial(const int);
+  ProblemaVectorMatricial::ProblemaVectorMatricial(const int, const std::vector<std::pair<int, int>>);
   // Getters y Setters
   virtual const std::vector<std::vector<std::vector<int>>>& getProblema() const override { return problema_; }
   virtual std::vector<std::vector<std::vector<int>>>& setProblema() override { return problema_; }
   virtual void mostrarProblema() const override;
+  // Meter datos
   void meterValores(const std::vector<std::vector<std::vector<int>>>&);
  private:
   std::vector<std::vector<std::vector<int>>> problema_{};
