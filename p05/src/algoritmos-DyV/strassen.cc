@@ -1,10 +1,37 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 6 de marzo de 2024
+ * @file strassen.cc
+ * @brief Implementación de la clase Strassen, que se encarga de
+ * realizar dicho algoritmo
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p05/src}
+ * @see {@link https://docs.google.com/document/d/1pwPk5iI5dRHo8M-raauPP5mgCUHy9m9j_au3UDkn_Rc/edit}
+ */
+
+
 #include "strassen.h"
 
+/**
+ * @brief Verifica si el tamaño de las dos matrices es de 2x2, lo que
+ * indica un problema pequeño para resolver directamente.
+ * @param kProblema El problema que se está evaluando.
+ * @return true Si el tamaño de las dos matrices es de 2x2, false
+ *    en caso contrario
+ */
 bool Strassen::Small(const Problema<std::vector<std::vector<std::vector<int>>>>* kProblema) const {
-  // Si son 2 matrices de tamaño 1 x 1 son pequeñas par ahacer A x B
   return (kProblema->getProblema()[0].size() == 2);
 }
 
+/**
+ * @brief Resuelve el problema pequeño directamente. 
+ * @param kProblema El problema pequeño que se va a resolver.
+ * @return La solución al problema.
+ */
 Solucion<std::vector<std::vector<int>>>* Strassen::SolveSmall(const Problema<std::vector<std::vector<std::vector<int>>>>* kProblema) const {
   // Resolver el problema pequeño directamente
   Solucion<std::vector<std::vector<int>>>* solucion = new SolucionMatricial(2, 2);
@@ -37,6 +64,12 @@ Solucion<std::vector<std::vector<int>>>* Strassen::SolveSmall(const Problema<std
   return solucion;
 }
 
+/**
+ * @brief Divide el problema en subproblemas más pequeños.
+ * @param kProblema El problema original a dividir.
+ * @param kSize El tamaño del problema.
+ * @return Un vector de subproblemas.
+ */
 const std::vector<Problema<std::vector<std::vector<std::vector<int>>>>*> Strassen::Divide(
     const Problema<std::vector<std::vector<std::vector<int>>>>* kProblema,
     const int kSize) const {
@@ -122,6 +155,11 @@ const std::vector<Problema<std::vector<std::vector<std::vector<int>>>>*> Strasse
   return resultadoSubProblemas;
 }
 
+/**
+ * @brief Combina las soluciones parciales de los subproblemas en una solución final.
+ * @param kSoluciones Vector que contiene las soluciones parciales de los subproblemas.
+ * @return Solucion<std::vector<std::vector<int>>>* La solución final combinada.
+ */
 Solucion<std::vector<std::vector<int>>>* Strassen::Combine(
     const std::vector<const Solucion<std::vector<std::vector<int>>>*>& kSoluciones) const {
   // Crear una solución matriz del tamaño correcto

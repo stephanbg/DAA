@@ -89,14 +89,14 @@ void ModoNormal::ejecutar(TablaAlgoritmos& tabla) const {
       std::vector<std::string> nombres_algoritmos;      
       calcularStrassen(strassen, cada_problema, cada_solucion,
         tiempos_por_instancia, nombres_algoritmos);
-      tabla.setSizeInstancias().push_back(cada_problema->getProblema()[0].size()); 
+      tabla.setSizeInstancias().push_back(cada_problema->getProblema().size()); 
       tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
       tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);
       tiempos_por_instancia.erase(tiempos_por_instancia.begin(), tiempos_por_instancia.end());
       nombres_algoritmos.erase(nombres_algoritmos.begin(), nombres_algoritmos.end());
       // Calcular matrices convencionales
       calcularMultiplicacionConvencional(cada_problema, tiempos_por_instancia, nombres_algoritmos);
-      tabla.setSizeInstancias().push_back(cada_problema->getProblema()[0].size()); 
+      tabla.setSizeInstancias().push_back(cada_problema->getProblema().size()); 
       tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
       tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);
     }
