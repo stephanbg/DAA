@@ -24,7 +24,9 @@
 #include "../framework/algoritmoDyV.h"
 #include "../framework/algoritmoDyVAccion.h"
 #include "../problema/problema.h"
+#include "../problema/problema-vector-matricial.h"
 #include "../solucion/solucion.h"
+#include "../p01_matrices/multiplicar_por_filas.h"
 
 // Todas las funciones que realizan los cálculos de los algoritmos
 template<typename TipoProblema, typename TipoSolucion>
@@ -59,6 +61,22 @@ void calcularHanoi(
     const AlgoritmoDyVAccion<TipoProblema, TipoSolucion>*,
     const Problema<TipoProblema>*,
     Solucion<TipoSolucion>*&,
+    std::vector<double>&,
+    std::vector<std::string>&
+);
+
+template<typename TipoProblema, typename TipoSolucion>
+void calcularStrassen(
+    const AlgoritmoDyV<TipoProblema, TipoSolucion>*,
+    const Problema<TipoProblema>*,
+    Solucion<TipoSolucion>*&,
+    std::vector<double>&,
+    std::vector<std::string>&
+);
+
+template<typename TipoProblema>
+void calcularMultiplicacionConvencional(
+    const Problema<TipoProblema>*,
     std::vector<double>&,
     std::vector<std::string>&
 );

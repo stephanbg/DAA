@@ -33,9 +33,22 @@ void introducirDatosRandEnConjunto(std::set<void*>& conjunto, const std::string&
       conjunto.insert(cada_instancia);
     } while (rand() % 10 != 0);
   } else if (kTipoDatos == "Matrices") {
-    /*do {
-      Problema<std::vector<std::vector<std::vector<int>>>>* cada_instancia = new ProblemaVectorMatricial(true);     
+    const int kNumeroMatrices = rand() % 3 + 2; // 2 <= kNumeroMatrices <= 4
+    const int kFilas = ProblemaVectorMatricial::cantidadFilas();
+    int columnas = ProblemaVectorMatricial::cantidadColumnas();  
+    while (columnas != kFilas) {
+      std::cout << "Las matrices para el algoritmo de strassen tienen que ser cuadradas.\n";
+      columnas = ProblemaVectorMatricial::cantidadColumnas();
+    }
+    std::vector<std::pair<int, int>> vectorDimensiones(kNumeroMatrices);
+    // Llenar el vector con las mismas dimensiones para todas las matrices
+    for (int i = 0; i < kNumeroMatrices; ++i) {
+      vectorDimensiones[i] = std::make_pair(kFilas, columnas);
+    }    
+    do {
+      Problema<std::vector<std::vector<std::vector<int>>>>* cada_instancia =
+          new ProblemaVectorMatricial(kNumeroMatrices, vectorDimensiones, true);
       conjunto.insert(cada_instancia);
-    } while (rand() % 10 != 0);*/
+    } while (rand() % 10 != 0);
   }
 }

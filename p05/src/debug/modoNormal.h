@@ -18,6 +18,7 @@
 #pragma once
 
 #include "debug.h"
+#include "../p01_matrices/multiplicar_por_filas.h"
 
 /**
  * @brief Clase ModoNormal

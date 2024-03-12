@@ -16,6 +16,15 @@
 #include "solucion-matricial.h"
 
 /**
+ * @brief Construye una solucion vacía con tamaño fila columnas
+ * @param kFilas filas de la solución
+ * @param kColumnas columnas de la solución
+ */
+SolucionMatricial::SolucionMatricial(const int kFilas, const int kColumnas) {
+  solucion_.resize(kFilas, std::vector<int>(kColumnas, 0));
+}
+
+/**
  * @brief Muetsra la solución matricial
  */
 void SolucionMatricial::mostrarSolucion() const {

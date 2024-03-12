@@ -25,15 +25,33 @@ ProblemaVectorMatricial::ProblemaVectorMatricial(const int kCantidadMatrices) {
 
 /**
  * @brief Constructor que inicializa el tamaño del problema con un número dado
- * de matrices y las dimensiones de cada una.
+ * de matrices y las dimensiones de cada una. Además, se le puede pasar un parámetro
+ * para inicializar matrices aleatorias.
  * @param kCantidadMatrices Número de matrices en el problema.
  * @param kFilasColumnas Vector de pares (filas, columnas) que indica las dimensiones de cada matriz.
+ * @param kGeneradorInstanciasAleatroia Bool que si está en true se rellenan las matrices con datos aleatorios.
  */
 ProblemaVectorMatricial::ProblemaVectorMatricial(const int kCantidadMatrices,
-    const std::vector<std::pair<int, int>> kFilasColumnas) { 
+    const std::vector<std::pair<int, int>> kFilasColumnas,
+    const bool kGeneradorInstanciasAleatroia) { 
   problema_.resize(kCantidadMatrices);
   for (int i = 0; i < kCantidadMatrices; ++i) {
     problema_[i].resize(kFilasColumnas[i].first, std::vector<int>(kFilasColumnas[i].second));
+  }
+  if (kGeneradorInstanciasAleatroia) generadorInstanciaAleatoriaSizeFijo();
+}
+
+/**
+ * @brief Genera instancias aleatorias de matrices con tamaños fijos.
+ */
+void ProblemaVectorMatricial::generadorInstanciaAleatoriaSizeFijo() {
+  for (auto& matriz : problema_) {
+    for (auto& fila : matriz) {
+      for (int& elemento : fila) {
+        // Asignar un valor aleatorio entre 1 y 1000
+        elemento = rand() % 10 + 1;
+      }
+    }
   }
 }
 
@@ -63,7 +81,8 @@ void ProblemaVectorMatricial::mostrarProblema() const {
 void ProblemaVectorMatricial::meterValores(const std::vector<std::vector<std::vector<int>>>& kMatrices) {
   const int kSize = kMatrices.size();
   const int kSizeProblema = problema_.size();
-  if (kSizeProblema == kSize) { // Si los tamaños son iguales, simplemente copiamos las matrices
+  if (kSizeProblema == 0) problema_ = kMatrices;
+  else if (kSizeProblema == kSize) { // Si los tamaños son iguales, simplemente copiamos las matrices
     for (int i = 0; i < kSize; ++i) {
       problema_[i] = kMatrices[i];
     }
@@ -81,4 +100,49 @@ void ProblemaVectorMatricial::meterValores(const std::vector<std::vector<std::ve
     }
     problema_.resize(kSize);
   }
+}
+
+/**
+ * @brief Solicita al usuario la cantidad de matrices que desea y devuelve el valor ingresado.
+ * @return Cantidad de matrices deseadas por el usuario.
+ */
+const int ProblemaVectorMatricial::cantidadMatrices() {
+  std::cout << "Dime la cantidad de Matrices que desea (Necesitamos mínimo 2 si vamos a hacer operaciones): ";
+  std::string numero;
+  while (std::cin >> numero) {
+    if (contieneSoloDigitos(numero) && numero >= "2") break;
+    std::cout << "Tienen que ser mínimo 2 matrices." << std::endl;
+    std::cout << "Que número de matrices desea: ";
+  }
+  return stoi(numero);
+}
+
+/**
+ * @brief Solicita al usuario la cantidad de filas que desea y devuelve el valor ingresado.
+ * @return Cantidad de filas deseadas por el usuario.
+ */
+const int ProblemaVectorMatricial::cantidadFilas() {
+  std::cout << "Dime la cantidad de filas que desea: ";
+  std::string numero;
+  while (std::cin >> numero) {
+    if (contieneSoloDigitos(numero) && numero >= "1") break;
+    std::cout << "Tienen que ser mínimo 1 fila." << std::endl;
+    std::cout << "Que número de filas desea: ";
+  }
+  return stoi(numero);
+}
+
+/**
+ * @brief Solicita al usuario la cantidad de columnas que desea y devuelve el valor ingresado.
+ * @return Cantidad de columnas deseadas por el usuario.
+ */
+const int ProblemaVectorMatricial::cantidadColumnas() {
+  std::cout << "Dime la cantidad de columnas que desea: ";
+  std::string numero;
+  while (std::cin >> numero) {
+    if (contieneSoloDigitos(numero) && numero >= "1") break;
+    std::cout << "Tienen que ser mínimo 1 columna." << std::endl;
+    std::cout << "Que número de columnas desea: ";
+  }
+  return stoi(numero);
 }

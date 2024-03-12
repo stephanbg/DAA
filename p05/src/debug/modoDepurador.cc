@@ -23,12 +23,13 @@
 void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
   std::cout << "\nHa elegido el modo Depurador" << std::endl << std::endl;
   const std::string kEleccion = this->eleccionDeAlgoritmo();
-  const int kSizeInstancia = Problema<void*>::eleccionSizeInstancia();
+  int sizeInstancia;
+  if (kEleccion != "5") sizeInstancia = Problema<void*>::eleccionSizeInstancia();
   std::vector<double> tiempos_por_instancia;
   std::vector<std::string> nombres_algoritmos;
   if (kEleccion == "1") {
     AlgoritmoDyV<std::vector<int>, std::vector<int>>* mergesort = new MergeSort();
-    Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(kSizeInstancia, true);
+    Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(sizeInstancia, true);
     Solucion<std::vector<int>>* cada_solucion = new SolucionVectorial;    
     calcularMergeSort(mergesort, cada_problema, cada_solucion,
                       tiempos_por_instancia, nombres_algoritmos);
@@ -39,7 +40,7 @@ void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
     std::cout << std::endl;
   } else if (kEleccion == "2") {
     AlgoritmoDyV<std::vector<int>, std::vector<int>>* quicksort = new QuickSort();
-    Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(kSizeInstancia, true);
+    Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(sizeInstancia, true);
     Solucion<std::vector<int>>* cada_solucion = new SolucionVectorial;    
     calcularQuickSort(quicksort, cada_problema, cada_solucion,
                       tiempos_por_instancia, nombres_algoritmos);
@@ -50,7 +51,7 @@ void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
     std::cout << std::endl;
   } else if (kEleccion == "3") {
     AlgoritmoDyV<std::vector<int>, std::vector<int>>* mergesort = new MergeSort();
-    Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(kSizeInstancia, true);
+    Problema<std::vector<int>>* cada_problema = new ProblemaVectorial(sizeInstancia, true);
     Solucion<std::vector<int>>* cada_solucion = new SolucionVectorial;    
     cada_solucion = mergesort->Solve(cada_problema, cada_problema->getProblema().size());
     cada_problema->setProblema() = cada_solucion->getSolucion();
@@ -69,7 +70,7 @@ void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
     AlgoritmoDyVAccion<std::vector<std::stack<int>>, std::stack<int>>* hanoi = new Hanoi();
     const int kNumeroPilas = ProblemaVectorPilas::cantidadPilas();
     Problema<std::vector<std::stack<int>>>* cada_problema = new ProblemaVectorPilas(kNumeroPilas,
-        kSizeInstancia, true);
+        sizeInstancia, true);
     Solucion<std::stack<int>>* cada_solucion = new SolucionPila;
     calcularHanoi(hanoi, cada_problema, cada_solucion,
         tiempos_por_instancia, nombres_algoritmos);
@@ -79,7 +80,30 @@ void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
     cada_solucion->mostrarInfoSolucion("Hanoi", hanoi->Recurrence());
     std::cout << std::endl;    
   } else if (kEleccion == "5") {
-    std::cout << "Strassen: [5]" << std::endl;
+    AlgoritmoDyV<std::vector<std::vector<std::vector<int>>>, std::vector<std::vector<int>>>* strassen =
+        new Strassen();
+    const int kNumeroMatrices = ProblemaVectorMatricial::cantidadMatrices();
+    const int kFilas = ProblemaVectorMatricial::cantidadFilas();
+    int columnas = ProblemaVectorMatricial::cantidadColumnas();  
+    while (columnas != kFilas) {
+      std::cout << "Las matrices para el algoritmo de strassen tienen que ser cuadradas.\n";
+      columnas = ProblemaVectorMatricial::cantidadColumnas();
+    }
+    std::vector<std::pair<int, int>> vectorDimensiones(kNumeroMatrices);
+    // Llenar el vector con las mismas dimensiones para todas las matrices
+    for (int i = 0; i < kNumeroMatrices; ++i) {
+      vectorDimensiones[i] = std::make_pair(kFilas, columnas);
+    }
+    Problema<std::vector<std::vector<std::vector<int>>>>* cada_problema =
+        new ProblemaVectorMatricial(kNumeroMatrices, vectorDimensiones, true);
+    Solucion<std::vector<std::vector<int>>>* cada_solucion = new SolucionMatricial;
+    calcularStrassen(strassen, cada_problema, cada_solucion,
+        tiempos_por_instancia, nombres_algoritmos);
+    std::cout << "\nInstancia:\n";
+    cada_problema->mostrarProblema();
+    std::cout << std::endl;
+    cada_solucion->mostrarInfoSolucion("Strassen", strassen->Recurrence());
+    std::cout << std::endl;
   }
   const std::string kParaLanzamientoDatosATabla = "Se lanza excepción para no mostrar tabla de tiempos.\n";
   throw (kParaLanzamientoDatosATabla);

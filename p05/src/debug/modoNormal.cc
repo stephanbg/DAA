@@ -77,6 +77,28 @@ void ModoNormal::ejecutar(TablaAlgoritmos& tabla) const {
     }
   } else if (kEleccion == "5") {
     introducirDatosRandEnConjunto(conjunto, "Matrices");
-    std::cout << "Strassen: [5]" << std::endl;
+    AlgoritmoDyV<std::vector<std::vector<std::vector<int>>>, std::vector<std::vector<int>>>* strassen =
+        new Strassen();
+    Problema<std::vector<std::vector<std::vector<int>>>>* cada_problema = new ProblemaVectorMatricial;
+    Solucion<std::vector<std::vector<int>>>* cada_solucion = new SolucionMatricial;
+    std::cout << "\nTambién se procederá a realizar la multiplicación de matrices";
+    std::cout << "\nconvencionales, para comparar complejidades.\n\n";
+    for (auto &ptr : conjunto) {
+      cada_problema = static_cast<Problema<std::vector<std::vector<std::vector<int>>>>*>(ptr);
+      std::vector<double> tiempos_por_instancia;
+      std::vector<std::string> nombres_algoritmos;      
+      calcularStrassen(strassen, cada_problema, cada_solucion,
+        tiempos_por_instancia, nombres_algoritmos);
+      tabla.setSizeInstancias().push_back(cada_problema->getProblema()[0].size()); 
+      tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
+      tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);
+      tiempos_por_instancia.erase(tiempos_por_instancia.begin(), tiempos_por_instancia.end());
+      nombres_algoritmos.erase(nombres_algoritmos.begin(), nombres_algoritmos.end());
+      // Calcular matrices convencionales
+      calcularMultiplicacionConvencional(cada_problema, tiempos_por_instancia, nombres_algoritmos);
+      tabla.setSizeInstancias().push_back(cada_problema->getProblema()[0].size()); 
+      tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
+      tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);
+    }
   }
 }

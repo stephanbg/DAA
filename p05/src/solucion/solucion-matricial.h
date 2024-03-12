@@ -28,6 +28,8 @@
  */
 class SolucionMatricial: public Solucion<std::vector<std::vector<int>>> {
  public:
+  SolucionMatricial() {}
+  SolucionMatricial(const int, const int);
   // Getters y Setters
   virtual const std::vector<std::vector<int>>& getSolucion() const override { return solucion_; }
   virtual std::vector<std::vector<int>>& setSolucion() override { return solucion_; }

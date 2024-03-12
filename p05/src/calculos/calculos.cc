@@ -132,4 +132,80 @@ void calcularHanoi(
   nombres_algoritmos.push_back("Hanoi"); 
 }
 
+/**
+ * @brief Resuelve el problema con el algoritmo Strassen y
+ * calcula el tiempo de ejecución del algoritmo Strassen
+ * para resolver un problema dado.
+ * @tparam TipoProblema Tipo de datos del problema.
+ * @tparam TipoSolucion Tipo de datos de la solución.
+ * @param kStrassen Instancia del algoritmo Strassen.
+ * @param kCadaProblema Problema a resolver.
+ * @param cada_solucion Referencia al puntero que contendrá la solución obtenida.
+ * @param tiempos_por_instancia Vector donde se almacenarán los tiempos de ejecución.
+ * @param nombres_algoritmos Vector donde se almacenarán los nombres de los algoritmos.
+ */
+template<typename TipoProblema, typename TipoSolucion>
+void calcularStrassen(
+    const AlgoritmoDyV<TipoProblema, TipoSolucion>* kStrassen,
+    const Problema<TipoProblema>* kCadaProblema,
+    Solucion<TipoSolucion>*& cada_solucion,
+    std::vector<double>& tiempos_por_instancia,
+    std::vector<std::string>& nombres_algoritmos
+) {
+  const int kCantidadMultiplicaciones = kCadaProblema->getProblema().size() - 1;
+  Problema<std::vector<std::vector<std::vector<int>>>>* problemaAux = new ProblemaVectorMatricial;
+  Problema<std::vector<std::vector<std::vector<int>>>>* soloDosProblemas = new ProblemaVectorMatricial;
+  problemaAux->setProblema() = kCadaProblema->getProblema();
+  const auto kInicioTiempo = std::chrono::steady_clock::now();
+  for (int i = 0; i < kCantidadMultiplicaciones; ++i) {
+    std::vector<std::vector<std::vector<int>>> primeros_elementos(problemaAux->getProblema().begin(), problemaAux->getProblema().begin() + 2);
+    // Establecer los dos primeros elementos como el problema en problemaAux
+    soloDosProblemas->setProblema() = primeros_elementos;    
+    cada_solucion = kStrassen->Solve(soloDosProblemas, soloDosProblemas->getProblema().size());
+    // Elimina las dos primeras matrices de problemaAux
+    problemaAux->setProblema().erase(problemaAux->getProblema().begin(), problemaAux->getProblema().begin() + 2);
+    // Añade la solución al inicio
+    problemaAux->setProblema().insert(problemaAux->getProblema().begin(), cada_solucion->getSolucion());
+  }
+  const auto kFinTiempo = std::chrono::steady_clock::now();
+  const auto kDuracion = std::chrono::duration_cast<std::chrono::microseconds>(kFinTiempo - kInicioTiempo);
+  tiempos_por_instancia.push_back(kDuracion.count());
+  nombres_algoritmos.push_back("Strassen"); 
+}
+
+/**
+ * @brief Resuelve el problema con el algoritmo de multiplicación convencional y
+ * calcula el tiempo de ejecución del algoritmo multiplicación convencional
+ * para resolver un problema dado.
+ * @tparam TipoProblema Tipo de datos del problema.
+ * @param kCadaProblema Problema a resolver.
+ * @param tiempos_por_instancia Vector donde se almacenarán los tiempos de ejecución.
+ * @param nombres_algoritmos Vector donde se almacenarán los nombres de los algoritmos.
+ */
+template<typename TipoProblema>
+void calcularMultiplicacionConvencional(
+    const Problema<TipoProblema>* kCadaProblema,
+    std::vector<double>& tiempos_por_instancia,
+    std::vector<std::string>& nombres_algoritmos
+) {
+  const int kCantidadMatrices = kCadaProblema->getProblema().size();
+  const int kCantidadMultiplicaciones = kCantidadMatrices - 1;
+  std::vector<Matriz> matrices(kCantidadMatrices);
+  for (int i = 0; i < kCantidadMatrices; i++) {
+    matrices[i].set_matriz() = kCadaProblema->getProblema()[i];
+  }
+  MultiplicarPorFilas multiplicarPorFilas;
+  Matriz matrizMultiplicada;
+  const auto kInicioTiempo = std::chrono::steady_clock::now();
+  for (int i = 0; i < kCantidadMultiplicaciones; ++i) {
+    matrizMultiplicada = multiplicarPorFilas.Multiplicar(matrices[0], matrices[1]);
+    matrices.erase(matrices.begin(), matrices.begin() + 2);
+    matrices.insert(matrices.begin(), matrizMultiplicada);
+  }
+  const auto kFinTiempo = std::chrono::steady_clock::now();
+  const auto kDuracion = std::chrono::duration_cast<std::chrono::microseconds>(kFinTiempo - kInicioTiempo);
+  tiempos_por_instancia.push_back(kDuracion.count());
+  nombres_algoritmos.push_back("Mul. convencional");
+}
+
 #endif
