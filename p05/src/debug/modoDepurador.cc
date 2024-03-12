@@ -104,6 +104,16 @@ void ModoDepurador::ejecutar(TablaAlgoritmos& tabla) const {
     std::cout << std::endl;
     cada_solucion->mostrarInfoSolucion("Strassen", strassen->Recurrence());
     std::cout << std::endl;
+  } else if (kEleccion == "6") {
+    Problema<int>* problema = new ProblemaInteger();
+    Solucion<int>* solucion = new SolucionInteger();
+    AlgoritmoDyV<int, int>* fibonacci = new Fibonacci();
+    for (int i = 0; i <= sizeInstancia; i++) {
+      problema->setProblema() = i;
+      solucion = fibonacci->Solve(problema, 0);
+      solucion->mostrarSolucion();
+      std::cout << std::endl;
+    }  
   }
   const std::string kParaLanzamientoDatosATabla = "Se lanza excepción para no mostrar tabla de tiempos.\n";
   throw (kParaLanzamientoDatosATabla);

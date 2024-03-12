@@ -16,6 +16,7 @@
 
 #include "debug/debug.h"
 #include "tablaAlgoritmos/tablaAlgoritmos.h"
+#include "algoritmos-DyV/fibonacci.h"
 
 /**
  * @brief Función principal del programa.

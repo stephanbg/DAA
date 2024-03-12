@@ -15,7 +15,7 @@ LDFLAGS =
 
 all: main
 
-main: main.o funcionesNecesarias/funcionesNecesarias.o debug/debug.o debug/modoNormal.o debug/modoDepurador.o introducirDatosEnConjunto/introducirDatosEnConjunto.o problema/problema-vectorial.o problema/problema-vector-matricial.o solucion/solucion-vectorial.o framework/algoritmoDyV.o framework/algoritmoDyVAccion.o algoritmos-DyV/mergesort.o algoritmos-DyV/quicksort.o algoritmos-DyV/busqueda_binaria.o algoritmos-DyV/hanoi.o algoritmos-DyV/strassen.o problema/problema-vector-pilas.o solucion/solucion-pila.o solucion/solucion-matricial.o tablaAlgoritmos/tablaAlgoritmos.o calculos/calculos.o p01_matrices/matriz.o p01_matrices/multiplicar_por_filas.o p01_matrices/multiplicar_por_columnas.o p01_matrices/funciones_necesarias.o p01_matrices/comprobar_filas_columnas.o
+main: main.o funcionesNecesarias/funcionesNecesarias.o debug/debug.o debug/modoNormal.o debug/modoDepurador.o introducirDatosEnConjunto/introducirDatosEnConjunto.o problema/problema-vectorial.o problema/problema-vector-matricial.o solucion/solucion-vectorial.o framework/algoritmoDyV.o framework/algoritmoDyVAccion.o algoritmos-DyV/mergesort.o algoritmos-DyV/fibonacci.o algoritmos-DyV/quicksort.o algoritmos-DyV/busqueda_binaria.o algoritmos-DyV/hanoi.o algoritmos-DyV/strassen.o problema/problema-vector-pilas.o solucion/solucion-pila.o solucion/solucion-matricial.o tablaAlgoritmos/tablaAlgoritmos.o calculos/calculos.o p01_matrices/matriz.o p01_matrices/multiplicar_por_filas.o p01_matrices/multiplicar_por_columnas.o p01_matrices/funciones_necesarias.o p01_matrices/comprobar_filas_columnas.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean

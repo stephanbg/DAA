@@ -50,9 +50,9 @@ const std::vector<Problema<std::vector<int>>*> QuickSort::Divide(
     const int kSize) const {
   Problema<std::vector<int>>* menores = new ProblemaVectorial;
   Problema<std::vector<int>>* mayores = new ProblemaVectorial;
-  const int kPivote = kProblema->getProblema()[kSize - 1];
+  const int kPivote = kProblema->getProblema()[kProblema->getProblema().size() - 1];
   mayores->setProblema().push_back(kPivote);
-  for (int i = 0; i < kSize - 1; i++) {
+  for (int i = 0; i < kProblema->getProblema().size() - 1; i++) {
     if (kProblema->getProblema()[i] <= kPivote) {
       menores->setProblema().push_back(kProblema->getProblema()[i]);
     } else mayores->setProblema().push_back(kProblema->getProblema()[i]);

@@ -36,7 +36,7 @@ Solucion<TipoSolucion>* AlgoritmoDyV<TipoProblema, TipoSolucion>::Solve(
     const int kSizeProblemaDividido = kProblemaDividido.size();
     std::vector<const Solucion<TipoSolucion>*>  soluciones;
     for (int n = 0; n < kSizeProblemaDividido; ++n) {
-      soluciones.push_back(Solve(kProblemaDividido[n], kProblemaDividido[n]->getProblema().size()));
+      soluciones.push_back(Solve(kProblemaDividido[n], 0));
     }
     Solucion<TipoSolucion>* solucion = Combine(soluciones);
     return solucion;

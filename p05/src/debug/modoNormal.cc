@@ -100,5 +100,20 @@ void ModoNormal::ejecutar(TablaAlgoritmos& tabla) const {
       tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
       tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);
     }
+  } else if (kEleccion == "6") {
+    introducirDatosRandEnConjunto(conjunto, "Integer");
+    Problema<int>* problema = new ProblemaInteger();
+    Solucion<int>* solucion = new SolucionInteger();
+    AlgoritmoDyV<int, int>* fibonacci = new Fibonacci();    
+    for (auto &ptr : conjunto) {
+      problema = static_cast<Problema<int>*>(ptr);
+      std::vector<double> tiempos_por_instancia;
+      std::vector<std::string> nombres_algoritmos;      
+      calcularFibonacci(fibonacci, problema, solucion,
+          tiempos_por_instancia, nombres_algoritmos);
+      tabla.setSizeInstancias().push_back(conjunto.size()); 
+      tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
+      tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);                     
+    }    
   }
 }

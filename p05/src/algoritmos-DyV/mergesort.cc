@@ -48,11 +48,11 @@ Solucion<std::vector<int>>* MergeSort::SolveSmall(const Problema<std::vector<int
 const std::vector<Problema<std::vector<int>>*> MergeSort::Divide(
     const Problema<std::vector<int>>* kProblema,
     const int kSize) const {
-  const size_t kMitad = kSize / 2;
+  const size_t kMitad = kProblema->getProblema().size() / 2;
   std::vector<Problema<std::vector<int>>*> resultado(2);
   resultado[0] = new ProblemaVectorial();
   resultado[1] = new ProblemaVectorial();  
-  for (int i = 0; i < kSize; ++i) {
+  for (int i = 0; i < kProblema->getProblema().size(); ++i) {
     const int kElemento = kProblema->getProblema()[i];
     if (i < kMitad) resultado[0]->setProblema().push_back(kElemento);
     else resultado[1]->setProblema().push_back(kElemento);

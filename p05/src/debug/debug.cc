@@ -55,19 +55,22 @@ const std::string Debug::eleccionDeAlgoritmo() const {
   std::cout << "BusquedaBinaria: [3]" << std::endl;
   std::cout << "Hanoi: [4]" << std::endl;
   std::cout << "Strassen: [5]" << std::endl;
+  std::cout << "Fibonacci: [6]" << std::endl;
   std::string eleccion = "";
   while (std::cin >> eleccion &&
          eleccion != "1" &&
          eleccion != "2" &&
          eleccion != "3" &&
          eleccion != "4" &&
-         eleccion != "5") {
+         eleccion != "5" &&
+         eleccion != "6") {
     std::cout << "\nNo es una opción permitida" << std::endl << std::endl;
     std::cout << "MergeSort: [1]" << std::endl;
     std::cout << "QuickSort: [2]" << std::endl;
     std::cout << "BinarySort: [3]" << std::endl;
     std::cout << "Hanoi: [4]" << std::endl;
     std::cout << "Strassen: [5]" << std::endl;
+    std::cout << "Fibonacci: [6]" << std::endl;
     std::cout << "Elija el algoritmo que desea ejecutar:\n";
   }
   return eleccion; 

@@ -50,5 +50,10 @@ void introducirDatosRandEnConjunto(std::set<void*>& conjunto, const std::string&
           new ProblemaVectorMatricial(kNumeroMatrices, vectorDimensiones, true);
       conjunto.insert(cada_instancia);
     } while (rand() % 10 != 0);
+  } else if (kTipoDatos == "Integer") {
+    do {
+      Problema<int>* cada_instancia = new ProblemaInteger(true);     
+      conjunto.insert(cada_instancia);
+    } while (rand() % 10 != 0);
   }
 }

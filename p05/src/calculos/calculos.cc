@@ -208,4 +208,33 @@ void calcularMultiplicacionConvencional(
   nombres_algoritmos.push_back("Mul. convencional");
 }
 
+/**
+ * @brief Resuelve el problema con el algoritmo Hanoi y
+ * calcula el tiempo de ejecución del algoritmo Hanoi
+ * para resolver un problema dado.
+ * @tparam TipoProblema Tipo de datos del problema.
+ * @tparam TipoSolucion Tipo de datos de la solución.
+ * @param kHanoi Instancia del algoritmo Hanoi.
+ * @param kCadaProblema Problema a resolver.
+ * @param cada_solucion Referencia al puntero que contendrá la solución obtenida.
+ * @param tiempos_por_instancia Vector donde se almacenarán los tiempos de ejecución.
+ * @param nombres_algoritmos Vector donde se almacenarán los nombres de los algoritmos.
+ */
+template<typename TipoProblema, typename TipoSolucion>
+void calcularFibonacci(
+    const AlgoritmoDyV<TipoProblema, TipoSolucion>* kFibonacci,
+    const Problema<TipoProblema>* kCadaProblema,
+    Solucion<TipoSolucion>*& cada_solucion,
+    std::vector<double>& tiempos_por_instancia,
+    std::vector<std::string>& nombres_algoritmos
+) {
+  const auto kInicioTiempo = std::chrono::steady_clock::now();
+  cada_solucion = kFibonacci->Solve(kCadaProblema, 0);
+  const auto kFinTiempo = std::chrono::steady_clock::now();
+  const auto kDuracion = std::chrono::duration_cast<std::chrono::microseconds>(kFinTiempo - kInicioTiempo);
+  tiempos_por_instancia.push_back(kDuracion.count());
+  nombres_algoritmos.push_back("Fibonacci"); 
+}
+
+
 #endif
