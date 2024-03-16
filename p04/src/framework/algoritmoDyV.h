@@ -17,6 +17,7 @@
 
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "../problema/problema.h"
 #include "../solucion/solucion.h"
@@ -34,6 +35,9 @@ class AlgoritmoDyV {
   // Métodos que servirán de esqueleto para todas las clases hijas
   virtual Solucion<TipoSolucion>* Solve(const Problema<TipoProblema>*, const int) const;
   virtual const std::string Recurrence() const;
+  const int getMaximoNivel(const int kSize) const {
+    return log(kSize) / log(getBase());
+  }
   virtual ~AlgoritmoDyV() {}
  protected:
   // Todos los métodos virtuales que se implementarán para todos los algoritmos de DyV
@@ -44,6 +48,7 @@ class AlgoritmoDyV {
   virtual const std::string getA() const = 0;
   virtual const std::string getB() const = 0;
   virtual const std::string getC() const = 0;
+  virtual const int getBase() const = 0;
 };
 
 #include "algoritmoDyV.cc"

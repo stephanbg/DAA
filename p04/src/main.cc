@@ -50,9 +50,11 @@ int main() {
   Solucion<std::vector<int>>* cada_solucion = new SolucionVectorial;
   TablaAlgoritmos tabla;
   // Para cada instancia, ejecute los algoritmos MergeSort y QuickSort.
-  for (const std::vector<int>& instancia : conjunto) {
+  for (const std::vector<int> instancia : conjunto) {
     std::vector<double> tiempos_por_instancia;
-    std::vector<std::string> nombres_algoritmos;    
+    std::vector<std::string> nombres_algoritmos;
+    std::vector<int> max_nivel_recursividad;
+    int maximoNivelRecursividad = 0;    
     tabla.setSizeInstancias().push_back(instancia.size()); 
     cada_problema->setProblema() = instancia;
     std::cout << "Problema: ";
@@ -60,17 +62,25 @@ int main() {
     // MergeSort
     calcularMergeSort<std::vector<int>, std::vector<int>>(mergesort, cada_problema, cada_solucion,
                                                           tiempos_por_instancia, nombres_algoritmos);
+    maximoNivelRecursividad = mergesort->getMaximoNivel(cada_problema->getProblema().size());
+    max_nivel_recursividad.push_back(maximoNivelRecursividad);
     std::cout << RED << std::endl << std::endl; 
     cada_solucion->mostrarInfoSolucion("MergeSort", mergesort->Recurrence());
     std::cout << RESET;
+    std::cout << "\nMAX LEVEL: " << maximoNivelRecursividad << std::endl;
     // QuickSort
     calcularQuickSort<std::vector<int>, std::vector<int>>(quicksort, cada_problema, cada_solucion,
                                                           tiempos_por_instancia, nombres_algoritmos);  
+    maximoNivelRecursividad = quicksort->getMaximoNivel(cada_problema->getProblema().size());
+    max_nivel_recursividad.push_back(maximoNivelRecursividad);
+    std::cout << "\nMAX LEVEL: " << maximoNivelRecursividad << std::endl;
     std::cout << BLUE << std::endl << std::endl;
     cada_solucion->mostrarInfoSolucion("QuickSort", quicksort->Recurrence());
     std::cout << RESET << std::endl << std::endl;
+    tabla.setNivelesRecursividad().push_back(max_nivel_recursividad);
     tabla.setTiempoAlgoritmos().push_back(tiempos_por_instancia);
     tabla.setNombresAlgoritmos().push_back(nombres_algoritmos);
+    //exit(EXIT_FAILURE);
   }
   /* Mostrar por pantalla (y opcionalmente por fichero) una tabla con
   la comparación de tiempos de ejecución de los algoritmos para diferentes tamaños de instancia.*/

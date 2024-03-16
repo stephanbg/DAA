@@ -30,6 +30,7 @@
 template<typename TipoProblema, typename TipoSolucion>
 Solucion<TipoSolucion>* AlgoritmoDyV<TipoProblema, TipoSolucion>::Solve(
   const Problema<TipoProblema>* kProblema, const int kSize) const {
+  //maximoNivel_++;
   if (Small(kProblema)) return SolveSmall(kProblema);
   else {
     const std::vector<Problema<TipoProblema>*> kProblemaDividido = Divide(kProblema, kSize);
@@ -54,5 +55,10 @@ template<typename TipoProblema, typename TipoSolucion>
 const std::string AlgoritmoDyV<TipoProblema, TipoSolucion>::Recurrence() const {
   return ("T(n) <= " + getA() + "T(" + getB() + ") + " + getC());
 }
+
+/*template<typename TipoProblema, typename TipoSolucion>
+const int AlgoritmoDyV<TipoProblema, TipoSolucion>::getMaximoNivel(const Problema<TipoProblema>* kProblema) const {
+  return log(kProblema->getProblema().size()) / log(getBase());
+}*/
 
 #endif

@@ -34,5 +34,6 @@ class MergeSort: public AlgoritmoDyV<std::vector<int>, std::vector<int>> {
       const std::vector<const Solucion<std::vector<int>>*>&) const override;
   virtual const std::string getA() const override { return "2"; }
   virtual const std::string getB() const override { return "n/2"; }
-  virtual const std::string getC() const override { return "n"; }  
+  virtual const std::string getC() const override { return "n"; } 
+  virtual const int getBase() const override { return 2; }
 };

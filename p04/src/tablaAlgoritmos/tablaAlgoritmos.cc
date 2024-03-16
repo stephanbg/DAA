@@ -25,7 +25,8 @@ void TablaAlgoritmos::imprimirTabla() const {
     std::cout << "\nTamaño instancia: " << sizeInstancias_[i] << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     for (int j = 0; j < tiempoAlgoritmos_[i].size(); ++j) {
-      std::cout << nombresAlgoritmos_[i][j] << ": " << tiempoAlgoritmos_[i][j] << " µs";
+      std::cout << nombresAlgoritmos_[i][j] << ": " << tiempoAlgoritmos_[i][j] << " µs" << std::endl;
+      std::cout << "MAX NIVEL RECURSIVIDAD: " << maximoNivelesRecursividad_[i][j] << std::endl;       
       if (j < tiempoAlgoritmos_[i].size() - 1) std::cout << std::endl;
     }
     std::cout << std::endl;
@@ -42,7 +43,8 @@ void TablaAlgoritmos::meterEnFicheroTabla() const {
     archivo << "Tamaño instancia: " << sizeInstancias_[i] << std::endl;
     archivo << "------------------------------------------" << std::endl;
     for (int j = 0; j < tiempoAlgoritmos_[i].size(); ++j) {
-      archivo << nombresAlgoritmos_[i][j] << ": " << tiempoAlgoritmos_[i][j] << " µs";
+      archivo << nombresAlgoritmos_[i][j] << ": " << tiempoAlgoritmos_[i][j] << " µs" << std::endl;
+      archivo << "MAX NIVEL RECURSIVIDAD: " << maximoNivelesRecursividad_[i][j] << std::endl;       
       if (j < tiempoAlgoritmos_[i].size() - 1) archivo << std::endl;
     }
     archivo << std::endl << std::endl;
