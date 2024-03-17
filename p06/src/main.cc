@@ -56,9 +56,9 @@ int main(int argc, char *argv[]) {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, 1);
     // Genera los ficheros 
-    //do {
-      //GeneradorInstanciasAleatorias::generadorRand(kNumNodos, argv[1]);
-    //} while (dis(gen) != 0);
+    do {
+      GeneradorInstanciasAleatorias::generadorRand(kNumNodos, argv[1]);
+    } while (dis(gen) != 0);
     const std::set<std::string> kConjuntoNombresFichero = GeneradorInstanciasAleatorias::getFicherosRand();
     std::pair<long double, long double> coste_y_tiempo_ejecucion_algoritmo;
     // Recorre los nombres de los ficheros

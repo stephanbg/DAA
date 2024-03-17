@@ -103,18 +103,6 @@ void ProgramacionDinamicaTSP::rellenarTablas(
       }
     }
   }
-  for (auto a : tabla_costes) {
-    for (auto b : a) {
-      std::cout << b << " ";
-    }
-    std::cout << std::endl;
-  }
-  for (auto a : tabla_nodos) {
-    for (auto b : a) {
-      std::cout << b << " ";
-    }
-    std::cout << std::endl;
-  }
 }
 
 /**
