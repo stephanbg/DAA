@@ -1,0 +1,65 @@
+Instancia: ejemplo1.txt
+Valor Fuerza Bruta: 55
+Tiempo Fuerza Bruta (ms) : 0
+Camino mínimo: A -> B -> C -> D -> A
+
+Valor Programación Dinámica: 55
+Tiempo Programación Dinámica (ms) : 0
+Camino mínimo: A -> B -> C -> D -> A
+
+Valor Voraz: 85
+Tiempo Voraz (ms) : 0
+Camino mínimo: A -> C -> D -> B -> A
+
+Instancia: ejemplo2.txt
+Valor Fuerza Bruta: 18
+Tiempo Fuerza Bruta (ms) : 0
+Camino mínimo: A -> B -> E -> C -> D -> A
+
+Valor Programación Dinámica: 18
+Tiempo Programación Dinámica (ms) : 0
+Camino mínimo: A -> D -> C -> E -> B -> A
+
+Valor Voraz: 18
+Tiempo Voraz (ms) : 0
+Camino mínimo: A -> B -> E -> C -> D -> A
+
+Instancia: rand_4148.txt
+Valor Fuerza Bruta: 193.118
+Tiempo Fuerza Bruta (ms) : 692
+Camino mínimo: A -> C -> H -> I -> B -> J -> E -> D -> F -> G -> A
+
+Valor Programación Dinámica: 243.281
+Tiempo Programación Dinámica (ms) : 9
+Camino mínimo: A -> B -> I -> H -> C -> J -> E -> D -> F -> G -> A
+
+Valor Voraz: 243.281
+Tiempo Voraz (ms) : 0
+Camino mínimo: A -> G -> F -> D -> E -> J -> C -> H -> I -> B -> A
+
+Instancia: rand_6223.txt
+Valor Fuerza Bruta: 220.966
+Tiempo Fuerza Bruta (ms) : 724
+Camino mínimo: A -> J -> F -> G -> H -> B -> E -> C -> D -> I -> A
+
+Valor Programación Dinámica: 220.966
+Tiempo Programación Dinámica (ms) : 9
+Camino mínimo: A -> I -> D -> C -> E -> B -> H -> G -> F -> J -> A
+
+Valor Voraz: 334.512
+Tiempo Voraz (ms) : 0
+Camino mínimo: A -> J -> F -> C -> D -> I -> B -> H -> G -> E -> A
+
+Instancia: rand_8948.txt
+Valor Fuerza Bruta: 262.047
+Tiempo Fuerza Bruta (ms) : 627
+Camino mínimo: A -> C -> G -> I -> H -> F -> E -> B -> D -> J -> A
+
+Valor Programación Dinámica: 262.047
+Tiempo Programación Dinámica (ms) : 9
+Camino mínimo: A -> J -> D -> B -> E -> F -> H -> I -> G -> C -> A
+
+Valor Voraz: 288.282
+Tiempo Voraz (ms) : 0
+Camino mínimo: A -> C -> H -> F -> E -> B -> G -> I -> D -> J -> A
+

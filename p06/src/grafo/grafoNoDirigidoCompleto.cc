@@ -1,5 +1,27 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 14 de Marzo de 2024
+ * @file grafoNoDirigidoCompleto.cc
+ * @brief Implementación de la clase GrafoNoDirigidoCompleto
+ * que generará grafos no dirigidos completos
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
+ * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ */
+
 #include "grafoNoDirigidoCompleto.h"
 
+/**
+ * @brief Constructor de la clase GrafoNoDirigidoCompleto.
+ * 
+ * @param kNombreDir Directorio donde se encuentra el archivo.
+ * @param kNombreFichero Nombre del archivo que contiene la descripción del grafo.
+ * @throws Excepción que indica un error al cargar el grafo.
+ */
 GrafoNoDirigidoCompleto::GrafoNoDirigidoCompleto(
   const std::string kNombreDir,
   const std::string kNombreFichero
@@ -67,6 +89,12 @@ GrafoNoDirigidoCompleto::GrafoNoDirigidoCompleto(
   if (error != "") throw (error);
 }
 
+/**
+ * @brief Obtiene el índice del nodo con el nombre especificado en el grafo.
+ * 
+ * @param nombre_nodo Nombre del nodo a buscar.
+ * @return Índice del nodo si se encuentra, -1 si no se encuentra.
+ */
 const int GrafoNoDirigidoCompleto::getIndiceNodo(const std::string& nombre_nodo) const {
   const int kNumeroNodos = grafo_.size();
   for (int i = 0; i < kNumeroNodos; ++i) {
@@ -75,10 +103,23 @@ const int GrafoNoDirigidoCompleto::getIndiceNodo(const std::string& nombre_nodo)
   return -1;
 }
 
+/**
+ * @brief Verifica si la cantidad de nodos del grafo es la esperada.
+ * 
+ * @param kNumNodos Número de nodos esperados.
+ * @return true Si la cantidad de nodos coincide.
+ * @return false Si la cantidad de nodos no coincide.
+ */
 const bool GrafoNoDirigidoCompleto::esCorrectaCantidadNodos(const int kNumNodos) const {
   return (grafo_.size() == kNumNodos);
 }
 
+/**
+ * @brief Verifica si el grafo es completo.
+ * 
+ * @return true Si el grafo es completo.
+ * @return false Si el grafo no es completo.
+ */
 const bool GrafoNoDirigidoCompleto::esCompleto() const {
   const int kNumNodos = grafo_.size();
   for (int i = 0; i < kNumNodos; ++i) {
@@ -91,6 +132,13 @@ const bool GrafoNoDirigidoCompleto::esCompleto() const {
   return true;
 }
 
+/**
+ * @brief Comprueba si existe una arista entre dos nodos en el grafo.
+ * 
+ * @param nodo1 Puntero al primer nodo.
+ * @param nodo2 Puntero al segundo nodo.
+ * @return true si existe una arista entre los dos nodos, false en caso contrario.
+ */
 const bool GrafoNoDirigidoCompleto::existeArista(const Nodo* nodo1, const Nodo* nodo2) const {
   bool enlace_nodo1_nodo2 = false, enlace_nodo2_nodo1 = false;
   for (const auto& vecinos: nodo1->getNodosVecinos()) {
@@ -106,6 +154,13 @@ const bool GrafoNoDirigidoCompleto::existeArista(const Nodo* nodo1, const Nodo* 
   return (enlace_nodo1_nodo2 && enlace_nodo2_nodo1);
 }
 
+/**
+ * @brief Sobrecarga del operador de inserción para imprimir el grafo.
+ * 
+ * @param out Flujo de salida donde se imprime el grafo.
+ * @param grafo Grafo no dirigido completo a imprimir.
+ * @return El flujo de salida modificado.
+ */
 std::ostream& operator<<(std::ostream& out, const GrafoNoDirigidoCompleto& grafo) {
   out << "Grafo No Dirigido Completo:" << std::endl;
   out << "-----------------" << std::endl;

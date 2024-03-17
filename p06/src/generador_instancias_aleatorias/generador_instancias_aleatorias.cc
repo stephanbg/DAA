@@ -1,7 +1,28 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 14 de Marzo de 2024
+ * @file generador_instancias_aleatorias.cc
+ * @brief Implementación de la clase GeneradorInstanciasAleatorias
+ * que generará ficheros aleatorios
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
+ * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ */
+
 #include "generador_instancias_aleatorias.h"
 
 std::set<std::string> GeneradorInstanciasAleatorias::ficheros_aletorios_;
 
+/**
+ * @brief Genera un archivo de instancia aleatoria con el número especificado de nodos.
+ * 
+ * @param kNumNodos Número de nodos para la instancia aleatoria.
+ * @param nombreDirectorio Directorio donde se guardará el archivo.
+ */
 void GeneradorInstanciasAleatorias::generadorRand(const int kNumNodos, const std::string& nombreDirectorio) {
   const std::string kNombreFicheroRand = GeneradorInstanciasAleatorias::generarNombreFicheroAleatorio();
   // Construir la ruta completa al archivo
@@ -9,7 +30,8 @@ void GeneradorInstanciasAleatorias::generadorRand(const int kNumNodos, const std
   // Abrir el archivo en modo de escritura
   std::ofstream archivo(ruta_completa);
   archivo << kNumNodos << std::endl;
-  int num_lineas = (kNumNodos * (kNumNodos - 1)) / 2, indice_nodo_actual = 0, indice_siguiente_conexion = 1;
+  int num_lineas = (kNumNodos * (kNumNodos - 1)) / 2;
+  int indice_nodo_actual = 0, indice_siguiente_conexion = 1;
   const std::vector<std::string> kIdentificadores =
       GeneradorInstanciasAleatorias::generadorIdsAleatorios(kNumNodos);
   while (num_lineas != 0) {
@@ -30,6 +52,14 @@ void GeneradorInstanciasAleatorias::generadorRand(const int kNumNodos, const std
   ficheros_aletorios_.insert(kNombreFicheroRand);
 }
 
+/**
+ * @brief Genera una conexión aleatoria entre dos nodos.
+ * 
+ * @param kIdentificadores Vector de identificadores de nodos.
+ * @param kIndiceNodoActual Índice del nodo actual.
+ * @param kIndiceSiguienteNodo Índice del siguiente nodo.
+ * @return La cadena de conexión generada.
+ */
 const std::string GeneradorInstanciasAleatorias::generarConexionNodos(
   const std::vector<std::string>& kIdentificadores,
   const int kIndiceNodoActual,
@@ -42,6 +72,11 @@ const std::string GeneradorInstanciasAleatorias::generarConexionNodos(
   return conexion;
 }
 
+/**
+ * @brief Genera un número decimal aleatorio con una precisión aleatoria.
+ * 
+ * @return El número aleatorio generado.
+ */
 const long double GeneradorInstanciasAleatorias::generarCosteAleatorio() {
   std::random_device rand_device;
   std::mt19937 gen(rand_device());
@@ -59,6 +94,12 @@ const long double GeneradorInstanciasAleatorias::generarCosteAleatorio() {
   return numero_aleatorio;
 }
 
+/**
+ * @brief Genera identificadores aleatorios para nodos.
+ * 
+ * @param kNumNodos Número de nodos para generar identificadores.
+ * @return Un vector de identificadores aleatorios.
+ */
 const std::vector<std::string> GeneradorInstanciasAleatorias::generadorIdsAleatorios(const int kNumNodos) {
   std::vector<std::string> ids;
   const int kAlfabetoSize = 26;
@@ -75,12 +116,16 @@ const std::vector<std::string> GeneradorInstanciasAleatorias::generadorIdsAleato
       // Restar 1 para hacer coincidir el rango con las letras (A-Z)
       i_aux -= 1;
     } while (i_aux >= 0);
-    // Agregar el identificador al vector
     ids.push_back(id);
   }
   return ids;
 }
 
+/**
+ * @brief Genera un nombre de archivo aleatorio que no existe en la lista de ficheros aleatorios.
+ * 
+ * @return El nombre de archivo aleatorio generado.
+ */
 const std::string GeneradorInstanciasAleatorias::generarNombreFicheroAleatorio() {
   // Crear un generador de números aleatorios
   std::random_device rand_device;
@@ -94,6 +139,12 @@ const std::string GeneradorInstanciasAleatorias::generarNombreFicheroAleatorio()
   return nombre;  
 }
 
+/**
+ * @brief Comprueba si un nombre de archivo ya existe en la lista de ficheros aleatorios.
+ * 
+ * @param kNombre El nombre de archivo a comprobar.
+ * @return true si el nombre de archivo ya existe, false en caso contrario.
+ */
 const bool GeneradorInstanciasAleatorias::nombreExiste(const std::string& kNombre) {
   for (const auto& nombre_existente : ficheros_aletorios_) {
     if (nombre_existente == kNombre) return true;
@@ -101,6 +152,11 @@ const bool GeneradorInstanciasAleatorias::nombreExiste(const std::string& kNombr
   return false;
 }
 
+/**
+ * @brief Inserta los nombres de los archivos en la lista de ficheros aleatorios.
+ * 
+ * @param nombreDirectorio Directorio del cual se obtienen los nombres de archivos.
+ */
 void GeneradorInstanciasAleatorias::insertarFicheros(const std::string& nombreDirectorio) {
   fs::path ruta_absoluta = fs::absolute(nombreDirectorio);
   // Verificar si la ruta es un directorio
@@ -120,6 +176,12 @@ void GeneradorInstanciasAleatorias::insertarFicheros(const std::string& nombreDi
   }
 }
 
+/**
+ * @brief Elimina los archivos de instancia aleatoria del directorio especificado.
+ * 
+ * @param kNombreDirectorio Directorio donde se buscan y eliminan los archivos aleatorios.
+ * @param kOpcion Opción de confirmación para eliminar los archivos.
+ */
 void GeneradorInstanciasAleatorias::eliminarFicherosRand(
   const std::string& kNombreDirectorio,
   const std::string& kOpcion

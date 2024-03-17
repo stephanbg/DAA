@@ -1,5 +1,25 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 14 de Marzo de 2024
+ * @file fuerza_bruta_tsp.cc
+ * @brief Implementación de la clase FuerzaBrutaTSP que hereda de la clase TSP
+ * para resolver dicho problema
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
+ * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ */
+
 #include "fuerza_bruta_tsp.h"
 
+/**
+ * @brief Ejecuta el algoritmo de fuerza bruta para resolver el Problema del Viajante de Comercio.
+ * 
+ * @param grafo Grafo no dirigido completo que representa el problema del viajante de comercio.
+ */
 void FuerzaBrutaTSP::ejecutar(const GrafoNoDirigidoCompleto& grafo) {
   auto ini = Clock::now();
   const std::vector<Nodo*>& nodos = grafo.getGrafo();
@@ -53,10 +73,14 @@ void FuerzaBrutaTSP::ejecutar(const GrafoNoDirigidoCompleto& grafo) {
   // Añade el nodo origen
   caminoMinimo_.push_back(nodos[mejor_permutacion.front()]);
   auto fin = Clock::now();
-  tiempoEjecucion_ = std::chrono::duration_cast<std::chrono::milliseconds>(fin - ini).count();
+  tiempoEjecucion_ = std::chrono::duration_cast<std::chrono::microseconds>(fin - ini).count();
   coste_ = mejor_coste;
 }
 
+/**
+ * @brief Muestra el camino mínimo
+ * 
+ */
 void FuerzaBrutaTSP::mostrarCaminoMinimo() const {
   std::cout << "Camino mínimo para algoritmo Fuerza Bruta\n";
   std::cout << "-----------------------------------------" << std::endl;
@@ -68,8 +92,12 @@ void FuerzaBrutaTSP::mostrarCaminoMinimo() const {
   std::cout << std::endl;
 }
 
+/**
+ * @brief Muestra el tiempo de ejecución
+ * 
+ */
 void FuerzaBrutaTSP::mostrarTiempoEjecución() const {
   std::cout << "Tiempo de ejecución para algoritmo Fuerza Bruta\n";
   std::cout << "-----------------------------------------------" << std::endl;
-  std::cout << tiempoEjecucion_ << " ms" << std::endl;
+  std::cout << tiempoEjecucion_ << " µs" << std::endl;
 }
