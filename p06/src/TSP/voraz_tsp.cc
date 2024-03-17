@@ -10,6 +10,11 @@ void VorazTSP::ejecutar(const GrafoNoDirigidoCompleto& grafo) {
   caminoMinimo_.push_back(cada_nodo_ini);
   visitados[indice_nodo_actual] = true;
   do {
+    if (ControlTiempo::tiempoTranscurrido(ini, Clock::now())) {
+      tiempoEjecucion_ = -1;
+      calcularCoste();
+      return;  
+    }
     mejor_peso_destino = -1;
     // Recorro todos los vecinos buscando el mejor no visitado
     for (const auto& vecino : cada_nodo_ini->getNodosVecinos()) {

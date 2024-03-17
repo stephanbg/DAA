@@ -11,6 +11,7 @@ const bool SintaxisFicheroGrafo::tresElementosPorLineaNodo1Nodo2Coste(
   const std::vector<std::string>& cada_linea
 ) {
   if (cada_linea.size() != 3) return false;
-  if (!esNumeroEnteroSinSigno(cada_linea[2])) return false; // Coste numero positivo o 0
+  if (!esNumeroSinSigno(cada_linea[2])) return false; // Coste numero positivo
+  if (stold(cada_linea[2]) == 0) return false; // No puede ser 0
   return true;
 }

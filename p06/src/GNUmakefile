@@ -15,7 +15,7 @@ LDFLAGS =
 
 all: main clear
 
-main: main.o comprobar_parametros/comprobar_parametros.o grafo/grafoNoDirigidoCompleto.o sintaxis_fichero_grafo/sintaxis_fichero_grafo.o TSP/tsp.o TSP/voraz_tsp.o TSP/fuerza_bruta_tsp.o TSP/programacion_dinamica_tsp.o funciones/funciones.o
+main: main.o comprobar_parametros/comprobar_parametros.o grafo/grafoNoDirigidoCompleto.o sintaxis_fichero_grafo/sintaxis_fichero_grafo.o TSP/tsp.o TSP/voraz_tsp.o TSP/fuerza_bruta_tsp.o TSP/programacion_dinamica_tsp.o funciones/funciones.o funciones/peticionesUsuario.o generador_instancias_aleatorias/generador_instancias_aleatorias.o tablaResultadosTSP/tablaResultadosTSP.o controlTiempo/controlTiempo.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean
@@ -23,6 +23,7 @@ main: main.o comprobar_parametros/comprobar_parametros.o grafo/grafoNoDirigidoCo
 
 clear:
 	rm -rf *.o
+	rm -rf **/*.o
 
 clean :
 	find . -name '*.o' -type f -delete

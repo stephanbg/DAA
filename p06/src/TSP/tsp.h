@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "../grafo/grafoNoDirigidoCompleto.h"
+#include "../controlTiempo/controlTiempo.h"
 
 using Clock = std::chrono::steady_clock;
 

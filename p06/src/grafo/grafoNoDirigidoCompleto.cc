@@ -1,7 +1,12 @@
 #include "grafoNoDirigidoCompleto.h"
 
-GrafoNoDirigidoCompleto::GrafoNoDirigidoCompleto(const std::string kNombreFichero) {
-  std::ifstream archivo(kNombreFichero);
+GrafoNoDirigidoCompleto::GrafoNoDirigidoCompleto(
+  const std::string kNombreDir,
+  const std::string kNombreFichero
+) {
+  fs::path ruta_actual = fs::current_path();
+  fs::path ruta_completa = ruta_actual / kNombreDir / kNombreFichero; 
+  std::ifstream archivo(ruta_completa);
   std::string cada_linea = "", error = "";
   int contador_linea = 1;
   int num_nodos = 0;
@@ -48,6 +53,7 @@ GrafoNoDirigidoCompleto::GrafoNoDirigidoCompleto(const std::string kNombreFicher
       }
       else nodo2 = grafo_[indice_nodo2];
       // Añadirle vecinos con el precio de la arista
+      cada_elemento[2] = sustituirComasPorPunto(cada_elemento[2]);
       nodo1->insertarNodoVecino(nodo2, stold(cada_elemento[2]));
       nodo2->insertarNodoVecino(nodo1, stold(cada_elemento[2]));
     }

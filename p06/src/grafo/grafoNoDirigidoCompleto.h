@@ -5,13 +5,16 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <filesystem>
 
 #include "../nodo/nodo.h"
 #include "../sintaxis_fichero_grafo/sintaxis_fichero_grafo.h"
 
+namespace fs = std::filesystem;
+
 class GrafoNoDirigidoCompleto {
  public:
-  GrafoNoDirigidoCompleto(const std::string);
+  GrafoNoDirigidoCompleto(const std::string, const std::string);
   const std::vector<Nodo*>& getGrafo() const { return grafo_; }
   const int getIndiceNodo(const std::string&) const;
   friend std::ostream& operator<<(std::ostream&, const GrafoNoDirigidoCompleto&);

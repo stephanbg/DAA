@@ -9,6 +9,16 @@ void FuerzaBrutaTSP::ejecutar(const GrafoNoDirigidoCompleto& grafo) {
   int indice_actual, indice_siguiente;
   std::vector<int> mejor_permutacion;
   do {
+    if (ControlTiempo::tiempoTranscurrido(ini, Clock::now())) {
+      tiempoEjecucion_ = -1;
+      const int kSizeMejorPermutacion = mejor_permutacion.size();
+      for (int i = 0; i < kSizeMejorPermutacion; ++i) {
+        caminoMinimo_.push_back(nodos[mejor_permutacion[i]]);
+      }
+      caminoMinimo_.push_back(nodos[mejor_permutacion.front()]);      
+      coste_ = mejor_coste;
+      return;  
+    }   
     long double coste_actual = 0.0;
     for (int i = 0; i < indices.size() - 1; ++i) {
       indice_actual = indices[i];

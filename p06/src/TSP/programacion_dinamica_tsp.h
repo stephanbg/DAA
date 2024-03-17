@@ -12,7 +12,7 @@ class ProgramacionDinamicaTSP: public TSP {
   virtual void mostrarTiempoEjecución() const override;
  protected:
   void reconstruirCaminoMinimo(
-    const std::vector<std::vector<long double>>&,
+    const std::vector<std::vector<int>>&,
     const GrafoNoDirigidoCompleto&
   );
 };
