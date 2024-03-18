@@ -1,36 +1,62 @@
 Instancia: 10_nodos.txt
 Valor Fuerza Bruta: 260.567
-Tiempo Fuerza Bruta (µs) : 638475
+Tiempo Fuerza Bruta (µs) : 644125
 Camino mínimo: A -> E -> B -> I -> J -> F -> C -> H -> D -> G -> A
 
 Valor Programación Dinámica: 260.567
-Tiempo Programación Dinámica (µs) : 11296
+Tiempo Programación Dinámica (µs) : 2881
 Camino mínimo: A -> E -> B -> I -> J -> F -> C -> H -> D -> G -> A
 
 Valor Voraz: 280.15
-Tiempo Voraz (µs) : 35
+Tiempo Voraz (µs) : 37
 Camino mínimo: A -> C -> F -> J -> I -> B -> G -> D -> H -> E -> A
+
+Instancia: 15_nodos.txt
+Valor Fuerza Bruta: 214.302
+Tiempo Fuerza Bruta (µs) : EXCESIVO
+Camino mínimo: A -> B -> C -> D -> I -> F -> E -> H -> G -> O -> N -> K -> M -> J -> L -> A
+
+Valor Programación Dinámica: 153.635
+Tiempo Programación Dinámica (µs) : 233514
+Camino mínimo: A -> B -> M -> J -> G -> O -> D -> H -> E -> F -> I -> C -> N -> K -> L -> A
+
+Valor Voraz: 255.167
+Tiempo Voraz (µs) : 118
+Camino mínimo: A -> B -> M -> J -> G -> D -> I -> F -> E -> H -> N -> C -> K -> L -> O -> A
+
+Instancia: 18_nodos.txt
+Valor Fuerza Bruta: 492.413
+Tiempo Fuerza Bruta (µs) : EXCESIVO
+Camino mínimo: A -> B -> C -> D -> E -> F -> H -> O -> G -> K -> I -> L -> M -> J -> Q -> N -> P -> R -> A
+
+Valor Programación Dinámica: 233.608
+Tiempo Programación Dinámica (µs) : 2.78378e+06
+Camino mínimo: A -> J -> C -> E -> D -> M -> L -> I -> K -> F -> O -> G -> H -> B -> Q -> N -> P -> R -> A
+
+Valor Voraz: 342.505
+Tiempo Voraz (µs) : 189
+Camino mínimo: A -> R -> P -> N -> Q -> F -> O -> G -> D -> M -> L -> I -> K -> B -> C -> E -> H -> J -> A
 
 Instancia: 4_nodos.txt
 Valor Fuerza Bruta: 55
-Tiempo Fuerza Bruta (µs) : 8
+Tiempo Fuerza Bruta (µs) : 12
 Camino mínimo: A -> B -> C -> D -> A
 
 Valor Programación Dinámica: 55
-Tiempo Programación Dinámica (µs) : 27
+Tiempo Programación Dinámica (µs) : 21
 Camino mínimo: A -> B -> C -> D -> A
 
 Valor Voraz: 85
-Tiempo Voraz (µs) : 5
+Tiempo Voraz (µs) : 7
 Camino mínimo: A -> C -> D -> B -> A
 
 Instancia: 5_nodos.txt
 Valor Fuerza Bruta: 169.117
-Tiempo Fuerza Bruta (µs) : 21
+Tiempo Fuerza Bruta (µs) : 22
 Camino mínimo: A -> C -> D -> B -> E -> A
 
 Valor Programación Dinámica: 169.117
-Tiempo Programación Dinámica (µs) : 81
+Tiempo Programación Dinámica (µs) : 38
 Camino mínimo: A -> C -> D -> B -> E -> A
 
 Valor Voraz: 189.893
@@ -39,53 +65,26 @@ Camino mínimo: A -> E -> D -> B -> C -> A
 
 Instancia: 7_nodos.txt
 Valor Fuerza Bruta: 217.227
-Tiempo Fuerza Bruta (µs) : 780
+Tiempo Fuerza Bruta (µs) : 781
 Camino mínimo: A -> B -> F -> G -> D -> C -> E -> A
 
 Valor Programación Dinámica: 217.227
-Tiempo Programación Dinámica (µs) : 662
+Tiempo Programación Dinámica (µs) : 196
 Camino mínimo: A -> B -> F -> G -> D -> C -> E -> A
 
 Valor Voraz: 242.015
-Tiempo Voraz (µs) : 14
+Tiempo Voraz (µs) : 15
 Camino mínimo: A -> C -> E -> F -> G -> D -> B -> A
 
-Instancia: rand_4462.txt
-Valor Fuerza Bruta: 192.001
-Tiempo Fuerza Bruta (µs) : 22
-Camino mínimo: A -> D -> E -> B -> C -> A
+Instancia: 20_nodos.txt
+Valor Fuerza Bruta: 543.609
+Tiempo Fuerza Bruta (µs) : EXCESIVO
+Camino mínimo: A -> B -> C -> D -> E -> F -> G -> H -> I -> L -> O -> P -> N -> S -> T -> R -> M -> Q -> K -> J -> A
 
-Valor Programación Dinámica: 192.001
-Tiempo Programación Dinámica (µs) : 70
-Camino mínimo: A -> D -> E -> B -> C -> A
+Valor Programación Dinámica: 186.4
+Tiempo Programación Dinámica (µs) : 1.56399e+07
+Camino mínimo: A -> J -> C -> E -> K -> H -> R -> T -> I -> L -> O -> D -> Q -> G -> M -> B -> F -> S -> N -> P -> A
 
-Valor Voraz: 199.3
-Tiempo Voraz (µs) : 7
-Camino mínimo: A -> C -> E -> B -> D -> A
-
-Instancia: rand_9268.txt
-Valor Fuerza Bruta: 117.113
-Tiempo Fuerza Bruta (µs) : 19
-Camino mínimo: A -> B -> C -> E -> D -> A
-
-Valor Programación Dinámica: 117.113
-Tiempo Programación Dinámica (µs) : 63
-Camino mínimo: A -> D -> E -> C -> B -> A
-
-Valor Voraz: 117.113
-Tiempo Voraz (µs) : 7
-Camino mínimo: A -> B -> C -> E -> D -> A
-
-Instancia: rand_9638.txt
-Valor Fuerza Bruta: 171.546
-Tiempo Fuerza Bruta (µs) : 21
-Camino mínimo: A -> B -> D -> C -> E -> A
-
-Valor Programación Dinámica: 171.546
-Tiempo Programación Dinámica (µs) : 78
-Camino mínimo: A -> E -> C -> D -> B -> A
-
-Valor Voraz: 171.546
-Tiempo Voraz (µs) : 7
-Camino mínimo: A -> B -> D -> C -> E -> A
-
+Valor Voraz: 337.619
+Tiempo Voraz (µs) : 223
+Camino mínimo: A -> J -> F -> B -> M -> I -> D -> E -> K -> H -> R -> T -> N -> Q -> G -> L -> O -> P -> C -> S -> A

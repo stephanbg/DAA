@@ -35,16 +35,18 @@ class ProgramacionDinamicaTSP: public TSP {
   virtual void mostrarCaminoMinimo() const override;
   virtual void mostrarTiempoEjecución() const override;
  protected:
+  std::vector<std::vector<int>> inicializarDistanciasVecinos(const std::vector<Nodo*>&, const int);
+  std::vector<std::vector<int>> inicializarVectores(const int); 
   void reconstruirCaminoMinimo(
+    const std::vector<Nodo*>,
     const std::vector<std::vector<int>>&,
-    const GrafoNoDirigidoCompleto&
+    const std::chrono::high_resolution_clock::time_point&
   );
-  void rellenarTablas(
-    const std::vector<Nodo*>&,
-    std::vector<std::vector<long double>>&,
+  int HeldKarp(
+    const std::vector<std::vector<int>>&,
+    const int, const int,
+    std::vector<std::vector<int>>&,
     std::vector<std::vector<int>>&,
     const std::chrono::high_resolution_clock::time_point&
   );
-  std::vector<std::vector<long double>> inicializarTablaCostos(const std::vector<Nodo*>&);
-  std::vector<std::vector<int>> inicializarTablaNodos(const std::vector<Nodo*>&);
 };
