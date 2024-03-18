@@ -83,16 +83,16 @@ void ProgramacionDinamicaTSP::rellenarTablas(
     tabla_costes[1 << i][i] = 0.0; // El costo de ir de una ciudad a sí misma es 0
   }
   // Calcular los costos e índices previos utilizando la matriz de adyacencia del grafo
-  for (int mask = 1; mask < tabla_nodos.size(); ++mask) {
+  for (long long mascara = 1; mascara < tabla_nodos.size(); ++mascara) {
     for (int j = 0; j < kNodos.size(); ++j) {
-      if (mask & (1 << j)) { // Saltarse coste de ir de una ciudad a sí misma
+      if (mascara & (1 << j)) { // Saltarse coste de ir de una ciudad a sí misma
         for (int k = 0; k < kNodos.size(); ++k) {
-          if ((k != j) && (mask & (1 << k))) {
-            long double costo = tabla_costes[mask ^ (1 << j)][k] + kNodos[k]->getCoste(kNodos[j]);
+          if ((k != j) && (mascara & (1 << k))) {
+            long double costo = tabla_costes[mascara ^ (1 << j)][k] + kNodos[k]->getCoste(kNodos[j]);
             // Si se actualiza el costo, actualiza también el nodo anterior
-            if (costo < tabla_costes[mask][j]) {
-              tabla_costes[mask][j] = costo;
-              tabla_nodos[mask][j] = k;
+            if (costo < tabla_costes[mascara][j]) {
+              tabla_costes[mascara][j] = costo;
+              tabla_nodos[mascara][j] = k;
             }
             if (ControlTiempo::tiempoTranscurrido(kIni, Clock::now())) {
               tiempoEjecucion_ = -1;
@@ -118,7 +118,7 @@ void ProgramacionDinamicaTSP::reconstruirCaminoMinimo(
   std::vector<const Nodo*> recorrido;
   const int kNumNodos = kGrafo.getGrafo().size();
   int nodo_actual = 0;
-  int mascara = (1 << kNumNodos) - 1;
+  long long mascara = (1 << kNumNodos) - 1;
   // Recorremos la tabla de nodos previos para reconstruir el camino
   // Mientras queden nodos sin visitar
   while (mascara != 0) {
