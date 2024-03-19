@@ -19,6 +19,7 @@ std::vector<std::string> TablaResultadosTSP::nombres_ficheros_;
 std::vector<std::string> TablaResultadosTSP::nombres_algoritmos_;
 std::vector<std::vector<std::pair<const long double, const long double>>> TablaResultadosTSP::matriz_datos_;
 std::vector<std::vector<const Nodo*>> TablaResultadosTSP::caminos_minimos;
+std::vector<long double> TablaResultadosTSP::media_tiempos;
 
 /**
  * @brief Inserta el nombre de un archivo en la tabla de resultados.
@@ -60,6 +61,10 @@ void TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(
   caminos_minimos.push_back(kCaminoMinimo);
 }
 
+void TablaResultadosTSP::insertarMediaTiempos(const long double kMediaTiempo) {
+  media_tiempos.push_back(kMediaTiempo);
+}
+
 /**
  * @brief Muestra la tabla de resultados en la consola.
  */
@@ -84,6 +89,9 @@ void TablaResultadosTSP::mostrarTablaEnPantalla() {
       std::cout << std::endl << std::endl;
     }
   }
+  std::cout << "Media tiempo fuerza bruta: " << media_tiempos[0] << " µs" << std::endl;
+  std::cout << "Media tiempo programación dinámica: " << media_tiempos[1] << " µs" << std::endl;
+  std::cout << "Media tiempo voraz: " << media_tiempos[2] << " µs" << std::endl;
 }
 
 /**
@@ -113,5 +121,8 @@ void TablaResultadosTSP::mostrarTablaEnFichero() {
       archivo << std::endl << std::endl;
     }
   }
+  archivo << "Media tiempo fuerza bruta: " << media_tiempos[0] << " µs" << std::endl;
+  archivo << "Media tiempo programación dinámica: " << media_tiempos[1] << " µs" << std::endl;
+  archivo << "Media tiempo voraz: " << media_tiempos[2] << " µs" << std::endl;  
   archivo.close();
 }

@@ -23,6 +23,7 @@
 #include "funciones/peticionesUsuario.h"
 #include "grafo/grafoNoDirigidoCompleto.h"
 #include "tablaResultadosTSP/tablaResultadosTSP.h"
+#include "TSP/tsp.h"
 #include "TSP/voraz_tsp.h"
 #include "TSP/fuerza_bruta_tsp.h"
 #include "TSP/programacion_dinamica_tsp.h"
@@ -61,37 +62,56 @@ int main(int argc, char *argv[]) {
     } while (dis(gen) != 0);
     const std::set<std::string> kConjuntoNombresFichero = GeneradorInstanciasAleatorias::getFicherosRand();
     std::pair<long double, long double> coste_y_tiempo_ejecucion_algoritmo;
+    long double media_fuerza_bruta = 0, media_voraz = 0, media_programacion_dinamica = 0;
+    int contador = 0;
+    const int kConversion10MinMicro = 600000000;
     // Recorre los nombres de los ficheros
     for (const auto& kCadaNombreFichero : kConjuntoNombresFichero) {
-      FuerzaBrutaTSP tsp1;
-      ProgramacionDinamicaTSP tsp2;
-      VorazTSP tsp3;      
+      TSP* tsp = new FuerzaBrutaTSP;      
       TablaResultadosTSP::insertarDatoNombreFichero(kCadaNombreFichero);
       std::vector<std::pair<const long double, const long double>> fila_datos;
       GrafoNoDirigidoCompleto grafo(argv[1], kCadaNombreFichero);
       ControlTiempo::inicializarContador(argv[2]);
-      tsp1.ejecutar(grafo);
-      coste_y_tiempo_ejecucion_algoritmo.first = tsp1.getCoste();
-      coste_y_tiempo_ejecucion_algoritmo.second = tsp1.getTiempoEjecución();
+      tsp->ejecutar(grafo);
+      coste_y_tiempo_ejecucion_algoritmo.first = tsp->getCoste();
+      coste_y_tiempo_ejecucion_algoritmo.second = tsp->getTiempoEjecución();
+      if (coste_y_tiempo_ejecucion_algoritmo.second == -1) {
+        media_fuerza_bruta += kConversion10MinMicro;
+      } else media_fuerza_bruta += coste_y_tiempo_ejecucion_algoritmo.second;
       fila_datos.push_back(coste_y_tiempo_ejecucion_algoritmo);
       TablaResultadosTSP::insertarDatoNombreAlgoritmo("Fuerza Bruta");
-      TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(tsp1.getCaminoMinimo());
+      TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(tsp->getCaminoMinimo());
       ControlTiempo::inicializarContador(argv[2]);
-      tsp2.ejecutar(grafo);   
-      coste_y_tiempo_ejecucion_algoritmo.first = tsp2.getCoste();
-      coste_y_tiempo_ejecucion_algoritmo.second = tsp2.getTiempoEjecución();
+      tsp = new ProgramacionDinamicaTSP;      
+      tsp->ejecutar(grafo);   
+      coste_y_tiempo_ejecucion_algoritmo.first = tsp->getCoste();
+      coste_y_tiempo_ejecucion_algoritmo.second = tsp->getTiempoEjecución();
+      if (coste_y_tiempo_ejecucion_algoritmo.second == -1) {
+        media_programacion_dinamica += kConversion10MinMicro;
+      } else media_programacion_dinamica += coste_y_tiempo_ejecucion_algoritmo.second;      
       fila_datos.push_back(coste_y_tiempo_ejecucion_algoritmo);
       TablaResultadosTSP::insertarDatoNombreAlgoritmo("Programación Dinámica");
-      TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(tsp2.getCaminoMinimo());
+      TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(tsp->getCaminoMinimo());
       ControlTiempo::inicializarContador(argv[2]);
-      tsp3.ejecutar(grafo);   
-      coste_y_tiempo_ejecucion_algoritmo.first = tsp3.getCoste();
-      coste_y_tiempo_ejecucion_algoritmo.second = tsp3.getTiempoEjecución();
+      tsp = new VorazTSP;      
+      tsp->ejecutar(grafo);   
+      coste_y_tiempo_ejecucion_algoritmo.first = tsp->getCoste();
+      coste_y_tiempo_ejecucion_algoritmo.second = tsp->getTiempoEjecución();
+      if (coste_y_tiempo_ejecucion_algoritmo.second == -1) {
+        media_voraz += kConversion10MinMicro;
+      } else media_voraz += coste_y_tiempo_ejecucion_algoritmo.second;      
       fila_datos.push_back(coste_y_tiempo_ejecucion_algoritmo);
       TablaResultadosTSP::insertarDatoNombreAlgoritmo("Voraz");
-      TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(tsp3.getCaminoMinimo());
+      TablaResultadosTSP::insertarFilaMatrizCaminosMinimos(tsp->getCaminoMinimo());
       TablaResultadosTSP::insertarFilaMatrizDatos(fila_datos);
+      contador++;
     }
+    media_fuerza_bruta = (double) (media_fuerza_bruta / contador);
+    media_programacion_dinamica = (double) (media_programacion_dinamica / contador);
+    media_voraz = (double) (media_voraz / contador);
+    TablaResultadosTSP::insertarMediaTiempos(media_fuerza_bruta);
+    TablaResultadosTSP::insertarMediaTiempos(media_programacion_dinamica);
+    TablaResultadosTSP::insertarMediaTiempos(media_voraz);
     const std::string kOpcion = peticionUsuarioTablaPantallaOFichero();
     if (kOpcion == "P") TablaResultadosTSP::mostrarTablaEnPantalla();
     else TablaResultadosTSP::mostrarTablaEnFichero();

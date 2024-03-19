@@ -35,6 +35,7 @@ class TablaResultadosTSP {
   static void insertarDatoNombreAlgoritmo(const std::string&);
   static void insertarFilaMatrizDatos(const std::vector<std::pair<const long double, const long double>>&);
   static void insertarFilaMatrizCaminosMinimos(const std::vector<const Nodo*>&);
+  static void insertarMediaTiempos(const long double);
   static void mostrarTablaEnPantalla();
   static void mostrarTablaEnFichero();
  private:
@@ -42,4 +43,5 @@ class TablaResultadosTSP {
   static std::vector<std::string> nombres_algoritmos_;
   static std::vector<std::vector<std::pair<const long double, const long double>>> matriz_datos_;
   static std::vector<std::vector<const Nodo*>> caminos_minimos;
+  static std::vector<long double> media_tiempos;
 };

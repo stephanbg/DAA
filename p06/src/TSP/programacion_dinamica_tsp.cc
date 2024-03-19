@@ -29,9 +29,7 @@ std::vector<std::vector<int>> ProgramacionDinamicaTSP::inicializarDistanciasVeci
   std::vector<std::vector<int>> distancias_vecinos(kNumNodos, std::vector<int>(kNumNodos));
   for (int i = 0; i < kNumNodos; ++i) {
     for (int j = 0; j < kNumNodos; ++j) {
-      if (i != j) {
-        distancias_vecinos[i][j] = kGrafo[i]->getCoste(kGrafo[j]);
-      }
+      if (i != j) distancias_vecinos[i][j] = kGrafo[i]->getCoste(kGrafo[j]);
     }
   }
   return distancias_vecinos;
@@ -95,8 +93,8 @@ int ProgramacionDinamicaTSP::HeldKarp(
   const std::chrono::high_resolution_clock::time_point& kIni
 ) {
   const int kSizeDistancias = distancias_vecinos.size();
-  // Caso base: todos los nodos han sido visitados
-  if (kMascara == (1 << kSizeDistancias) - 1) return distancias_vecinos[kPos][0]; // regresar al inicio
+  // Caso base: Se han visitado todos los nodos (volver inicio)
+  if (kMascara == (1 << kSizeDistancias) - 1) return distancias_vecinos[kPos][0];
   // Si este estado ya ha sido calculado, regresar el resultado almacenado
   if (costos_minimos[kMascara][kPos] != -1) return costos_minimos[kMascara][kPos];
   int coste_minimo = std::numeric_limits<int>::max();
@@ -110,12 +108,13 @@ int ProgramacionDinamicaTSP::HeldKarp(
     }
     if ((kMascara & (1 << siguiente_nodo)) == 0) {
       int nueva_mascara = kMascara | (1 << siguiente_nodo);
+      // Calcula coste para un nuevo camino
       int nuevo_costo = distancias_vecinos[kPos][siguiente_nodo]
           + HeldKarp(
               distancias_vecinos, siguiente_nodo,
               nueva_mascara, costos_minimos, nodos_intermedios, kIni
             );
-      if (nuevo_costo < coste_minimo) {
+      if (nuevo_costo < coste_minimo) { // Se actualiza si es mejor
         coste_minimo = nuevo_costo;
         mejor_siguiente_nodo = siguiente_nodo;
       }
