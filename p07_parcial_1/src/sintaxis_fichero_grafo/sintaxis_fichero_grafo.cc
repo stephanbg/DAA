@@ -72,7 +72,7 @@ const bool SintaxisFicheroGrafo::rangosProcesamientosValidos(
   const std::string& kPalabra,
   std::pair<int, int>& rango_procesamientos
 ) {
-  std::regex regex_rangos_procesamientos("^Pi:U\\[1\\-(1[0-9]|[2-9]\\d*)\\]");
+  std::regex regex_rangos_procesamientos("^Pi:?U?\\[1\\-(1[0-9]|[2-9]\\d*)\\]");
   if (!std::regex_match(kPalabra, regex_rangos_procesamientos)) return false;
   const size_t kPosCorcheteInicio = kPalabra.find('[');
   const size_t kPosGuion = kPalabra.find('-', kPosCorcheteInicio);
@@ -86,7 +86,7 @@ const bool SintaxisFicheroGrafo::rangosSetUpValidos(
   const std::string& kCadaLinea,
   std::pair<int, int>& rango_setup
 ) {
-  std::regex regex_rangos_setup("^Sij:U\\[1\\-(1[0-9]|[2-9]\\d*)\\]\\s*");
+  std::regex regex_rangos_setup("^Sij:?U?\\[1\\-(1[0-9]|[2-9]\\d*)\\]\\s*");
   if (!std::regex_match(kCadaLinea, regex_rangos_setup)) return false;
   const size_t kPosCorcheteInicio = kCadaLinea.find('[');
   const size_t kPosGuion = kCadaLinea.find('-', kPosCorcheteInicio);

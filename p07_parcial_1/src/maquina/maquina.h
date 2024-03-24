@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <fstream>
 #include <filesystem>
 
@@ -9,6 +10,7 @@ namespace fs = std::filesystem;
 
 class Maquina {
  public:
+  Maquina() { maquinas_.push_back(this); } 
   static void cuantasMaquinasACrear(const std::string&);
   void crearPrimeraTarea(const Nodo* kTarea) { tareas_.push_back(kTarea); };
   void insertarTarea(const Nodo* kTarea, const int kPos) {
@@ -18,9 +20,13 @@ class Maquina {
       throw (error);
     }
   }
+  void limpiarTareas() { tareas_.clear(); }
   const std::vector<const Nodo*> getTareas() const { return tareas_; }
   static const int getNumeroMaquinas() { return numero_maquinas_; }
+  static void limpiarTareasDeTodasLasMaquinas();
+  static void mostrarTareasDeTodasLasMaquinas();
  private:
-  std::vector<const Nodo*> tareas_;
+  static std::vector<Maquina*> maquinas_;
   static int numero_maquinas_;
+  std::vector<const Nodo*> tareas_;
 };

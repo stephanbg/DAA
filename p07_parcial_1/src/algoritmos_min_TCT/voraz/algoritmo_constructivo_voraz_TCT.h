@@ -2,8 +2,8 @@
 
 #include <algorithm>
 
-#include "./algoritmos_min_TCT.h"
-#include "../funciones/funciones.h"
+#include "../algoritmos_min_TCT.h"
+#include "../../funciones/funciones.h"
 
 class AlgoritmoConstructivoVoraz : public AlgoritmoMinimizarTCT {
  public:
@@ -14,9 +14,9 @@ class AlgoritmoConstructivoVoraz : public AlgoritmoMinimizarTCT {
   ) const;
   void minimizarIncrementoTCT(
     const int, const std::vector<Maquina>&, std::vector<Maquina>&,
-    const std::vector<bool>&, const GrafoDirigidoCompleto&
+    std::vector<bool>&, const GrafoDirigidoCompleto&
   ) const;
-  const int calcularFuncionObjetivo(const std::vector<Maquina>&, const int, const int) const;
+  const int calcularTCT(const std::vector<Maquina>&, const int, const int) const;
   const Nodo* encontrarMejorTarea(
     const GrafoDirigidoCompleto&,
     const std::vector<bool>&, const int
