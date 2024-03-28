@@ -1,24 +1,26 @@
 #pragma once
 
 #include <algorithm>
+#include <numeric>   // Para std::iota
 
 #include "../algoritmos_min_TCT.h"
 #include "../../funciones/funciones.h"
 
+struct TareaMaquinaPosicion {
+  const Nodo* tarea;
+  int indice_maquina;
+  int posicion;
+};
+
 class AlgoritmoConstructivoVoraz : public AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Maquina> ejecutar(const int, const GrafoDirigidoCompleto&) const override;
+  virtual const std::vector<Maquina> ejecutar(const int, const GrafoDirigidoCompleto&) override;
  private:
   void seleccionarTareasInciales(
-    std::vector<Maquina>&, const GrafoDirigidoCompleto&, std::vector<bool>&
+    std::vector<Maquina>&, const GrafoDirigidoCompleto&, std::vector<int>&
   ) const;
-  void minimizarIncrementoTCT(
-    const int, const std::vector<Maquina>&, std::vector<Maquina>&,
-    std::vector<bool>&, const GrafoDirigidoCompleto&
-  ) const;
-  const int calcularTCT(const std::vector<Maquina>&, const int, const int) const;
-  const Nodo* encontrarMejorTarea(
-    const GrafoDirigidoCompleto&,
-    const std::vector<bool>&, const int
+  const TareaMaquinaPosicion obtenerTareaMaquinaPosicion(
+    const int, std::vector<Maquina>&,
+    const std::vector<int>&, const GrafoDirigidoCompleto&
   ) const;
 };

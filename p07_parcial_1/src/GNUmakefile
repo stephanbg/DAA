@@ -15,7 +15,7 @@ LDFLAGS =
 
 all: main clear
 
-main: main.o comprobar_parametros/comprobar_parametros.o sintaxis_fichero_grafo/sintaxis_fichero_grafo.o grafo/grafoDirigidoCompleto.o maquina/maquina.o algoritmos_min_TCT/voraz/algoritmo_constructivo_voraz_TCT.o algoritmos_min_TCT/GRASP/algoritmo_GRASP_TCT.o funciones/funciones.o
+main: main.o comprobar_parametros/comprobar_parametros.o sintaxis_fichero_grafo/sintaxis_fichero_grafo.o grafo/grafoDirigidoCompleto.o maquina/maquina.o algoritmos_min_TCT/algoritmos_min_TCT.o algoritmos_min_TCT/voraz/algoritmo_constructivo_voraz_TCT.o algoritmos_min_TCT/GRASP/algoritmo_GRASP_TCT.o funciones/funciones.o
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 .PHONY: all clean

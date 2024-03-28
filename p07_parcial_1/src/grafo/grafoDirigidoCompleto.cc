@@ -117,7 +117,7 @@ const bool GrafoDirigidoCompleto::esCompleto() const {
   const int kNumNodos = grafo_.size();
   for (int i = 0; i < kNumNodos; ++i) {
     for (int j = 0; j < kNumNodos; ++j) {
-      // Verificar si existe una arista entre los nodos i y j
+      // Verificar si existe un arco entre los nodos i y j
       // Si no hay arco, el grafo no es completo
       if (!existeArco(grafo_[i], grafo_[j])) return false;
     }

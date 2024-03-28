@@ -18,6 +18,7 @@ int main(int argc, char* argv[]) {
     AlgoritmoMinimizarTCT* algoritmo = new AlgoritmoConstructivoVoraz;
     std::vector<Maquina> maquinas = algoritmo->ejecutar(Maquina::getNumeroMaquinas(), grafo);
     Maquina::mostrarTareasDeTodasLasMaquinas();
+    std::cout << "Función objetivo: " << algoritmo->getFuncionObjetivo() << std::endl;
     std::cout << std::endl;
     Maquina::limpiarTareasDeTodasLasMaquinas();
     std::cout << "ALGORITMO GRASP: " << std::endl;
@@ -25,6 +26,7 @@ int main(int argc, char* argv[]) {
     algoritmo = new AlgoritmoGRASP;
     maquinas = algoritmo->ejecutar(Maquina::getNumeroMaquinas(), grafo);
     Maquina::mostrarTareasDeTodasLasMaquinas();
+    std::cout << "Función objetivo: " << algoritmo->getFuncionObjetivo() << std::endl;
     std::cout << std::endl;
     Maquina::limpiarTareasDeTodasLasMaquinas();
   } catch (const std::string& kError) {

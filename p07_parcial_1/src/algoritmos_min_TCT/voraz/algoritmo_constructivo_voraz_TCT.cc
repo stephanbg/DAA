@@ -3,146 +3,92 @@
 const std::vector<Maquina> AlgoritmoConstructivoVoraz::ejecutar(
   const int kNumeroMaquinas,
   const GrafoDirigidoCompleto& kGrafo
-) const {
+) {
   std::vector<Maquina> maquinas(kNumeroMaquinas); // m Maquinas
-  std::vector<bool> tareas_realizadas(kGrafo.getGrafo().size() - 1, false); // Sin nodo ficticio
-  //std::cout << "Num Maquinas " << kNumeroMaquinas << std::endl;
-  // Seleccionar las m tareas con menores valores de t0j
-  seleccionarTareasInciales(maquinas, kGrafo, tareas_realizadas);
-  /*for (int i = 0; i < tareas_realizadas.size(); ++i) {
-    std::cout << "TAREA " << i << ": " << tareas_realizadas[i] << std::endl;
-  }*/
-  //std::cout << kGrafo << std::endl;
-  while (contieneFalso(tareas_realizadas)) {
-    std::vector<Maquina> maquinas_copia = maquinas;
-    minimizarIncrementoTCT(kNumeroMaquinas, maquinas, maquinas_copia, tareas_realizadas, kGrafo);
-    //for (auto a : maquinas) {
-    //  std::cout << "MAQUINA: ";
-    //  for (auto b : a.getTareas()) {
-   //     std::cout << b->getId() << " ";
-    //  }     
-   //   std::cout <<  std::endl;
-   // }
-    //std::cout <<  std::endl;
-    //exit(EXIT_FAILURE);
+  std::vector<int> tareas_a_realizar(kGrafo.getGrafo().size() - 1);
+  std::iota(tareas_a_realizar.begin(), tareas_a_realizar.end(), 1);
+  seleccionarTareasInciales(maquinas, kGrafo, tareas_a_realizar);
+  std::vector<Maquina> maquinas_copia = maquinas;
+  while (!tareas_a_realizar.empty()) {
+    const TareaMaquinaPosicion kMejorEleccion = obtenerTareaMaquinaPosicion(
+      kNumeroMaquinas, maquinas_copia, tareas_a_realizar, kGrafo
+    );
+    maquinas_copia[kMejorEleccion.indice_maquina].insertarTarea(kMejorEleccion.tarea, kMejorEleccion.posicion);
+    auto it = std::find(tareas_a_realizar.begin(), tareas_a_realizar.end(), stoi(kMejorEleccion.tarea->getId()));
+    tareas_a_realizar.erase(it);
     maquinas = maquinas_copia;
   }
-  //exit(EXIT_FAILURE);
+  for (int i = 0; i < kNumeroMaquinas; ++i) {
+    maquinas[i].setTCT() = calcularTCT(kGrafo.getGrafo()[0], maquinas[i]);
+  }
+  calcularFuncionObjetivo(maquinas);
   return maquinas;
 }
 
 void AlgoritmoConstructivoVoraz::seleccionarTareasInciales(
   std::vector<Maquina>& maquinas,
   const GrafoDirigidoCompleto& kGrafo,
-  std::vector<bool>& tareas_realizadas
+  std::vector<int>& tareas_a_realizar
 ) const {
-const int kNumeroMaquinas = maquinas.size();
-for (int i = 0; i < kNumeroMaquinas; ++i) {
-    auto& vecinos = kGrafo.getGrafo()[0]->getNodosVecinos(); // Nodo ficticio 0
-    // Buscar mínima tarea no realizada
-    auto min_t0j = std::min_element(vecinos.begin() + 1, vecinos.end(),
-        [&tareas_realizadas](const Arco& kArco1, const Arco& kArco2) { 
-            const int kId1 = stoi(kArco1.getNodoDestino()->getId());
-            const int kId2 = stoi(kArco2.getNodoDestino()->getId());
-            const bool kVisitado1 = tareas_realizadas[kId1 - 1];
-            const bool kVisitado2 = tareas_realizadas[kId2 - 1];
-            if (kVisitado1 && !kVisitado2) return false;
-            if (!kVisitado1 && kVisitado2) return true;
-            return kArco1.getCoste() < kArco2.getCoste();
-        });
-    //std::cout << "min_t0j: " << min_t0j->getNodoDestino()->getId() << std::endl;
-    int min_t0j_indice = std::distance(vecinos.begin(), min_t0j);
-    // Marcar la tarea como realizada y añadirla a una máquina
-    tareas_realizadas[min_t0j_indice - 1] = true;
-    maquinas[i].crearPrimeraTarea(min_t0j->getNodoDestino());
+  const int kNumeroMaquinas = maquinas.size();
+  for (int i = 0; i < kNumeroMaquinas; ++i) {
+    if (tareas_a_realizar.empty()) return;
+    const int kSizeTareasARealizar = tareas_a_realizar.size();
+    int indice_minima_tarea = tareas_a_realizar[0];
+    int indice_a_eliminar = 0;
+    const Arco& kVecino1 = kGrafo.getGrafo()[0]->getVecino(indice_minima_tarea);
+    int min_coste = kVecino1.getCoste();
+    for (int j = 1; j < kSizeTareasARealizar; ++j) {
+      const Arco& kVecino2 = kGrafo.getGrafo()[0]->getVecino(tareas_a_realizar[j]);
+      if (kVecino2.getCoste() < min_coste) {
+        min_coste = kVecino2.getCoste();
+        indice_minima_tarea = tareas_a_realizar[j];
+        indice_a_eliminar = j;
+      }
+    }
+    maquinas[i].añadirTarea(kGrafo.getGrafo()[indice_minima_tarea]);
+    tareas_a_realizar.erase(tareas_a_realizar.begin() + indice_a_eliminar);
   }
 }
 
-void AlgoritmoConstructivoVoraz::minimizarIncrementoTCT(
+const TareaMaquinaPosicion AlgoritmoConstructivoVoraz::obtenerTareaMaquinaPosicion(
   const int kNumeroMaquinas,
-  const std::vector<Maquina>& kMaquinas,
   std::vector<Maquina>& maquinas_copia,
-  std::vector<bool>& tareas_realizadas,
+  const std::vector<int>& kTareasARealizar,
   const GrafoDirigidoCompleto& kGrafo
 ) const {
-  int mejor_maquina = -1;
-  int mejor_posicion = -1;
-  int mejor_incremento = std::numeric_limits<int>::max();
-  for (int i = 0; i < kNumeroMaquinas; ++i) {
-    const int kNumTareas = kMaquinas[i].getTareas().size(); 
-    for (int j = 0; j < kNumTareas; ++j) {
-      const int kIncrementoTct = calcularTCT(kMaquinas, i, j);
-      //exit(EXIT_FAILURE);
-      //std::cout << "kIncrementoTct: " << kIncrementoTct << " en la maquina " << i << " con la tarea " << kMaquinas[i].getTareas()[j]->getId()  << std::endl;
-      //std::cout << "Indice de la maquina: " << i << std::endl;
-      //std::cout << "Indice de tarea: " << j << std::endl;
-      // Actualizar si encontramos una mejor tarea-maquina-posición
-      if (kIncrementoTct < mejor_incremento) {
-        mejor_maquina = i;
-        mejor_posicion = j;
-        mejor_incremento = kIncrementoTct;
+  const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
+  TareaMaquinaPosicion mejor_eleccion;
+  mejor_eleccion.tarea = maquinas_copia[0].getTareas()[0];
+  mejor_eleccion.indice_maquina = 0;
+  mejor_eleccion.posicion = 1;
+  long long int mejor_incremento = std::numeric_limits<long long int>::max();
+  for (int i = 0; i < kNumeroMaquinas; ++i) {  
+    const int kNumTareas = maquinas_copia[i].getTareas().size();
+    for (int j = 1; j <= kNumTareas; ++j) {
+      Maquina cada_maquina = maquinas_copia[i];
+      Nodo* tarea = kGrafo.getGrafo()[kTareasARealizar[0]];
+      cada_maquina.insertarTarea(tarea, j);      
+      long long int incremento_tct = calcularTCT(kNodoRaiz, cada_maquina); 
+      if (incremento_tct < mejor_incremento) {
+        mejor_eleccion.tarea = tarea;
+        mejor_eleccion.indice_maquina = i;
+        mejor_eleccion.posicion = j;
+        mejor_incremento = incremento_tct;
+      }       
+      const int kSizeTareasARealizar = kTareasARealizar.size();
+      for (int k = 1; k < kSizeTareasARealizar; ++k) {       
+        tarea = kGrafo.getGrafo()[kTareasARealizar[k]];
+        cada_maquina.cambiarTarea(tarea, j);
+        incremento_tct = calcularTCT(kNodoRaiz, cada_maquina);
+        if (incremento_tct < mejor_incremento) {
+          mejor_eleccion.tarea = tarea;
+          mejor_eleccion.indice_maquina = i;
+          mejor_eleccion.posicion = j;
+          mejor_incremento = incremento_tct;
+        }
       }
     }
   }
-  //std::cout << "mejor_maquina: " << mejor_maquina << std::endl;
-  //std::cout << "mejor_posicion: " << mejor_posicion << std::endl;
-  //std::cout << "mejor_incremento: " << mejor_incremento << std::endl;
-  const Nodo* kTareaNueva = encontrarMejorTarea(
-    kGrafo, tareas_realizadas, stoi(kMaquinas[mejor_maquina].getTareas()[mejor_posicion]->getId())
-  );
-  tareas_realizadas[stoi(kTareaNueva->getId()) - 1] = true;
-  maquinas_copia[mejor_maquina].insertarTarea(kTareaNueva, mejor_posicion);
-}
-
-int contador = 0;
-
-const int AlgoritmoConstructivoVoraz::calcularTCT(
-  const std::vector<Maquina>& kMaquinas,
-  const int kMaquinaIndice,
-  const int kTareaIndice
-) const {
-  int tct = 0;
-  const auto& kTareas = kMaquinas[kMaquinaIndice].getTareas();
-  const int kNumTareas = kTareas.size();
-  for (int i = 0; i < kNumTareas - 1; ++i) {
-    const int kCoeficiente = kNumTareas - i;
-    if (i == kTareaIndice) {
-      // Ruta desde la nueva tarea hasta la primera tarea en la secuencia
-      tct += kCoeficiente * kTareas[i]->getCosteHaciaVecino(kTareas[0]);
-    }
-    // Ruta desde la tarea actual hasta la siguiente tarea en la secuencia
-    tct += kCoeficiente * kTareas[i]->getCosteHaciaVecino(kTareas[i + 1]);
-  }
-  if (kTareaIndice == kNumTareas) {
-    // Ruta desde la última tarea en la secuencia hasta la nueva tarea
-    tct += kTareas[kNumTareas - 1]->getCosteHaciaVecino(kTareas[0]);
-  }
-  return tct;
-}
-
-const Nodo* AlgoritmoConstructivoVoraz::encontrarMejorTarea(
-  const GrafoDirigidoCompleto& kGrafo,
-  const std::vector<bool>& kTareasRealizadas,
-  const int kIndiceMejorTarea
-) const {
-  const auto& kVecinos = kGrafo.getGrafo()[kIndiceMejorTarea]->getNodosVecinos();
-  int mejor_tarea_indice = -1;
-  int mejor_costo = std::numeric_limits<int>::max();
-  // Recorremos los vecinos para encontrar la mejor tarea disponible
-  const int kCantidadVecinos = kVecinos.size();
-  for (int i = 1; i < kCantidadVecinos; ++i) {
-    const int kNodoDestinoId = stoi(kVecinos[i].getNodoDestino()->getId());
-    if (!kTareasRealizadas[kNodoDestinoId - 1]) { // Verificar si la tarea no ha sido realizada
-      if (kVecinos[i].getCoste() < mejor_costo) { // Verificar si el costo es mejor que el actual
-        mejor_tarea_indice = i; // Almacenar el índice del vecino actual dentro de los vecinos de la tarea
-        mejor_costo = kVecinos[i].getCoste();
-      }
-    }
-  }
-  //std::cout << "Siguiente mejor tarea: " << kVecinos[mejor_tarea_indice].getNodoDestino()->getId() << std::endl;
-  //std::cout << kGrafo << std::endl;
-  //exit(EXIT_FAILURE);
-  // Retornamos la mejor tarea encontrada
-  if (mejor_tarea_indice != -1) return kVecinos[mejor_tarea_indice].getNodoDestino();
-  return nullptr;
+  return mejor_eleccion;
 }

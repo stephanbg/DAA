@@ -38,6 +38,7 @@ class Nodo {
     nodosVecinos_.emplace_back(vecino, kCoste);
   }
   const std::vector<Arco>& getNodosVecinos() const { return nodosVecinos_; }
+  const Arco& getVecino(const int kIndice) const { return nodosVecinos_[kIndice]; }
   const std::string getId() const { return id_; }
   /**
    * @brief Obtiene el peso de la arista que conecta al nodo actual con otro nodo dado.

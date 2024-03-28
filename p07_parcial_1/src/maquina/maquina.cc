@@ -19,7 +19,7 @@ void Maquina::cuantasMaquinasACrear(const std::string& kNombreDirYFichero) {
 
 void Maquina::mostrarTareasDeTodasLasMaquinas() {
   for (int i = 0; i < numero_maquinas_; ++i) {
-    std::cout << "Maquina " << i << " ha ejecutado las siguientes tareas: ";
+    std::cout << "Maquina " << i + 1 << " tiene asignadas las siguientes tareas: ";
     const auto& tareas = maquinas_[i]->getTareas();
     for (const auto& tarea : tareas) {
       std::cout << tarea->getId() << " ";

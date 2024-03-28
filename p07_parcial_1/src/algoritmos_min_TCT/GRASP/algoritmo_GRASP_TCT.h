@@ -1,11 +1,21 @@
 #pragma once
 
+#include <vector>
+#include <algorithm>
+#include <random>
+
 #include "../algoritmos_min_TCT.h"
 #include "../../funciones/funciones.h"
 
 class AlgoritmoGRASP : public AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Maquina> ejecutar(const int, const GrafoDirigidoCompleto&) const override;
+  virtual const std::vector<Maquina> ejecutar(const int, const GrafoDirigidoCompleto&) override;
  private:
-  void faseConstructiva(const int, std::vector<Maquina>&, const GrafoDirigidoCompleto&) const;
+  const std::vector<const Nodo*> faseConstructiva(
+    const GrafoDirigidoCompleto&
+  ) const;
+  const double calcularHeurística(const std::vector<Nodo*>&) const;
+  const std::vector<const Nodo*> calcularNodosQueSuperanHeuristica(
+    const std::vector<Nodo*>&, const double
+  ) const;
 };
