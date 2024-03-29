@@ -5,12 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 14 de Marzo de 2024
- * @file grafoNoDirigidoCompleto.h
- * @brief Definición de la clase GrafoNoDirigidoCompleto
- * que generará grafos no dirigidos completos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
- * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ * @since 20 de Marzo de 2024
+ * @file grafoDirigidoCompleto.h
+ * @brief Definición de la clase GrafoDirigidoCompleto que se encarga
+ * de leer los datos de un fichero y crear el grafo
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
 #pragma once
@@ -23,19 +22,18 @@
 #include <filesystem>
 
 #include "../nodo/nodo.h"
-//#include "../sintaxis_fichero_grafo/sintaxis_fichero_grafo.h"
 
 namespace fs = std::filesystem;
 
 /**
- * @brief Clase que genera un grafo no dirigido completo
- * 
+ * @brief Clase que genera un grafo dirigido completo
  */
 class GrafoDirigidoCompleto {
  public:
   GrafoDirigidoCompleto(const std::string&);
   const std::vector<Nodo*>& getGrafo() const { return grafo_; }
   friend std::ostream& operator<<(std::ostream&, const GrafoDirigidoCompleto&);
+  ~GrafoDirigidoCompleto();
  private:
   std::vector<Nodo*> grafo_;
   const int calculaNumeroNodos(const std::string&) const;

@@ -5,22 +5,19 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 14 de Marzo de 2024
- * @file grafoNoDirigidoCompleto.cc
- * @brief Implementación de la clase GrafoNoDirigidoCompleto
- * que generará grafos no dirigidos completos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
- * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ * @since 20 de Marzo de 2024
+ * @file grafoDirigidoCompleto.cc
+ * @brief Implementación de la clase GrafoDirigidoCompleto que se encarga
+ * de leer los datos de un fichero y crear el grafo
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
 #include "grafoDirigidoCompleto.h"
 
 /**
- * @brief Constructor de la clase GrafoNoDirigidoCompleto.
+ * @brief Constructor de la clase GrafoDirigidoCompleto.
  * 
- * @param kNombreDir Directorio donde se encuentra el archivo.
- * @param kNombreFichero Nombre del archivo que contiene la descripción del grafo.
- * @throws Excepción que indica un error al cargar el grafo.
+ * @param kNombreDirYFichero Nombre del directorio y fichero del grafo.
  */
 GrafoDirigidoCompleto::GrafoDirigidoCompleto(
   const std::string& kNombreDirYFichero
@@ -46,14 +43,35 @@ GrafoDirigidoCompleto::GrafoDirigidoCompleto(
   if (error != "") throw (error);
 }
 
+/**
+ * @brief Destructor de la clase GrafoDirigidoCompleto.
+ */
+GrafoDirigidoCompleto::~GrafoDirigidoCompleto() {
+  for (auto nodo : grafo_) {
+    delete nodo;
+  }
+}
+
+/**
+ * @brief Calcula el número de nodos a partir de una línea del archivo.
+ * 
+ * @param kCadaLinea Línea del archivo que contiene el número de nodos.
+ * @return Número de nodos.
+ */
 const int GrafoDirigidoCompleto::calculaNumeroNodos(const std::string& kCadaLinea) const {
   std::stringstream ss(kCadaLinea);
   std::string palabra = "";
-  ss >> palabra; // Descartar La primera palabra
+  ss >> palabra;
   ss >> palabra;
   return stoi(palabra) + 1;
 }
 
+/**
+ * @brief Extrae los tiempos de procesamiento de cada nodo a partir de una línea del archivo.
+ * 
+ * @param kCadaLinea Línea del archivo que contiene los tiempos de procesamiento.
+ * @param tiempos_procesamiento Vector para almacenar los tiempos de procesamiento.
+ */
 void GrafoDirigidoCompleto::calculaTiemposProcesamientos(
   const std::string& kCadaLinea,
   std::vector<int>& tiempos_procesamiento
@@ -71,6 +89,12 @@ void GrafoDirigidoCompleto::calculaTiemposProcesamientos(
   } 
 }
 
+/**
+ * @brief Extrae los tiempos de setup entre nodos a partir de una línea del archivo.
+ * 
+ * @param kCadaLinea Línea del archivo que contiene los tiempos de setup.
+ * @param tiempos_setup Vector para almacenar los tiempos de setup.
+ */
 void GrafoDirigidoCompleto::calculaTiemposSetUp(
   const std::string& kCadaLinea,
   std::vector<std::vector<int>>& tiempos_setup
@@ -82,6 +106,12 @@ void GrafoDirigidoCompleto::calculaTiemposSetUp(
   tiempos_setup.push_back(tiempos_setup_por_linea); 
 }
 
+/**
+ * @brief Rellena los costes de los arcos en el grafo a partir de los tiempos de setup y procesamiento.
+ * 
+ * @param kTiemposSetup Matriz de tiempos de setup entre nodos.
+ * @param kTiemposProcesamiento Vector de tiempos de procesamiento de cada nodo.
+ */
 void GrafoDirigidoCompleto::rellenarCostesArcos(
   const std::vector<std::vector<int>>& kTiemposSetup,
   const std::vector<int>& kTiemposProcesamiento
@@ -90,28 +120,25 @@ void GrafoDirigidoCompleto::rellenarCostesArcos(
   for (int i = 0; i < kFilas; ++i) {
     const int kColumnas = kTiemposSetup[i].size();
     for (int j = 0; j < kColumnas; ++j) {
-      //if (std::to_string(i) == grafo_[j]->getId()) continue;
       grafo_[i]->insertarNodoVecino(grafo_[j], kTiemposSetup[i][j] + kTiemposProcesamiento[j]);
     }
   }  
 }
 
 /**
- * @brief Verifica si la cantidad de nodos del grafo es la esperada.
+ * @brief Verifica si la cantidad de nodos del grafo es correcta.
  * 
- * @param kNumNodos Número de nodos esperados.
- * @return true Si la cantidad de nodos coincide.
- * @return false Si la cantidad de nodos no coincide.
+ * @param kNumNodos Número esperado de nodos.
+ * @return Verdadero si la cantidad de nodos es correcta, falso en caso contrario.
  */
 const bool GrafoDirigidoCompleto::esCorrectaCantidadNodos(const int kNumNodos) const {
   return (grafo_.size() == kNumNodos);
 }
 
 /**
- * @brief Verifica si el grafo es completo.
+ * @brief Verifica si el grafo es completo, es decir, si existe un arco entre todos los pares de nodos.
  * 
- * @return true Si el grafo es completo.
- * @return false Si el grafo no es completo.
+ * @return Verdadero si el grafo es completo, falso en caso contrario.
  */
 const bool GrafoDirigidoCompleto::esCompleto() const {
   const int kNumNodos = grafo_.size();
@@ -126,11 +153,11 @@ const bool GrafoDirigidoCompleto::esCompleto() const {
 }
 
 /**
- * @brief Comprueba si existe una arista entre dos nodos en el grafo.
+ * @brief Verifica si existe un arco entre dos nodos.
  * 
- * @param nodo1 Puntero al primer nodo.
- * @param nodo2 Puntero al segundo nodo.
- * @return true si existe una arista entre los dos nodos, false en caso contrario.
+ * @param nodo1 Primer nodo.
+ * @param nodo2 Segundo nodo.
+ * @return Verdadero si existe un arco entre los nodos, falso en caso contrario.
  */
 const bool GrafoDirigidoCompleto::existeArco(const Nodo* nodo1, const Nodo* nodo2) const {
   bool enlace_nodo1_nodo2 = false, enlace_nodo2_nodo1 = false;
@@ -146,9 +173,9 @@ const bool GrafoDirigidoCompleto::existeArco(const Nodo* nodo1, const Nodo* nodo
 /**
  * @brief Sobrecarga del operador de inserción para imprimir el grafo.
  * 
- * @param out Flujo de salida donde se imprime el grafo.
- * @param grafo Grafo no dirigido completo a imprimir.
- * @return El flujo de salida modificado.
+ * @param out Flujo de salida.
+ * @param grafo Grafo a imprimir.
+ * @return Referencia al flujo de salida.
  */
 std::ostream& operator<<(std::ostream& out, const GrafoDirigidoCompleto& grafo) {
   out << "Grafo Dirigido Completo:" << std::endl;

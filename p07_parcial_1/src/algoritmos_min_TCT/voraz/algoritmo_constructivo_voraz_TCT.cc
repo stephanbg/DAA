@@ -1,5 +1,26 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 20 de Marzo de 2024
+ * @file algoritmo_constructivo_voraz_TCT.h
+ * @brief Implementación de la clase AlgoritmoConstructivoVoraz que hereda de
+ * la clase abstracta AlgoritmoMinimizarTCT para minimizar el TCT mediante un algoritmo Voraz
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ */
+
 #include "./algoritmo_constructivo_voraz_TCT.h"
 
+/**
+ * @brief Ejecuta el algoritmo constructivo voraz para asignar tareas a las máquinas.
+ * 
+ * @param kNumeroMaquinas Número de máquinas disponibles.
+ * @param kGrafo Grafo que representa las tareas y sus dependencias.
+ * @return Vector que contiene las asignaciones de tareas a las máquinas.
+ */
 const std::vector<Maquina> AlgoritmoConstructivoVoraz::ejecutar(
   const int kNumeroMaquinas,
   const GrafoDirigidoCompleto& kGrafo
@@ -19,12 +40,19 @@ const std::vector<Maquina> AlgoritmoConstructivoVoraz::ejecutar(
     maquinas = maquinas_copia;
   }
   for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].setTCT() = calcularTCT(kGrafo.getGrafo()[0], maquinas[i]);
+    maquinas[i].setTCT() = maquinas[i].calcularTCT(kGrafo.getGrafo()[0]);
   }
   calcularFuncionObjetivo(maquinas);
   return maquinas;
 }
 
+/**
+ * @brief Selecciona las tareas iniciales para cada máquina basándose en un criterio voraz.
+ * 
+ * @param maquinas Vector que contiene las máquinas disponibles.
+ * @param kGrafo Grafo que representa las tareas y sus dependencias.
+ * @param tareas_a_realizar Vector que contiene las tareas que aún no han sido asignadas.
+ */
 void AlgoritmoConstructivoVoraz::seleccionarTareasInciales(
   std::vector<Maquina>& maquinas,
   const GrafoDirigidoCompleto& kGrafo,
@@ -51,6 +79,16 @@ void AlgoritmoConstructivoVoraz::seleccionarTareasInciales(
   }
 }
 
+/**
+ * @brief Obtiene la siguiente tarea a asignar a una máquina en una posición específica
+ * utilizando un criterio voraz.
+ * 
+ * @param kNumeroMaquinas Número de máquinas disponibles.
+ * @param maquinas_copia Vector que contiene las máquinas disponibles.
+ * @param kTareasARealizar Vector que contiene las tareas que aún no han sido asignadas.
+ * @param kGrafo Grafo que representa las tareas y sus dependencias.
+ * @return Estructura que contiene la tarea, la máquina y la posición.
+ */
 const TareaMaquinaPosicion AlgoritmoConstructivoVoraz::obtenerTareaMaquinaPosicion(
   const int kNumeroMaquinas,
   std::vector<Maquina>& maquinas_copia,
@@ -62,29 +100,20 @@ const TareaMaquinaPosicion AlgoritmoConstructivoVoraz::obtenerTareaMaquinaPosici
   mejor_eleccion.tarea = maquinas_copia[0].getTareas()[0];
   mejor_eleccion.indice_maquina = 0;
   mejor_eleccion.posicion = 1;
-  long long int mejor_incremento = std::numeric_limits<long long int>::max();
-  for (int i = 0; i < kNumeroMaquinas; ++i) {  
-    const int kNumTareas = maquinas_copia[i].getTareas().size();
-    for (int j = 1; j <= kNumTareas; ++j) {
-      Maquina cada_maquina = maquinas_copia[i];
-      Nodo* tarea = kGrafo.getGrafo()[kTareasARealizar[0]];
-      cada_maquina.insertarTarea(tarea, j);      
-      long long int incremento_tct = calcularTCT(kNodoRaiz, cada_maquina); 
-      if (incremento_tct < mejor_incremento) {
-        mejor_eleccion.tarea = tarea;
-        mejor_eleccion.indice_maquina = i;
-        mejor_eleccion.posicion = j;
-        mejor_incremento = incremento_tct;
-      }       
-      const int kSizeTareasARealizar = kTareasARealizar.size();
-      for (int k = 1; k < kSizeTareasARealizar; ++k) {       
-        tarea = kGrafo.getGrafo()[kTareasARealizar[k]];
-        cada_maquina.cambiarTarea(tarea, j);
-        incremento_tct = calcularTCT(kNodoRaiz, cada_maquina);
+  int mejor_incremento = std::numeric_limits<int>::max();
+  const int kSizeTareasARealizar = kTareasARealizar.size();
+  for (int i = 0; i < kSizeTareasARealizar; ++i) {
+    Nodo* tarea = kGrafo.getGrafo()[kTareasARealizar[i]];
+    for (int j = 0; j < kNumeroMaquinas; ++j) {  
+      const int kNumTareas = maquinas_copia[j].getTareas().size();
+      for (int k = 1; k <= kNumTareas; ++k) {
+        Maquina cada_maquina = maquinas_copia[j];
+        cada_maquina.insertarTarea(tarea, k);             
+        int incremento_tct = cada_maquina.calcularTCT(kNodoRaiz);
         if (incremento_tct < mejor_incremento) {
           mejor_eleccion.tarea = tarea;
-          mejor_eleccion.indice_maquina = i;
-          mejor_eleccion.posicion = j;
+          mejor_eleccion.indice_maquina = j;
+          mejor_eleccion.posicion = k;
           mejor_incremento = incremento_tct;
         }
       }

@@ -1,5 +1,27 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 20 de Marzo de 2024
+ * @file algoritmo_GRASP_TCT.h
+ * @brief Implementación de la clase AlgoritmoGRASP que hereda de
+ * la clase abstracta AlgoritmoMinimizarTCT para minimizar el TCT mediante un algoritmo GRASP
+ * solo haciendo la fase constructiva
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ */
+
 #include "./algoritmo_GRASP_TCT.h"
 
+/**
+ * @brief Ejecuta el algoritmo GRASP para asignar tareas a las máquinas de manera aleatoria.
+ * 
+ * @param kNumeroMaquinas Número de máquinas disponibles.
+ * @param kGrafo Grafo que representa las tareas y sus dependencias.
+ * @return Vector que contiene las asignaciones de tareas a las máquinas.
+ */
 const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
   const int kNumeroMaquinas,
   const GrafoDirigidoCompleto& kGrafo
@@ -13,13 +35,19 @@ const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
   }
   // Calcula el TCT de cada máquina
   for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].setTCT() = calcularTCT(kGrafo.getGrafo()[0], maquinas[i]);
+    maquinas[i].setTCT() = maquinas[i].calcularTCT(kGrafo.getGrafo()[0]);
   }
   // Calcula función objetivo
   calcularFuncionObjetivo(maquinas);  
   return maquinas;
 }
 
+/**
+ * @brief Realiza la fase constructiva del algoritmo GRASP para generar soluciones iniciales.
+ * 
+ * @param kGrafo Grafo que representa las tareas y sus dependencias.
+ * @return Vector que contiene las tareas seleccionadas para formar soluciones iniciales.
+ */
 const std::vector<const Nodo*> AlgoritmoGRASP::faseConstructiva(
   const GrafoDirigidoCompleto& kGrafo 
 ) const {
@@ -47,6 +75,12 @@ const std::vector<const Nodo*> AlgoritmoGRASP::faseConstructiva(
   return nodos_aleatorios; 
 }
 
+/**
+ * @brief Calcula la heurística para evaluar la calidad de una solución parcial.
+ * 
+ * @param kNodos Vector que contiene las tareas seleccionadas en una solución parcial.
+ * @return Valor que representa la calidad de la solución parcial.
+ */
 const double AlgoritmoGRASP::calcularHeurística(const std::vector<Nodo*>& kNodos) const {
   const double kAlfa = 0.5;
   const int kNumeroNodos = kNodos.size();
@@ -59,6 +93,13 @@ const double AlgoritmoGRASP::calcularHeurística(const std::vector<Nodo*>& kNodo
   return kAlfa * num_maximo_vecinos;
 }
 
+/**
+ * @brief Identifica las tareas que superan cierto umbral de calidad según la heurística.
+ * 
+ * @param kNodos Vector que contiene las tareas seleccionadas en una solución parcial.
+ * @param kHeuristica Valor que define el umbral de calidad.
+ * @return Vector que contiene las tareas que superan el umbral de calidad.
+ */
 const std::vector<const Nodo*> AlgoritmoGRASP::calcularNodosQueSuperanHeuristica(
   const std::vector<Nodo*>& kNodos, const double kHeuristica
 ) const {

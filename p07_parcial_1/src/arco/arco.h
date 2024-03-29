@@ -5,11 +5,10 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 14 de Marzo de 2024
- * @file arista.h
- * @brief Definición e implementación de la clase Arista
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
- * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ * @since 20 de Marzo de 2024
+ * @file arco.h
+ * @brief Definición e implementación de la clase Arco para enlazar dos nodos
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
 #pragma once
@@ -19,9 +18,9 @@
 class Nodo;
 
 /**
- * @brief Clase que representa una arista en un grafo.
+ * @brief Clase que representa un arco en un grafo.
  * 
- * Esta clase modela una arista que conecta un nodo de origen con un nodo de destino,
+ * Esta clase modela un arco que conecta un nodo de origen con un nodo de destino,
  * con un peso asociado que representa la distancia entre los nodos.
  */
 class Arco {

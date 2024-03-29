@@ -5,11 +5,10 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 14 de Marzo de 2024
+ * @since 20 de Marzo de 2024
  * @file comprobar_aprametros.cc
  * @brief Implementación de la clase ComprobarParametros, que comprueba la línea de comandos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p06/src}
- * @see {@link https://docs.google.com/document/d/1a691HPtHQL4qBtI2qaTMTp23wxZvU8-CCIbGOyNJRQo/edit}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
 #include "comprobar_parametros.h"
@@ -43,7 +42,12 @@ bool ComprobarParametros::cantidadParametrosCorrecta(const int kNumParametros) {
   return (kNumParametros == 2);
 }
 
-
+/**
+ * @brief Comprueba si existe el fichero
+ * 
+ * @param kRuta La ruta hacia el fichero
+ * @return Devuelve true si lo encuentra si no false;
+ */
 bool ComprobarParametros::existeFichero(const std::string& kRuta) {
   return fs::exists(kRuta);
 }
@@ -52,13 +56,12 @@ bool ComprobarParametros::existeFichero(const std::string& kRuta) {
  * @brief Muestra la ayuda del programa.
  */
 void ComprobarParametros::ayuda() {
-  std::cout << "Uso: programa <directorio_ejemplos> <tiempo_limite>\n\n";
+  std::cout << "Uso: programa <fichero_ejemplo>\n\n";
   std::cout << "Descripción:\n";
-  std::cout << "Este programa lee todos los ficheros del directorio ejemplos, que contienen\n";
-  std::cout << "la descripción de los grafos, y se ejecutan los algoritmos de TSP con fuerza bruta,\n";
-  std::cout << "voraz y programación dinámica dentro del límite de tiempo especificado.\n";
+  std::cout << "Este programa lee un fichero, que contiene\n";
+  std::cout << "la descripción de los tiempos de procesamiento, los tiempos de setup, el número de nodos y máquinas.\n";
+  std::cout << "Se crea el grafo a partir de esa información y se realizan los algoritmos voraz y GRASP.\n";
   std::cout << "Posteriormente dichos datos se pueden mandar a pantalla o a un fichero según requiera el usuario.\n\n";
   std::cout << "Parámetros:\n";
-  std::cout << "<directorio_ejemplos>: Ruta al directorio de ejemplos.\n";
-  std::cout << "<tiempo_limite>: Límite de tiempo en minutos para realizar las operaciones.\n";
+  std::cout << "<fichero_ejemplo>: Fichero ejemplo.\n";
 }

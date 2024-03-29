@@ -6,16 +6,13 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 20 de Marzo de 2024
- * @file funciones.h
- * @brief Definición de funciones necesarias
+ * @file peticionesUsuario.h
+ * @brief Definición de funciones que hacen peticiones al usuario
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
 #pragma once
 
-#include <vector>
-#include <string>
-#include <sstream>
-#include <iomanip>
+#include <iostream>
 
-const bool esNumeroEnteroSinSigno(const std::string&);
+const std::string peticionUsuarioTablaPantallaOFichero();

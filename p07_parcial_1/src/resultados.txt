@@ -1,0 +1,34 @@
+Nombre del Archivo          Nombre del Algoritmo  Numero de Nodos  Numero de Maquinas  Tiempo (µs) Funcion Objetivo
+-------------------------------------------------------------------------------------------------------------------
+40_tareas/I40j_2m_S1_1.txt  VORAZ                 40               2                   251025      13709
+40_tareas/I40j_2m_S1_1.txt  GRASP                 40               2                   301         31853
+40_tareas/I40j_4m_S1_1.txt  VORAZ                 40               4                   148629      7421
+40_tareas/I40j_4m_S1_1.txt  GRASP                 40               4                   321         14951
+40_tareas/I40j_6m_S1_1.txt  VORAZ                 40               6                   111006      5452
+40_tareas/I40j_6m_S1_1.txt  GRASP                 40               6                   301         10788
+40_tareas/I40j_8m_S1_1.txt  VORAZ                 40               8                   96311       4497
+40_tareas/I40j_8m_S1_1.txt  GRASP                 40               8                   301         8133
+50_tareas/I50j_2m_S1_1.txt  VORAZ                 50               2                   800091      25156
+50_tareas/I50j_2m_S1_1.txt  GRASP                 50               2                   424         49708
+50_tareas/I50j_4m_S1_1.txt  VORAZ                 50               4                   436803      13836
+50_tareas/I50j_4m_S1_1.txt  GRASP                 50               4                   429         26347
+50_tareas/I50j_6m_S1_1.txt  VORAZ                 50               6                   330214      9855
+50_tareas/I50j_6m_S1_1.txt  GRASP                 50               6                   423         16604
+50_tareas/I50j_8m_S1_1.txt  VORAZ                 50               8                   265481      7867
+50_tareas/I50j_8m_S1_1.txt  GRASP                 50               8                   437         12789
+60_tareas/I60j_2m_S1_1.txt  VORAZ                 60               2                   1942114     34363
+60_tareas/I60j_2m_S1_1.txt  GRASP                 60               2                   522         64327
+60_tareas/I60j_4m_S1_1.txt  VORAZ                 60               4                   1059750     18637
+60_tareas/I60j_4m_S1_1.txt  GRASP                 60               4                   548         35918
+60_tareas/I60j_6m_S1_1.txt  VORAZ                 60               6                   751343      13276
+60_tareas/I60j_6m_S1_1.txt  GRASP                 60               6                   528         25014
+60_tareas/I60j_8m_S1_1.txt  VORAZ                 60               8                   635359      10461
+60_tareas/I60j_8m_S1_1.txt  GRASP                 60               8                   546         19041
+70_tareas/I70j_2m_S1_1.txt  VORAZ                 70               2                   3837723     43630
+70_tareas/I70j_2m_S1_1.txt  GRASP                 70               2                   670         87971
+70_tareas/I70j_4m_S1_1.txt  VORAZ                 70               4                   2078399     22603
+70_tareas/I70j_4m_S1_1.txt  GRASP                 70               4                   677         47100
+70_tareas/I70j_6m_S1_1.txt  VORAZ                 70               6                   1501004     15925
+70_tareas/I70j_6m_S1_1.txt  GRASP                 70               6                   689         30125
+70_tareas/I70j_8m_S1_1.txt  VORAZ                 70               8                   1210404     12730
+70_tareas/I70j_8m_S1_1.txt  GRASP                 70               8                   689         23063

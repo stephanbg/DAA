@@ -1,3 +1,17 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 20 de Marzo de 2024
+ * @file maquina.h
+ * @brief Definición de la clase Maquina que se encarga
+ * de realizar tareas
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ */
+
 #pragma once
 
 #include <iostream>
@@ -9,41 +23,20 @@
 
 namespace fs = std::filesystem;
 
+/**
+ * @brief Clase que representa una máquina a la que se le asignan tareas.
+ */
 class Maquina {
  public:
-  Maquina() { maquinas_.push_back(this); } 
-  static void cuantasMaquinasACrear(const std::string&);
-  void añadirTarea(const Nodo* kTarea) { tareas_.push_back(kTarea); };
-  void insertarTarea(const Nodo* kTarea, const int kPos) {
-    if (kPos >= 0 && kPos <= tareas_.size()) tareas_.insert(tareas_.begin() + kPos, kTarea);
-    else {
-      std::string error = "La posición de inserción está fuera del rango válido";
-      throw (error);
-    }
-  }
-  void cambiarTarea(const Nodo* kTarea, const int kPos) {
-    if (kPos >= 0 && kPos <= tareas_.size()) tareas_[kPos] = kTarea;
-    else {
-      std::string error = "La posición para cambiar la tarea está fuera del rango válido";
-      throw (error);
-    }
-  }
-  void eliminarTarea(const Nodo* tarea) {
-    auto it = std::find(tareas_.begin(), tareas_.end(), tarea);
-    if (it != tareas_.end()) {
-        tareas_.erase(it);
-    }
-  }  
-  void limpiarTareas() { tareas_.clear(); }
+  static const int cuantasMaquinasACrear(const std::string&);
+  void añadirTarea(const Nodo*);
+  void insertarTarea(const Nodo*, const int);
+  const int calcularTCT(const Nodo*) const;   
   const std::vector<const Nodo*> getTareas() const { return tareas_; }
-  const long long int getTCT() const { return tct_; }
-  long long int& setTCT() { return tct_; }
-  static const int getNumeroMaquinas() { return numero_maquinas_; }
-  static void limpiarTareasDeTodasLasMaquinas();
-  static void mostrarTareasDeTodasLasMaquinas();
+  const int getTCT() const { return tct_; }
+  int& setTCT() { return tct_; }
+  static void mostrarTareasDeTodasLasMaquinas(const std::vector<Maquina>&);
  private:
-  static std::vector<Maquina*> maquinas_;
-  static int numero_maquinas_;
   std::vector<const Nodo*> tareas_;
-  long long int tct_ = 0;
+  int tct_ = 0;
 };
