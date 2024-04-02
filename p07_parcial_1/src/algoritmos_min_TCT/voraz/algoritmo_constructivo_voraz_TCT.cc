@@ -34,8 +34,12 @@ const std::vector<Maquina> AlgoritmoConstructivoVoraz::ejecutar(
     const TareaMaquinaPosicion kMejorEleccion = obtenerTareaMaquinaPosicion(
       kNumeroMaquinas, maquinas_copia, tareas_a_realizar, kGrafo
     );
-    maquinas_copia[kMejorEleccion.indice_maquina].insertarTarea(kMejorEleccion.tarea, kMejorEleccion.posicion);
-    auto it = std::find(tareas_a_realizar.begin(), tareas_a_realizar.end(), stoi(kMejorEleccion.tarea->getId()));
+    maquinas_copia[kMejorEleccion.indice_maquina].insertarTarea(
+      kMejorEleccion.tarea, kMejorEleccion.posicion
+    );
+    auto it = std::find(
+      tareas_a_realizar.begin(), tareas_a_realizar.end(), stoi(kMejorEleccion.tarea->getId())
+    );
     tareas_a_realizar.erase(it);
     maquinas = maquinas_copia;
   }

@@ -26,19 +26,32 @@ const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
   const int kNumeroMaquinas,
   const GrafoDirigidoCompleto& kGrafo
 ) {
-  std::vector<Maquina> maquinas(kNumeroMaquinas); // m Maquinas
-  const std::vector<const Nodo*> kTareasAleatorias = faseConstructiva(kGrafo);
-  const int kSizeNodosAleatorios = kTareasAleatorias.size();
-  // Distribuir los nodos por las maquinas
-  for (int i = 0; i < kSizeNodosAleatorios; i++) {
-    maquinas[i % maquinas.size()].añadirTarea(kTareasAleatorias[i]);   
-  }
-  // Calcula el TCT de cada máquina
-  for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].setTCT() = maquinas[i].calcularTCT(kGrafo.getGrafo()[0]);
-  }
-  // Calcula función objetivo
-  calcularFuncionObjetivo(maquinas);  
+  std::vector<Maquina> maquinas;
+  int contador = 0, funcion_objetivo = std::numeric_limits<int>::max();
+  do {
+    std::vector<Maquina> maquinas_aux(kNumeroMaquinas); // m Maquinas
+    const std::vector<const Nodo*> kTareasAleatorias = faseConstructiva(kGrafo);
+    const int kSizeNodosAleatorios = kTareasAleatorias.size();
+    // Distribuir los nodos por las maquinas
+    for (int i = 0; i < kSizeNodosAleatorios; i++) {
+      maquinas_aux[i % maquinas_aux.size()].añadirTarea(kTareasAleatorias[i]);   
+    }
+    // Calcula el TCT de cada máquina
+    for (int i = 0; i < kNumeroMaquinas; ++i) {
+      maquinas_aux[i].setTCT() = maquinas_aux[i].calcularTCT(kGrafo.getGrafo()[0]);
+    }
+    // Calcula función objetivo
+    calcularFuncionObjetivo(maquinas_aux);
+    if (this->funcion_objetivo_ < funcion_objetivo) {
+      maquinas = maquinas_aux;
+      for (int i = 0; i < maquinas_aux.size(); ++i) {
+        maquinas[i].setTCT() = maquinas_aux[i].getTCT();
+      }      
+      funcion_objetivo = this->funcion_objetivo_;      
+    }
+    contador++;
+  } while (contador != 100);
+  this->funcion_objetivo_ = funcion_objetivo;
   return maquinas;
 }
 
