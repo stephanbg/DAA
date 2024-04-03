@@ -14,6 +14,8 @@
 
 #include "solucion.h"
 
+int Solucion::funcion_objetivo_ = 0;
+
 /**
  * @brief Determina el número de máquinas a crear a partir de un archivo.
  * 
@@ -32,6 +34,19 @@ const int Solucion::cuantasMaquinasACrear(const std::string& kNombreDirYFichero)
   ss >> palabra; // Descartar La primera palabra
   ss >> palabra;
   return stoi(palabra);
+}
+
+/**
+ * @brief Calcula la función objetivo basada en las asignaciones de tareas a las máquinas.
+ * 
+ * @param kMaquinas Vector que contiene las asignaciones de tareas a las máquinas.
+ */
+void Solucion::calcularFuncionObjetivo(const std::vector<Solucion>& kMaquinas) {
+  funcion_objetivo_ = 0;
+  const int kNumMaquinas  = kMaquinas.size();
+  for (int i = 0; i < kNumMaquinas; ++i) {
+    funcion_objetivo_ += kMaquinas[i].getTCT();
+  }
 }
 
 /**

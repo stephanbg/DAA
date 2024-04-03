@@ -3,12 +3,8 @@
 const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(const Nodo* kNodoRaiz) {
   std::vector<Solucion> solucion_vecina, solucion_mejor;
   const int kNumMaquinas = solucion_inicial_.size(); 
-  int funcion_objetivo_inicial = 0;
-  for (int i = 0; i < kNumMaquinas; ++i) {
-    funcion_objetivo_inicial += solucion_inicial_[i].getTCT();
-  }
-  int funcion_objetivo_aux = funcion_objetivo_inicial;
-  int funcion_objetivo_vecino = 0;
+  int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
+  funcion_objetivo_aux = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
   for (int i = 0; i < kNumMaquinas; ++i) {
     const int kTctMaquinaI = solucion_inicial_[i].getTCT();
     const int kNumTareas = solucion_inicial_[i].getTareas().size();

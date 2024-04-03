@@ -42,31 +42,26 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
       maquinas_aux[i].setTCT() = maquinas_aux[i].calcularTCT(kNodoRaiz);
     }
     // Calcula función objetivo
-    calcularFuncionObjetivo(maquinas_aux);
-    if (this->funcion_objetivo_ < funcion_objetivo) {
+    Solucion::calcularFuncionObjetivo(maquinas_aux);
+    if (Solucion::getFuncionObjetivo() < funcion_objetivo) {
       maquinas = maquinas_aux;
       for (int i = 0; i < maquinas_aux.size(); ++i) {
         maquinas[i].setTCT() = maquinas_aux[i].getTCT();
       }      
-      funcion_objetivo = this->funcion_objetivo_;
+      funcion_objetivo = Solucion::getFuncionObjetivo();
     }
     contador++;
   } while (contador != 100);
-  this->funcion_objetivo_ = funcion_objetivo;
+  Solucion::setFuncionObjetivo() = funcion_objetivo;
   std::cout << "ANTES DE LA BÚSQUEDA LOCAL\n";
-  std::cout << "funcion_objetivo_: " << this->funcion_objetivo_ << std::endl;
-  std::cout << "TCT 1: " << maquinas[0].getTCT() << std::endl;  
-  std::cout << "TCT 2: " << maquinas[1].getTCT() << std::endl;   
+  std::cout << "funcion_objetivo_: " << Solucion::getFuncionObjetivo() << std::endl; 
   Solucion::mostrarTareasDeTodasLasMaquinas(maquinas);
   BusquedaLocal* algoritmoBusquedaLocal = new MovimientoReInsercionInterGRASP(maquinas);
   maquinas = algoritmoBusquedaLocal->busquedaLocal(kNodoRaiz);
-  calcularFuncionObjetivo(maquinas);
+  Solucion::calcularFuncionObjetivo(maquinas);
   std::cout << "DESPUES DE LA BÚSQUEDA LOCAL\n";
-  std::cout << "funcion_objetivo_: " << this->funcion_objetivo_ << std::endl;  
-  std::cout << "TCT 1: " << maquinas[0].getTCT() << std::endl;  
-  std::cout << "TCT 2: " << maquinas[1].getTCT() << std::endl;
+  std::cout << "funcion_objetivo_: " << Solucion::getFuncionObjetivo() << std::endl;  
   Solucion::mostrarTareasDeTodasLasMaquinas(maquinas);
-
   return maquinas;
 }
 

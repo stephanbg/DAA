@@ -46,7 +46,7 @@ const std::vector<Solucion> AlgoritmoConstructivoVoraz::ejecutar(
   for (int i = 0; i < kNumeroMaquinas; ++i) {
     maquinas[i].setTCT() = maquinas[i].calcularTCT(kGrafo.getGrafo()[0]);
   }
-  calcularFuncionObjetivo(maquinas);
+  Solucion::calcularFuncionObjetivo(maquinas);
   return maquinas;
 }
 

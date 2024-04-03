@@ -49,7 +49,7 @@ int main(int argc, char* argv[]) {
       }
     );
     std::vector<Solucion> maquinas = tiempo1.medirTiempoFuncion(std::move(numero_maquinas), grafo);
-    tabla.insertarFuncionObjetivo(algoritmo->getFuncionObjetivo());
+    tabla.insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
     tabla.insertarTiempo(tiempo1.getDuracion());
     tabla.insertarNombreAlgoritmo("GRASP");
     algoritmo = new AlgoritmoGRASP;
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
       }
     );
     maquinas = tiempo2.medirTiempoFuncion(std::move(numero_maquinas), grafo); 
-    tabla.insertarFuncionObjetivo(algoritmo->getFuncionObjetivo());
+    tabla.insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
     tabla.insertarTiempo(tiempo2.getDuracion());
     const std::string kOpcion = peticionUsuarioTablaPantallaOFichero();
     if (kOpcion == "P") Tabla::mostrarTablaEnPantalla();

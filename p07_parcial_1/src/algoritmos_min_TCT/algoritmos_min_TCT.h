@@ -26,19 +26,4 @@
 class AlgoritmoMinimizarTCT {
  public:
   virtual const std::vector<Solucion> ejecutar(const int, const Problema&) = 0;
-  int getFuncionObjetivo() { return funcion_objetivo_; }
- protected:
-  int funcion_objetivo_;
-  /**
-   * @brief Calcula la función objetivo basada en las asignaciones de tareas a las máquinas.
-   * 
-   * @param kMaquinas Vector que contiene las asignaciones de tareas a las máquinas.
-   */
-  void calcularFuncionObjetivo(const std::vector<Solucion>& kMaquinas) {
-    funcion_objetivo_ = 0;
-    const int kNumMaquinas  = kMaquinas.size();
-    for (int i = 0; i < kNumMaquinas; ++i) {
-      funcion_objetivo_ += kMaquinas[i].getTCT();
-    }
-  }
 };
