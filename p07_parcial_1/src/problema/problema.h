@@ -6,8 +6,8 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 20 de Marzo de 2024
- * @file grafoDirigidoCompleto.h
- * @brief Definición de la clase GrafoDirigidoCompleto que se encarga
+ * @file problema.h
+ * @brief Definición de la clase Problema que se encarga
  * de leer los datos de un fichero y crear el grafo
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
@@ -28,12 +28,12 @@ namespace fs = std::filesystem;
 /**
  * @brief Clase que genera un grafo dirigido completo
  */
-class GrafoDirigidoCompleto {
+class Problema {
  public:
-  GrafoDirigidoCompleto(const std::string&);
+  Problema(const std::string&);
   const std::vector<Nodo*>& getGrafo() const { return grafo_; }
-  friend std::ostream& operator<<(std::ostream&, const GrafoDirigidoCompleto&);
-  ~GrafoDirigidoCompleto();
+  friend std::ostream& operator<<(std::ostream&, const Problema&);
+  ~Problema();
  private:
   std::vector<Nodo*> grafo_;
   const int calculaNumeroNodos(const std::string&) const;

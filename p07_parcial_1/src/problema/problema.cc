@@ -6,20 +6,20 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 20 de Marzo de 2024
- * @file grafoDirigidoCompleto.cc
- * @brief Implementación de la clase GrafoDirigidoCompleto que se encarga
+ * @file problema.cc
+ * @brief Implementación de la clase Problema que se encarga
  * de leer los datos de un fichero y crear el grafo
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
-#include "grafoDirigidoCompleto.h"
+#include "problema.h"
 
 /**
- * @brief Constructor de la clase GrafoDirigidoCompleto.
+ * @brief Constructor de la clase Problema.
  * 
  * @param kNombreDirYFichero Nombre del directorio y fichero del grafo.
  */
-GrafoDirigidoCompleto::GrafoDirigidoCompleto(
+Problema::Problema(
   const std::string& kNombreDirYFichero
 ) {
   fs::path ruta_actual = fs::current_path();
@@ -44,9 +44,9 @@ GrafoDirigidoCompleto::GrafoDirigidoCompleto(
 }
 
 /**
- * @brief Destructor de la clase GrafoDirigidoCompleto.
+ * @brief Destructor de la clase Problema.
  */
-GrafoDirigidoCompleto::~GrafoDirigidoCompleto() {
+Problema::~Problema() {
   for (auto nodo : grafo_) {
     delete nodo;
   }
@@ -58,7 +58,7 @@ GrafoDirigidoCompleto::~GrafoDirigidoCompleto() {
  * @param kCadaLinea Línea del archivo que contiene el número de nodos.
  * @return Número de nodos.
  */
-const int GrafoDirigidoCompleto::calculaNumeroNodos(const std::string& kCadaLinea) const {
+const int Problema::calculaNumeroNodos(const std::string& kCadaLinea) const {
   std::stringstream ss(kCadaLinea);
   std::string palabra = "";
   ss >> palabra;
@@ -72,7 +72,7 @@ const int GrafoDirigidoCompleto::calculaNumeroNodos(const std::string& kCadaLine
  * @param kCadaLinea Línea del archivo que contiene los tiempos de procesamiento.
  * @param tiempos_procesamiento Vector para almacenar los tiempos de procesamiento.
  */
-void GrafoDirigidoCompleto::calculaTiemposProcesamientos(
+void Problema::calculaTiemposProcesamientos(
   const std::string& kCadaLinea,
   std::vector<int>& tiempos_procesamiento
 ) {
@@ -95,7 +95,7 @@ void GrafoDirigidoCompleto::calculaTiemposProcesamientos(
  * @param kCadaLinea Línea del archivo que contiene los tiempos de setup.
  * @param tiempos_setup Vector para almacenar los tiempos de setup.
  */
-void GrafoDirigidoCompleto::calculaTiemposSetUp(
+void Problema::calculaTiemposSetUp(
   const std::string& kCadaLinea,
   std::vector<std::vector<int>>& tiempos_setup
 ) const {
@@ -112,7 +112,7 @@ void GrafoDirigidoCompleto::calculaTiemposSetUp(
  * @param kTiemposSetup Matriz de tiempos de setup entre nodos.
  * @param kTiemposProcesamiento Vector de tiempos de procesamiento de cada nodo.
  */
-void GrafoDirigidoCompleto::rellenarCostesArcos(
+void Problema::rellenarCostesArcos(
   const std::vector<std::vector<int>>& kTiemposSetup,
   const std::vector<int>& kTiemposProcesamiento
 ) {
@@ -131,7 +131,7 @@ void GrafoDirigidoCompleto::rellenarCostesArcos(
  * @param kNumNodos Número esperado de nodos.
  * @return Verdadero si la cantidad de nodos es correcta, falso en caso contrario.
  */
-const bool GrafoDirigidoCompleto::esCorrectaCantidadNodos(const int kNumNodos) const {
+const bool Problema::esCorrectaCantidadNodos(const int kNumNodos) const {
   return (grafo_.size() == kNumNodos);
 }
 
@@ -140,7 +140,7 @@ const bool GrafoDirigidoCompleto::esCorrectaCantidadNodos(const int kNumNodos) c
  * 
  * @return Verdadero si el grafo es completo, falso en caso contrario.
  */
-const bool GrafoDirigidoCompleto::esCompleto() const {
+const bool Problema::esCompleto() const {
   const int kNumNodos = grafo_.size();
   for (int i = 0; i < kNumNodos; ++i) {
     for (int j = 0; j < kNumNodos; ++j) {
@@ -159,7 +159,7 @@ const bool GrafoDirigidoCompleto::esCompleto() const {
  * @param nodo2 Segundo nodo.
  * @return Verdadero si existe un arco entre los nodos, falso en caso contrario.
  */
-const bool GrafoDirigidoCompleto::existeArco(const Nodo* nodo1, const Nodo* nodo2) const {
+const bool Problema::existeArco(const Nodo* nodo1, const Nodo* nodo2) const {
   bool enlace_nodo1_nodo2 = false, enlace_nodo2_nodo1 = false;
   for (const auto& vecinos: nodo1->getNodosVecinos()) {
     if (vecinos.getNodoDestino()->getId() == nodo2->getId()) enlace_nodo1_nodo2 = true;
@@ -177,7 +177,7 @@ const bool GrafoDirigidoCompleto::existeArco(const Nodo* nodo1, const Nodo* nodo
  * @param grafo Grafo a imprimir.
  * @return Referencia al flujo de salida.
  */
-std::ostream& operator<<(std::ostream& out, const GrafoDirigidoCompleto& grafo) {
+std::ostream& operator<<(std::ostream& out, const Problema& grafo) {
   out << "Grafo Dirigido Completo:" << std::endl;
   out << "-----------------" << std::endl;
   for (const auto& nodo : grafo.getGrafo()) {

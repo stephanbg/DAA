@@ -21,15 +21,15 @@
  * @param kGrafo Grafo que representa las tareas y sus dependencias.
  * @return Vector que contiene las asignaciones de tareas a las máquinas.
  */
-const std::vector<Maquina> AlgoritmoConstructivoVoraz::ejecutar(
+const std::vector<Solucion> AlgoritmoConstructivoVoraz::ejecutar(
   const int kNumeroMaquinas,
-  const GrafoDirigidoCompleto& kGrafo
+  const Problema& kGrafo
 ) {
-  std::vector<Maquina> maquinas(kNumeroMaquinas); // m Maquinas
+  std::vector<Solucion> maquinas(kNumeroMaquinas); // m Maquinas
   std::vector<int> tareas_a_realizar(kGrafo.getGrafo().size() - 1);
   std::iota(tareas_a_realizar.begin(), tareas_a_realizar.end(), 1);
   seleccionarTareasInciales(maquinas, kGrafo, tareas_a_realizar);
-  std::vector<Maquina> maquinas_copia = maquinas;
+  std::vector<Solucion> maquinas_copia = maquinas;
   while (!tareas_a_realizar.empty()) {
     const TareaMaquinaPosicion kMejorEleccion = obtenerTareaMaquinaPosicion(
       kNumeroMaquinas, maquinas_copia, tareas_a_realizar, kGrafo
@@ -58,8 +58,8 @@ const std::vector<Maquina> AlgoritmoConstructivoVoraz::ejecutar(
  * @param tareas_a_realizar Vector que contiene las tareas que aún no han sido asignadas.
  */
 void AlgoritmoConstructivoVoraz::seleccionarTareasInciales(
-  std::vector<Maquina>& maquinas,
-  const GrafoDirigidoCompleto& kGrafo,
+  std::vector<Solucion>& maquinas,
+  const Problema& kGrafo,
   std::vector<int>& tareas_a_realizar
 ) const {
   const int kNumeroMaquinas = maquinas.size();
@@ -95,9 +95,9 @@ void AlgoritmoConstructivoVoraz::seleccionarTareasInciales(
  */
 const TareaMaquinaPosicion AlgoritmoConstructivoVoraz::obtenerTareaMaquinaPosicion(
   const int kNumeroMaquinas,
-  std::vector<Maquina>& maquinas_copia,
+  std::vector<Solucion>& maquinas_copia,
   const std::vector<int>& kTareasARealizar,
-  const GrafoDirigidoCompleto& kGrafo
+  const Problema& kGrafo
 ) const {
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   TareaMaquinaPosicion mejor_eleccion;
@@ -111,7 +111,7 @@ const TareaMaquinaPosicion AlgoritmoConstructivoVoraz::obtenerTareaMaquinaPosici
     for (int j = 0; j < kNumeroMaquinas; ++j) {  
       const int kNumTareas = maquinas_copia[j].getTareas().size();
       for (int k = 1; k <= kNumTareas; ++k) {
-        Maquina cada_maquina = maquinas_copia[j];
+        Solucion cada_maquina = maquinas_copia[j];
         cada_maquina.insertarTarea(tarea, k);             
         int incremento_tct = cada_maquina.calcularTCT(kNodoRaiz);
         if (incremento_tct < mejor_incremento) {

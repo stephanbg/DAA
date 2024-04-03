@@ -6,13 +6,13 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 20 de Marzo de 2024
- * @file maquina.cc
- * @brief Implementación de la clase Maquina que se encarga
+ * @file solucion.cc
+ * @brief Implementación de la clase Solucion que se encarga
  * de realizar tareas
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
-#include "maquina.h"
+#include "solucion.h"
 
 /**
  * @brief Determina el número de máquinas a crear a partir de un archivo.
@@ -20,7 +20,7 @@
  * @param kNombreDirYFichero Nombre del directorio y archivo que contiene la información.
  * @return Número de máquinas a crear.
  */
-const int Maquina::cuantasMaquinasACrear(const std::string& kNombreDirYFichero) {
+const int Solucion::cuantasMaquinasACrear(const std::string& kNombreDirYFichero) {
   fs::path ruta_actual = fs::current_path();
   fs::path ruta_completa = ruta_actual / kNombreDirYFichero; 
   std::ifstream archivo(ruta_completa);
@@ -40,7 +40,7 @@ const int Maquina::cuantasMaquinasACrear(const std::string& kNombreDirYFichero) 
  * @param kNodoRaiz Nodo raíz del grafo.
  * @return const int Tiempo de ciclo total (TCT) de la máquina.
  */
-const int Maquina::calcularTCT(
+const int Solucion::calcularTCT(
   const Nodo* kNodoRaiz
 ) const {
   const std::vector<const Nodo*> kTareas = getTareas();
@@ -58,7 +58,7 @@ const int Maquina::calcularTCT(
  * 
  * @param kTarea Tarea a añadir.
  */
-void Maquina::añadirTarea(const Nodo* kTarea) { 
+void Solucion::añadirTarea(const Nodo* kTarea) { 
   tareas_.push_back(kTarea);
 }
 
@@ -68,7 +68,7 @@ void Maquina::añadirTarea(const Nodo* kTarea) {
  * @param kTarea Tarea a insertar.
  * @param kPos Posición en la que insertar la tarea.
  */
-void Maquina::insertarTarea(const Nodo* kTarea, const int kPos) {
+void Solucion::insertarTarea(const Nodo* kTarea, const int kPos) {
   if (kPos >= 0 && kPos <= tareas_.size()) tareas_.insert(tareas_.begin() + kPos, kTarea);
   else {
     std::string error = "La posición de inserción está fuera del rango válido";
@@ -76,12 +76,21 @@ void Maquina::insertarTarea(const Nodo* kTarea, const int kPos) {
   }
 }
 
+void Solucion::moverTareaAPosicionDada(const Nodo* kTarea, const int kPos) {
+  auto it = std::find(tareas_.begin(), tareas_.end(), kTarea);
+  if (it != tareas_.end()) {
+    const int kPosActual = std::distance(tareas_.begin(), it);
+    tareas_.erase(tareas_.begin() + kPosActual);
+    insertarTarea(kTarea, kPos);
+  } else throw std::invalid_argument("La tarea especificada no está en la solución");
+}
+
 /**
  * @brief Muestra las tareas de todas las máquinas.
  * 
  * @param kMaquinas Vector de máquinas.
  */
-void Maquina::mostrarTareasDeTodasLasMaquinas(const std::vector<Maquina>& kMaquinas) {
+void Solucion::mostrarTareasDeTodasLasMaquinas(const std::vector<Solucion>& kMaquinas) {
   const int kNumeroMaquinas = kMaquinas.size();
   for (int i = 0; i < kNumeroMaquinas; ++i) {
     std::cout << "Maquina " << i + 1 << " tiene asignadas las siguientes tareas: ";

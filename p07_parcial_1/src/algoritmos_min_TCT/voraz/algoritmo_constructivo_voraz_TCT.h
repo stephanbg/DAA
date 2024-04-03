@@ -34,13 +34,13 @@ struct TareaMaquinaPosicion {
  */
 class AlgoritmoConstructivoVoraz : public AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Maquina> ejecutar(const int, const GrafoDirigidoCompleto&) override;
+  virtual const std::vector<Solucion> ejecutar(const int, const Problema&) override;
  private:
   void seleccionarTareasInciales(
-    std::vector<Maquina>&, const GrafoDirigidoCompleto&, std::vector<int>&
+    std::vector<Solucion>&, const Problema&, std::vector<int>&
   ) const;
   const TareaMaquinaPosicion obtenerTareaMaquinaPosicion(
-    const int, std::vector<Maquina>&,
-    const std::vector<int>&, const GrafoDirigidoCompleto&
+    const int, std::vector<Solucion>&,
+    const std::vector<int>&, const Problema&
   ) const;
 };

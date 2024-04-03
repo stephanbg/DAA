@@ -22,14 +22,15 @@
  * @param kGrafo Grafo que representa las tareas y sus dependencias.
  * @return Vector que contiene las asignaciones de tareas a las máquinas.
  */
-const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
+const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
   const int kNumeroMaquinas,
-  const GrafoDirigidoCompleto& kGrafo
+  const Problema& kGrafo
 ) {
-  std::vector<Maquina> maquinas;
+  std::vector<Solucion> maquinas;
   int contador = 0, funcion_objetivo = std::numeric_limits<int>::max();
+  const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   do {
-    std::vector<Maquina> maquinas_aux(kNumeroMaquinas); // m Maquinas
+    std::vector<Solucion> maquinas_aux(kNumeroMaquinas); // m Maquinas
     const std::vector<const Nodo*> kTareasAleatorias = faseConstructiva(kGrafo);
     const int kSizeNodosAleatorios = kTareasAleatorias.size();
     // Distribuir los nodos por las maquinas
@@ -38,7 +39,7 @@ const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
     }
     // Calcula el TCT de cada máquina
     for (int i = 0; i < kNumeroMaquinas; ++i) {
-      maquinas_aux[i].setTCT() = maquinas_aux[i].calcularTCT(kGrafo.getGrafo()[0]);
+      maquinas_aux[i].setTCT() = maquinas_aux[i].calcularTCT(kNodoRaiz);
     }
     // Calcula función objetivo
     calcularFuncionObjetivo(maquinas_aux);
@@ -47,11 +48,25 @@ const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
       for (int i = 0; i < maquinas_aux.size(); ++i) {
         maquinas[i].setTCT() = maquinas_aux[i].getTCT();
       }      
-      funcion_objetivo = this->funcion_objetivo_;      
+      funcion_objetivo = this->funcion_objetivo_;
     }
     contador++;
   } while (contador != 100);
   this->funcion_objetivo_ = funcion_objetivo;
+  std::cout << "ANTES DE LA BÚSQUEDA LOCAL\n";
+  std::cout << "funcion_objetivo_: " << this->funcion_objetivo_ << std::endl;
+  std::cout << "TCT 1: " << maquinas[0].getTCT() << std::endl;  
+  std::cout << "TCT 2: " << maquinas[1].getTCT() << std::endl;   
+  Solucion::mostrarTareasDeTodasLasMaquinas(maquinas);
+  BusquedaLocal* algoritmoBusquedaLocal = new MovimientoReInsercionInterGRASP(maquinas);
+  maquinas = algoritmoBusquedaLocal->busquedaLocal(kNodoRaiz);
+  calcularFuncionObjetivo(maquinas);
+  std::cout << "DESPUES DE LA BÚSQUEDA LOCAL\n";
+  std::cout << "funcion_objetivo_: " << this->funcion_objetivo_ << std::endl;  
+  std::cout << "TCT 1: " << maquinas[0].getTCT() << std::endl;  
+  std::cout << "TCT 2: " << maquinas[1].getTCT() << std::endl;
+  Solucion::mostrarTareasDeTodasLasMaquinas(maquinas);
+
   return maquinas;
 }
 
@@ -62,7 +77,7 @@ const std::vector<Maquina> AlgoritmoGRASP::ejecutar(
  * @return Vector que contiene las tareas seleccionadas para formar soluciones iniciales.
  */
 const std::vector<const Nodo*> AlgoritmoGRASP::faseConstructiva(
-  const GrafoDirigidoCompleto& kGrafo 
+  const Problema& kGrafo 
 ) const {
   // Inicializa variables
   std::vector<Nodo*> nodos = kGrafo.getGrafo();

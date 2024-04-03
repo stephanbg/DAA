@@ -14,8 +14,8 @@
 
 #include "comprobar_parametros/comprobar_parametros.h"
 #include "sintaxis_fichero/sintaxis_fichero.h"
-#include "grafo/grafoDirigidoCompleto.h"
-#include "maquina/maquina.h"
+#include "problema/problema.h"
+#include "solucion/solucion.h"
 #include "algoritmos_min_TCT/algoritmos_min_TCT.h"
 #include "algoritmos_min_TCT/voraz/algoritmo_constructivo_voraz_TCT.h"
 #include "algoritmos_min_TCT/GRASP/algoritmo_GRASP_TCT.h"
@@ -34,8 +34,8 @@ int main(int argc, char* argv[]) {
   try {
     ComprobarParametros::comprobar(argc, argv);
     SintaxisFichero::comprobarSintaxisFichero(argv[1]);
-    GrafoDirigidoCompleto grafo(argv[1]);
-    int numero_maquinas = Maquina::cuantasMaquinasACrear(argv[1]);
+    Problema grafo(argv[1]);
+    int numero_maquinas = Solucion::cuantasMaquinasACrear(argv[1]);
     Tabla tabla;
     tabla.insertarNombreFichero(argv[1]);
     tabla.insertarNumeroNodos(grafo.getGrafo().size() - 1);
@@ -43,19 +43,19 @@ int main(int argc, char* argv[]) {
     tabla.insertarNombreAlgoritmo("VORAZ");
     AlgoritmoMinimizarTCT* algoritmo = new AlgoritmoConstructivoVoraz;
     // Crear un objeto ControladorTiempo con una función lambda como argumento
-    ControladorTiempo<std::vector<Maquina>, int, GrafoDirigidoCompleto&> tiempo1(
-      [&](int numeroMaquinas, GrafoDirigidoCompleto& grafo) {
+    ControladorTiempo<std::vector<Solucion>, int, Problema&> tiempo1(
+      [&](int numeroMaquinas, Problema& grafo) {
         return algoritmo->ejecutar(numeroMaquinas, grafo);
       }
     );
-    std::vector<Maquina> maquinas = tiempo1.medirTiempoFuncion(std::move(numero_maquinas), grafo);
+    std::vector<Solucion> maquinas = tiempo1.medirTiempoFuncion(std::move(numero_maquinas), grafo);
     tabla.insertarFuncionObjetivo(algoritmo->getFuncionObjetivo());
     tabla.insertarTiempo(tiempo1.getDuracion());
     tabla.insertarNombreAlgoritmo("GRASP");
     algoritmo = new AlgoritmoGRASP;
     // Crear un objeto ControladorTiempo con una función lambda como argumento
-    ControladorTiempo<std::vector<Maquina>, int, GrafoDirigidoCompleto&> tiempo2(
-      [&](int numeroMaquinas, GrafoDirigidoCompleto& grafo) {
+    ControladorTiempo<std::vector<Solucion>, int, Problema&> tiempo2(
+      [&](int numeroMaquinas, Problema& grafo) {
         return algoritmo->ejecutar(numeroMaquinas, grafo);
       }
     );
