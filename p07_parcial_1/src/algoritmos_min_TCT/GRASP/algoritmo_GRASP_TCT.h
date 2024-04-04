@@ -20,8 +20,6 @@
 #include <random>
 
 #include "../algoritmos_min_TCT.h"
-#include "./busquedaLocal/busquedaLocal.h"
-#include "./busquedaLocal/movimientoReInsercionInterGRASP.h"
 #include "../../funciones/funciones.h"
 
 /**
@@ -33,13 +31,11 @@
  */
 class AlgoritmoGRASP : public AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Solucion> ejecutar(const int, const Problema&) override;
+  const std::vector<Solucion> ejecutar(const int, const Problema&);
+ protected:
+  virtual const std::vector<Solucion> busquedaLocal(const std::vector<Solucion>&, const Nodo*) const = 0;
+  const std::vector<Solucion> faseConstructiva(const Problema&, const int) const;
  private:
-  const std::vector<const Nodo*> faseConstructiva(
-    const Problema&
-  ) const;
   const double calcularHeurística(const std::vector<Nodo*>&) const;
-  const std::vector<const Nodo*> calcularNodosQueSuperanHeuristica(
-    const std::vector<Nodo*>&, const double
-  ) const;
+  const std::vector<const Nodo*> calcularLRC(const std::vector<Nodo*>&, const double) const;
 };

@@ -26,43 +26,21 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
   const int kNumeroMaquinas,
   const Problema& kGrafo
 ) {
-  std::vector<Solucion> maquinas;
-  int contador = 0, funcion_objetivo = std::numeric_limits<int>::max();
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
+  std::vector<Solucion> solucion_inicial = faseConstructiva(kGrafo, kNumeroMaquinas),
+  mejor_solucion = busquedaLocal(solucion_inicial, kNodoRaiz), solucion_actual, mejor_solucion_aux;
+  int contador = 0, funcion_objetivo_anterior = Solucion::getFuncionObjetivo(), funcion_objetivo_actual;
   do {
-    std::vector<Solucion> maquinas_aux(kNumeroMaquinas); // m Maquinas
-    const std::vector<const Nodo*> kTareasAleatorias = faseConstructiva(kGrafo);
-    const int kSizeNodosAleatorios = kTareasAleatorias.size();
-    // Distribuir los nodos por las maquinas
-    for (int i = 0; i < kSizeNodosAleatorios; i++) {
-      maquinas_aux[i % maquinas_aux.size()].añadirTarea(kTareasAleatorias[i]);   
+    solucion_actual = faseConstructiva(kGrafo, kNumeroMaquinas);
+    mejor_solucion_aux = busquedaLocal(solucion_actual, kNodoRaiz);
+    funcion_objetivo_actual = Solucion::getFuncionObjetivo();
+    if (funcion_objetivo_actual < funcion_objetivo_anterior) {
+      mejor_solucion = mejor_solucion_aux;
+      funcion_objetivo_anterior = funcion_objetivo_actual;
     }
-    // Calcula el TCT de cada máquina
-    for (int i = 0; i < kNumeroMaquinas; ++i) {
-      maquinas_aux[i].setTCT() = maquinas_aux[i].calcularTCT(kNodoRaiz);
-    }
-    // Calcula función objetivo
-    Solucion::calcularFuncionObjetivo(maquinas_aux);
-    if (Solucion::getFuncionObjetivo() < funcion_objetivo) {
-      maquinas = maquinas_aux;
-      for (int i = 0; i < maquinas_aux.size(); ++i) {
-        maquinas[i].setTCT() = maquinas_aux[i].getTCT();
-      }      
-      funcion_objetivo = Solucion::getFuncionObjetivo();
-    }
-    contador++;
-  } while (contador != 100);
-  Solucion::setFuncionObjetivo() = funcion_objetivo;
-  std::cout << "ANTES DE LA BÚSQUEDA LOCAL\n";
-  std::cout << "funcion_objetivo_: " << Solucion::getFuncionObjetivo() << std::endl; 
-  Solucion::mostrarTareasDeTodasLasMaquinas(maquinas);
-  BusquedaLocal* algoritmoBusquedaLocal = new MovimientoReInsercionInterGRASP(maquinas);
-  maquinas = algoritmoBusquedaLocal->busquedaLocal(kNodoRaiz);
-  Solucion::calcularFuncionObjetivo(maquinas);
-  std::cout << "DESPUES DE LA BÚSQUEDA LOCAL\n";
-  std::cout << "funcion_objetivo_: " << Solucion::getFuncionObjetivo() << std::endl;  
-  Solucion::mostrarTareasDeTodasLasMaquinas(maquinas);
-  return maquinas;
+  } while (++contador <= 100);
+  Solucion::setFuncionObjetivo() = funcion_objetivo_anterior;
+  return mejor_solucion;
 }
 
 /**
@@ -71,8 +49,9 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
  * @param kGrafo Grafo que representa las tareas y sus dependencias.
  * @return Vector que contiene las tareas seleccionadas para formar soluciones iniciales.
  */
-const std::vector<const Nodo*> AlgoritmoGRASP::faseConstructiva(
-  const Problema& kGrafo 
+const std::vector<Solucion> AlgoritmoGRASP::faseConstructiva(
+  const Problema& kGrafo,
+  const int kNumMaquinas
 ) const {
   // Inicializa variables
   std::vector<Nodo*> nodos = kGrafo.getGrafo();
@@ -84,18 +63,30 @@ const std::vector<const Nodo*> AlgoritmoGRASP::faseConstructiva(
   while (!nodos.empty()) {
     // Calcula la heurística y de los nodos candidatos extrae los que la superan
     const double kHeuristica = calcularHeurística(nodos);
-    const std::vector<const Nodo*> kNodosQueSuperanHeursitica =
-        calcularNodosQueSuperanHeuristica(nodos, kHeuristica);
+    const std::vector<const Nodo*> LRC = calcularLRC(nodos, kHeuristica);
     // De los nodos que la superan escoge uno aleatorio
-    std::uniform_int_distribution<> dis(0, kNodosQueSuperanHeursitica.size() - 1);
+    std::uniform_int_distribution<> dis(0, LRC.size() - 1);
     const int kIndiceAleatorio = dis(generador);
-    const Nodo* kNodoAleatorio = *std::next(kNodosQueSuperanHeursitica.begin(), kIndiceAleatorio);
+    const Nodo* kNodoAleatorio = *std::next(LRC.begin(), kIndiceAleatorio);
     // Inserta el nodo y lo elimina de la lista de candidatos
     nodos_aleatorios.push_back(kNodoAleatorio);
     auto it = std::find(nodos.begin(), nodos.end(), kNodoAleatorio);
     nodos.erase(it);
   }
-  return nodos_aleatorios; 
+  std::vector<Solucion> maquinas(kNumMaquinas);
+  // Añadir tareas
+  const int kSizeNodosAleatorios = nodos_aleatorios.size();
+  for (int i = 0; i < kSizeNodosAleatorios; i++) {
+    maquinas[i % maquinas.size()].añadirTarea(nodos_aleatorios[i]);   
+  }
+  // Calcula el TCT de cada máquina
+  const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
+  const int kNumeroMaquinas = maquinas.size();
+  for (int i = 0; i < kNumeroMaquinas; ++i) {
+    maquinas[i].setTCT() = maquinas[i].calcularTCT(kNodoRaiz);
+  }
+  Solucion::calcularFuncionObjetivo(maquinas);
+  return maquinas;
 }
 
 /**
@@ -107,13 +98,8 @@ const std::vector<const Nodo*> AlgoritmoGRASP::faseConstructiva(
 const double AlgoritmoGRASP::calcularHeurística(const std::vector<Nodo*>& kNodos) const {
   const double kAlfa = 0.5;
   const int kNumeroNodos = kNodos.size();
-  int num_maximo_vecinos = kNodos[0]->getNodosVecinos().size();
-  for (int i = 1; i < kNumeroNodos; ++i) {
-    if (kNodos[i]->getNodosVecinos().size() > num_maximo_vecinos) {
-      num_maximo_vecinos = kNodos[i]->getNodosVecinos().size();
-    }
-  }
-  return kAlfa * num_maximo_vecinos;
+  int num_maximo = kNumeroNodos;
+  return ceil(kAlfa * num_maximo);
 }
 
 /**
@@ -123,15 +109,17 @@ const double AlgoritmoGRASP::calcularHeurística(const std::vector<Nodo*>& kNodo
  * @param kHeuristica Valor que define el umbral de calidad.
  * @return Vector que contiene las tareas que superan el umbral de calidad.
  */
-const std::vector<const Nodo*> AlgoritmoGRASP::calcularNodosQueSuperanHeuristica(
+const std::vector<const Nodo*> AlgoritmoGRASP::calcularLRC(
   const std::vector<Nodo*>& kNodos, const double kHeuristica
 ) const {
-  // Crear el conjunto nodos_superan_heuristica
-  std::vector<const Nodo*> nodos_superan_heuristica;
-  for (const auto& kCadaNodo : kNodos) {
-    // Si la cantidad de nodos superan la heurística se escoge dicho nodo
-    const int kCantidadVecinos = kCadaNodo->getNodosVecinos().size();
-    if (kCantidadVecinos >= kHeuristica) nodos_superan_heuristica.push_back(kCadaNodo);
+  // Crear el conjunto lista de candidatos
+  std::vector<const Nodo*> lista_restringida_candidatos;
+  std::random_device dispositivo_aleatorio;
+  std::mt19937 generador(dispositivo_aleatorio());  
+  std::uniform_int_distribution<> dis(1, kHeuristica);
+  int contador = dis(generador);
+  for (int i = 0; i < contador; ++i) {
+    lista_restringida_candidatos.push_back(kNodos[i]);
   }
-  return nodos_superan_heuristica;
+  return lista_restringida_candidatos;
 }

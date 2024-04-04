@@ -1,11 +1,8 @@
 #pragma once
 
-#include "./busquedaLocal.h"
+#include "../algoritmo_GRASP_TCT.h"
 
-class MovimientoReInsercionInterGRASP : public BusquedaLocal {
- public:
-  MovimientoReInsercionInterGRASP(const std::vector<Solucion>& kSolucionInicial) {
-    solucion_inicial_ = kSolucionInicial;
-  }
-  virtual const std::vector<Solucion> busquedaLocal(const Nodo*) override;
+class MovimientoReInsercionInterGRASP : public AlgoritmoGRASP {
+ private:
+  virtual const std::vector<Solucion> busquedaLocal(const std::vector<Solucion>&, const Nodo*) const override;
 };

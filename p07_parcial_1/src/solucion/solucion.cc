@@ -68,6 +68,27 @@ const int Solucion::calcularTCT(
   return tct;
 }
 
+const int Solucion::calcularTCTParcial(
+  const Nodo* kNodoRaiz, const Solucion& kSolucionInicial, const int kPosTareaMovida
+) const {
+  if (kPosTareaMovida <= (this->getTareas().size() / 2)) return calcularTCT(kNodoRaiz);
+  const std::vector<const Nodo*> kTareas = kSolucionInicial.getTareas();
+  const int kNumTareas = kTareas.size(), kNumPasos = (kNumTareas - kPosTareaMovida + 1);
+  int tct = tct_;
+  for (auto a : kSolucionInicial.getTareas()) {
+    std::cout << a->getId() << " ";
+  }
+  std::cout << std::endl;
+  /*for (int i = 0; i < kNumPasos; ++i) {
+    const int kCoeficiente = i + 1;
+    tct -= kCoeficiente * kTareas[kNumTareas - 2 - i]->getCosteHaciaVecino(kTareas[kNumTareas - 1 - i]);
+  }*/
+
+
+  std::cout << "TCT_ " << tct << std::endl;
+  exit(EXIT_FAILURE);
+}
+
 /**
  * @brief Añade una tarea a la máquina.
  * 
