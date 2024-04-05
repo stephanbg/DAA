@@ -101,6 +101,16 @@ void Solucion::moverTareaAPosicionDada(const Nodo* kTarea, const int kPos) {
   } else throw std::invalid_argument("La tarea especificada no está en la solución");
 }
 
+void Solucion::swapTarea(const int kPosAnterior, const int kPosSiguiente) {
+  if (kPosAnterior < 0 || kPosAnterior >= tareas_.size()) {
+    throw std::out_of_range("La posición inicial no se encuentra en el vector");
+  }
+  if (kPosSiguiente < 0 || kPosSiguiente >= tareas_.size()) {
+    throw std::out_of_range("La posición siguiente no se encuentra en el vector");
+  }
+  std::swap(tareas_[kPosAnterior], tareas_[kPosSiguiente]);
+}
+
 /**
  * @brief Muestra las tareas de todas las máquinas.
  * 

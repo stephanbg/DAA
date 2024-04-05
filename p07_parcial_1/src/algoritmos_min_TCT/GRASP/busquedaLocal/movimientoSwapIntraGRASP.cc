@@ -1,11 +1,11 @@
-#include "movimientoSwapInterGRASP.h"
+#include "movimientoSwapIntraGRASP.h"
 
-const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
+const std::vector<Solucion> MovimientoSwapIntraGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
 ) const {
   //Solucion::mostrarTareasDeTodasLasMaquinas(kSolucionActual);
-  std::vector<Solucion> solucion_vecina, solucion_mejor;
+  /*std::vector<Solucion> solucion_vecina, solucion_mejor;
   Solucion solucion_vecina_anterior;
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
@@ -40,17 +40,17 @@ const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
     }
   }
   Solucion::setFuncionObjetivo() = funcion_objetivo;
-  return solucion_mejor;
+  return solucion_mejor;*/
 }
 
-const int MovimientoSwapInterGRASP::calcularTCTParcial(
+const int MovimientoSwapIntraGRASP::calcularTCTParcial(
   const Nodo* kNodoRaiz,
   const int kPosOrigen,
   const int kPosDestino,
   const Solucion& kSolucionActual,
   Solucion& solucion_tras_swap 
 ) const {
-  int tct = kSolucionActual.getTCT();
+  /*int tct = kSolucionActual.getTCT();
   const std::vector<const Nodo*> kTareasActual = kSolucionActual.getTareas();
   const std::vector<const Nodo*> kTareasSiguientes = solucion_tras_swap.getTareas();
   const int kNumTareas = kTareasActual.size(),
@@ -77,5 +77,5 @@ const int MovimientoSwapInterGRASP::calcularTCTParcial(
   }
   // Restas (en la solución anterior) y sumas (en la solución siguiente)
   solucion_tras_swap.setTCT() = tct;
-  return tct;
+  return tct;*/
 }

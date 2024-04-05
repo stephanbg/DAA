@@ -32,6 +32,7 @@ class Solucion {
   void añadirTarea(const Nodo*);
   void insertarTarea(const Nodo*, const int);
   void moverTareaAPosicionDada(const Nodo*, const int);
+  void swapTarea(const int, const int);
   static void calcularFuncionObjetivo(const std::vector<Solucion>&);
   const int calcularTCT(const Nodo*);
   const std::vector<const Nodo*> getTareas() const { return tareas_; }

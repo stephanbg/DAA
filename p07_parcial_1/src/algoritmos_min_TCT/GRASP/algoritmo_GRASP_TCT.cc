@@ -34,9 +34,12 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
     solucion_actual = faseConstructiva(kGrafo, kNumeroMaquinas);
     mejor_solucion_aux = busquedaLocal(solucion_actual, kNodoRaiz);
     funcion_objetivo_actual = Solucion::getFuncionObjetivo();
+    //std::cout << "funcion_objetivo_anterior: " << funcion_objetivo_anterior << std::endl;
+    //std::cout << "funcion_objetivo_actual: " << funcion_objetivo_actual << std::endl;
     if (funcion_objetivo_actual < funcion_objetivo_anterior) {
       mejor_solucion = mejor_solucion_aux;
       funcion_objetivo_anterior = funcion_objetivo_actual;
+      //std::cout << "MEJOR: " << funcion_objetivo_anterior << std::endl;
     }
   } while (++contador <= 100);
   Solucion::setFuncionObjetivo() = funcion_objetivo_anterior;
