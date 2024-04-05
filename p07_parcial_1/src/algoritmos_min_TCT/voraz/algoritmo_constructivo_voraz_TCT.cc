@@ -43,8 +43,9 @@ const std::vector<Solucion> AlgoritmoConstructivoVoraz::ejecutar(
     tareas_a_realizar.erase(it);
     maquinas = maquinas_copia;
   }
+  const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].setTCT() = maquinas[i].calcularTCT(kGrafo.getGrafo()[0]);
+    maquinas[i].calcularTCT(kNodoRaiz);
   }
   Solucion::calcularFuncionObjetivo(maquinas);
   return maquinas;

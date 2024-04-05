@@ -57,36 +57,16 @@ void Solucion::calcularFuncionObjetivo(const std::vector<Solucion>& kMaquinas) {
  */
 const int Solucion::calcularTCT(
   const Nodo* kNodoRaiz
-) const {
+) {
   const std::vector<const Nodo*> kTareas = getTareas();
   const int kNumTareas = kTareas.size();
-  int tct = kNumTareas * kNodoRaiz->getCosteHaciaVecino(kTareas[0]);
+  tct_ = kNumTareas * kNodoRaiz->getCosteHaciaVecino(kTareas[0]);
   for (int i = 1; i < kNumTareas; ++i) {
     const int kCoeficiente = kNumTareas - i;
-    tct += kCoeficiente * kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]);
+    tct_ += kCoeficiente * kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]);
   }
-  return tct;
-}
-
-const int Solucion::calcularTCTParcial(
-  const Nodo* kNodoRaiz, const Solucion& kSolucionInicial, const int kPosTareaMovida
-) const {
-  if (kPosTareaMovida <= (this->getTareas().size() / 2)) return calcularTCT(kNodoRaiz);
-  const std::vector<const Nodo*> kTareas = kSolucionInicial.getTareas();
-  const int kNumTareas = kTareas.size(), kNumPasos = (kNumTareas - kPosTareaMovida + 1);
-  int tct = tct_;
-  for (auto a : kSolucionInicial.getTareas()) {
-    std::cout << a->getId() << " ";
-  }
-  std::cout << std::endl;
-  /*for (int i = 0; i < kNumPasos; ++i) {
-    const int kCoeficiente = i + 1;
-    tct -= kCoeficiente * kTareas[kNumTareas - 2 - i]->getCosteHaciaVecino(kTareas[kNumTareas - 1 - i]);
-  }*/
-
-
-  std::cout << "TCT_ " << tct << std::endl;
-  exit(EXIT_FAILURE);
+  //std::cout << "TCT: " << tct_ << std::endl;
+  return tct_;
 }
 
 /**

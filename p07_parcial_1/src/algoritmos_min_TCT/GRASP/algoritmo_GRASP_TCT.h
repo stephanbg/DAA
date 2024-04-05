@@ -20,6 +20,7 @@
 #include <random>
 
 #include "../algoritmos_min_TCT.h"
+#include "../../solucion/solucion.h"
 #include "../../funciones/funciones.h"
 
 /**
@@ -34,6 +35,7 @@ class AlgoritmoGRASP : public AlgoritmoMinimizarTCT {
   const std::vector<Solucion> ejecutar(const int, const Problema&);
  protected:
   virtual const std::vector<Solucion> busquedaLocal(const std::vector<Solucion>&, const Nodo*) const = 0;
+  virtual const int calcularTCTParcial(const Nodo*, const int, const Solucion&, Solucion&) const = 0; 
   const std::vector<Solucion> faseConstructiva(const Problema&, const int) const;
  private:
   const double calcularHeurística(const std::vector<Nodo*>&) const;

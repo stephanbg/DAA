@@ -83,7 +83,7 @@ const std::vector<Solucion> AlgoritmoGRASP::faseConstructiva(
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   const int kNumeroMaquinas = maquinas.size();
   for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].setTCT() = maquinas[i].calcularTCT(kNodoRaiz);
+    maquinas[i].calcularTCT(kNodoRaiz);
   }
   Solucion::calcularFuncionObjetivo(maquinas);
   return maquinas;
@@ -97,9 +97,7 @@ const std::vector<Solucion> AlgoritmoGRASP::faseConstructiva(
  */
 const double AlgoritmoGRASP::calcularHeurística(const std::vector<Nodo*>& kNodos) const {
   const double kAlfa = 0.5;
-  const int kNumeroNodos = kNodos.size();
-  int num_maximo = kNumeroNodos;
-  return ceil(kAlfa * num_maximo);
+  return ceil(kAlfa * kNodos.size());
 }
 
 /**

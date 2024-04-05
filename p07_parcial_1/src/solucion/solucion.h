@@ -33,8 +33,7 @@ class Solucion {
   void insertarTarea(const Nodo*, const int);
   void moverTareaAPosicionDada(const Nodo*, const int);
   static void calcularFuncionObjetivo(const std::vector<Solucion>&);
-  const int calcularTCT(const Nodo*) const;
-  const int calcularTCTParcial(const Nodo*, const Solucion&, const int) const;
+  const int calcularTCT(const Nodo*);
   const std::vector<const Nodo*> getTareas() const { return tareas_; }
   static const int getFuncionObjetivo() { return funcion_objetivo_; }
   const int getTCT() const { return tct_; }

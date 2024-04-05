@@ -1,10 +1,10 @@
-#include "movimientoReInsercionInterGRASP.h"
+#include "movimientoSwapInterGRASP.h"
 
-const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(
+const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
 ) const {
-  std::vector<Solucion> solucion_vecina, solucion_mejor;
+  /*std::vector<Solucion> solucion_vecina, solucion_mejor;
   Solucion solucion_vecina_anterior;
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
@@ -28,7 +28,7 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(
           kNodoRaiz, k, solucion_vecina_anterior, solucion_vecina[i]
         );
         /*std::cout << "Primer mov TCT PARCIAL: " << kTctVecinoAux << std::endl;
-        Solucion::mostrarTareasDeTodasLasMaquinas(solucion_vecina);*/
+        Solucion::mostrarTareasDeTodasLasMaquinas(solucion_vecina);
         funcion_objetivo_vecino = funcion_objetivo_inicial - kTctMaquinaI + kTctVecinoI;
         if (funcion_objetivo_vecino < funcion_objetivo) {
           solucion_mejor = solucion_vecina;
@@ -39,36 +39,11 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(
     }
   }
   Solucion::setFuncionObjetivo() = funcion_objetivo;
-  return solucion_mejor;
+  return solucion_mejor;*/
 }
 
-const int MovimientoReInsercionInterGRASP::calcularTCTParcial(
-  const Nodo* kNodoRaiz,
-  const int kPosTareaMovida,
-  const Solucion& kSolucionAnterior,
-  Solucion& solucion_tras_movimiento
+const int MovimientoSwapInterGRASP::calcularTCTParcial(
+  const Nodo*, const int, const Solucion&, Solucion&
 ) const {
-  if (kPosTareaMovida <= (solucion_tras_movimiento.getTareas().size() / 2)) {
-    return solucion_tras_movimiento.calcularTCT(kNodoRaiz);
-  }
-  /*std::cout << "TCT: " << kSolucionAnterior.getTCT() << std::endl;
-  solucion_tras_movimiento.calcularTCT(kNodoRaiz);
-  std::cout << "TCT: " << solucion_tras_movimiento.getTCT() << std::endl;*/
-  const std::vector<const Nodo*> kTareasAnterior = kSolucionAnterior.getTareas();
-  const std::vector<const Nodo*> kTareas = solucion_tras_movimiento.getTareas();
-  const int kNumTareas = kTareasAnterior.size(), kNumPasos = (kNumTareas - kPosTareaMovida + 1);
-  int tct = kSolucionAnterior.getTCT();
-  //std::cout << "kNumPasos: " << kNumPasos << std::endl;
-  //std::cout << "tct: " << tct << std::endl;
-  for (int i = 1; i <= kNumPasos; ++i) {
-    tct -= i * (
-      kTareasAnterior[kNumTareas - 1 - i]->getCosteHaciaVecino(kTareasAnterior[kNumTareas - i])
-    );
-    tct += i * (
-      kTareas[kNumTareas - 1 - i]->getCosteHaciaVecino(kTareas[kNumTareas - i])
-    );
-  }
-  solucion_tras_movimiento.setTCT() = tct;
-  return tct;
-  //exit(EXIT_FAILURE);
+
 }
