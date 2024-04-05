@@ -111,6 +111,20 @@ void Solucion::swapTarea(const int kPosAnterior, const int kPosSiguiente) {
   std::swap(tareas_[kPosAnterior], tareas_[kPosSiguiente]);
 }
 
+void Solucion::swapTareaEntreMaquinas(
+  const int kPosTareaSolucion1,
+  const int kPosTareaSolucion2,
+  Solucion& solucion2
+) {
+  if (kPosTareaSolucion1 < 0 || kPosTareaSolucion1 >= tareas_.size()) {
+    throw std::out_of_range("La posición inicial no se encuentra en el vector");
+  }
+  if (kPosTareaSolucion2 < 0 || kPosTareaSolucion2 >= solucion2.getTareas().size()) {
+    throw std::out_of_range("La posición siguiente no se encuentra en el vector");
+  }
+  std::swap(tareas_[kPosTareaSolucion1], solucion2.setTareas()[kPosTareaSolucion2]);  
+}
+
 /**
  * @brief Muestra las tareas de todas las máquinas.
  * 
