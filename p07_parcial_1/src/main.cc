@@ -23,6 +23,7 @@
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoReInsercionIntraGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapInterGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapIntraGRASP.h"
+#include "ejecutar_algoritmos/ejecutar_algoritmos.h"
 #include "controlador_tiempo/controlador_tiempo.h"
 #include "tabla/tabla.h"
 #include "peticionesUsuario/peticionesUsuario.h"
@@ -40,32 +41,22 @@ int main(int argc, char* argv[]) {
     SintaxisFichero::comprobarSintaxisFichero(argv[1]);
     Problema grafo(argv[1]);
     int numero_maquinas = Solucion::cuantasMaquinasACrear(argv[1]);
-    Tabla tabla;
-    tabla.insertarNombreFichero(argv[1]);
-    tabla.insertarNumeroNodos(grafo.getGrafo().size() - 1);
-    tabla.insertarNumeroMaquinas(numero_maquinas);    
-    tabla.insertarNombreAlgoritmo("VORAZ");
+    Tabla::insertarDatosIniciales(argv[1], grafo.getGrafo().size() - 1, numero_maquinas);
     AlgoritmoMinimizarTCT* algoritmo = new AlgoritmoConstructivoVoraz;
-    // Crear un objeto ControladorTiempo con una función lambda como argumento
-    ControladorTiempo<std::vector<Solucion>, int, Problema&> tiempo1(
-      [&](int numeroMaquinas, Problema& grafo) {
-        return algoritmo->ejecutar(numeroMaquinas, grafo);
-      }
-    );
-    std::vector<Solucion> maquinas = tiempo1.medirTiempoFuncion(std::move(numero_maquinas), grafo);
-    tabla.insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
-    tabla.insertarTiempo(tiempo1.getDuracion());
-    tabla.insertarNombreAlgoritmo("GRASP");
+    auto resultado = ejecutarAlgoritmo(algoritmo, numero_maquinas, grafo); // En first las máquinas y second tiempo
+    Tabla::insertarDatos("VORAZ", resultado.second);
+    algoritmo = new MovimientoReInsercionInterGRASP;
+    resultado = ejecutarAlgoritmo(algoritmo, numero_maquinas, grafo);
+    Tabla::insertarDatos("Mov. ReInsercionInter", resultado.second);
     algoritmo = new MovimientoReInsercionIntraGRASP;
-    // Crear un objeto ControladorTiempo con una función lambda como argumento
-    ControladorTiempo<std::vector<Solucion>, int, Problema&> tiempo2(
-      [&](int numeroMaquinas, Problema& grafo) {
-        return algoritmo->ejecutar(numeroMaquinas, grafo);
-      }
-    );
-    maquinas = tiempo2.medirTiempoFuncion(std::move(numero_maquinas), grafo); 
-    tabla.insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
-    tabla.insertarTiempo(tiempo2.getDuracion());
+    resultado = ejecutarAlgoritmo(algoritmo, numero_maquinas, grafo);
+    Tabla::insertarDatos("Mov. ReInsercionIntra", resultado.second);
+    algoritmo = new MovimientoSwapInterGRASP;
+    resultado = ejecutarAlgoritmo(algoritmo, numero_maquinas, grafo);
+    Tabla::insertarDatos("Mov. SwapInter", resultado.second);
+    algoritmo = new MovimientoSwapIntraGRASP;
+    resultado = ejecutarAlgoritmo(algoritmo, numero_maquinas, grafo);
+    Tabla::insertarDatos("Mov. SwapIntra", resultado.second);            
     const std::string kOpcion = peticionUsuarioTablaPantallaOFichero();
     if (kOpcion == "P") Tabla::mostrarTablaEnPantalla();
     else Tabla::mostrarTablaEnFichero();

@@ -22,6 +22,22 @@ int Tabla::numero_maquinas_ = 0;
 std::vector<int> Tabla::funcion_objetivo_ = {};
 std::vector<int> Tabla::tiempos_ = {};
 
+void Tabla::insertarDatosIniciales(
+  const std::string& kNombreFichero,
+  const int kNumNodos,
+  const int kNumMaquinas
+) {
+  insertarNombreFichero(kNombreFichero);
+  insertarNumeroNodos(kNumNodos);
+  insertarNumeroMaquinas(kNumMaquinas);
+}
+
+void Tabla::insertarDatos(const std::string& kNombreAlgoritmo, const int ktiempoEjecucion) {
+  insertarNombreAlgoritmo(kNombreAlgoritmo);    
+  insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
+  insertarTiempo(ktiempoEjecucion);
+}
+
 /**
  * @brief Inserta el nombre de un archivo en la tabla de resultados.
  * 

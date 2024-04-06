@@ -4,8 +4,6 @@ const std::vector<Solucion> MovimientoSwapIntraGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
 ) const {
-  //Solucion::mostrarTareasDeTodasLasMaquinas(kSolucionActual);
-  //std::cout << std::endl;
   std::vector<Solucion> solucion_vecina, solucion_mejor;
   Solucion solucion_vecina_anterior;
   const int kNumMaquinas = kSolucionActual.size();
@@ -13,18 +11,18 @@ const std::vector<Solucion> MovimientoSwapIntraGRASP::busquedaLocal(
   funcion_objetivo = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
   for (int i = 0; i < kNumMaquinas; ++i) {
     const int kTctMaquinaI = kSolucionActual[i].getTCT();
-    const int kNumTareas = kSolucionActual[i].getTareas().size();
-    for (int j = 0; j < kNumTareas; ++j) {
+    const int kNumTareasI = kSolucionActual[i].getTareas().size();
+    for (int j = 0; j < kNumTareasI; ++j) {
       const Nodo* kTarea = kSolucionActual[i].getTareas()[j];
       for (int l = i + 1; l < kNumMaquinas; ++l) {
-        for (int k = 0; k < kNumTareas; ++k) {
+        const int kNumTareasL = kSolucionActual[l].getTareas().size();
+        for (int k = 0; k < kNumTareasL; ++k) {
           solucion_vecina = kSolucionActual;
           const int kTctMaquinaL = solucion_vecina[l].getTCT();
           //solucion_vecina_anterior = solucion_vecina[i];
           solucion_vecina[i].swapTareaEntreMaquinas(j, k, solucion_vecina[l]);
           //const int kTctVecinoI = solucion_vecina[i].calcularTCT(kNodoRaiz);
           //std::cout << "Primer mov TCT TOTAL: " << kTctVecinoI << std::endl;
-          //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_vecina);
           const std::pair<int, int> kTctVecinoIL = calcularTCTParcial(
             kNodoRaiz, j, k, solucion_vecina[i], solucion_vecina[l]
           );

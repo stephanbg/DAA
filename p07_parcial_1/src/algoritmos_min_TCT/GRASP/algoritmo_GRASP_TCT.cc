@@ -41,7 +41,7 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
       funcion_objetivo_anterior = funcion_objetivo_actual;
       //std::cout << "MEJOR: " << funcion_objetivo_anterior << std::endl;
     }
-  } while (++contador <= 100);
+  } while (++contador <= 1000);
   Solucion::setFuncionObjetivo() = funcion_objetivo_anterior;
   return mejor_solucion;
 }

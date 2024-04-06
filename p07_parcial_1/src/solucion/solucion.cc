@@ -113,6 +113,8 @@ void Solucion::moverTareaEntreMaquinas(
     throw std::invalid_argument("Posición de tarea inválida en la primera solución");
   }
   if (kPosSolucion2 < 0 || kPosSolucion2 > solucion2.tareas_.size()) {
+    std::cout << kPosSolucion2 << std::endl;
+    std::cout << solucion2.tareas_.size() << std::endl;
     throw std::invalid_argument("Posición de tarea inválida en la segunda solución");
   }
   const Nodo* kTarea = tareas_[kPosTareaSolucion1];

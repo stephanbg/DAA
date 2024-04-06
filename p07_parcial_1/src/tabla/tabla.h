@@ -21,6 +21,8 @@
 #include <fstream>
 #include <iomanip>
 
+#include "../solucion/solucion.h"
+
 /**
  * @brief Clase para almacenar y mostrar los resultados de las diferentes ejecuciones.
  * 
@@ -31,12 +33,8 @@
  */
 class Tabla {
  public:
-  static void insertarNombreFichero(const std::string&);
-  static void insertarNombreAlgoritmo(const std::string&);
-  static void insertarNumeroNodos(const int);
-  static void insertarNumeroMaquinas(const int);
-  static void insertarTiempo(const int);
-  static void insertarFuncionObjetivo(const int);
+  static void insertarDatosIniciales(const std::string&, const int, const int);
+  static void insertarDatos(const std::string&, const int);
   static void mostrarTablaEnPantalla();
   static void mostrarTablaEnFichero();
  private:
@@ -46,4 +44,10 @@ class Tabla {
   static int numero_maquinas_;
   static std::vector<int> tiempos_;
   static std::vector<int> funcion_objetivo_;
+  static void insertarNumeroNodos(const int);
+  static void insertarNumeroMaquinas(const int);  
+  static void insertarNombreFichero(const std::string&);
+  static void insertarNombreAlgoritmo(const std::string&);
+  static void insertarTiempo(const int);
+  static void insertarFuncionObjetivo(const int);  
 };

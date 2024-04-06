@@ -13,6 +13,8 @@
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
  */
 
+#pragma once
+
 #include <chrono>
 #include <functional>
 #include <iostream>
