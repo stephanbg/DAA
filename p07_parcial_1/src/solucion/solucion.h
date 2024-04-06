@@ -31,7 +31,8 @@ class Solucion {
   static const int cuantasMaquinasACrear(const std::string&);
   void añadirTarea(const Nodo*);
   void insertarTarea(const Nodo*, const int);
-  void moverTareaAPosicionDada(const Nodo*, const int);
+  void moverTarea(const int, const int);
+  void moverTareaEntreMaquinas(const int, const int, Solucion&);
   void swapTarea(const int, const int);
   void swapTareaEntreMaquinas(const int, const int, Solucion&);
   static void calcularFuncionObjetivo(const std::vector<Solucion>&);

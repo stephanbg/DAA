@@ -92,13 +92,32 @@ void Solucion::insertarTarea(const Nodo* kTarea, const int kPos) {
   }
 }
 
-void Solucion::moverTareaAPosicionDada(const Nodo* kTarea, const int kPos) {
-  auto it = std::find(tareas_.begin(), tareas_.end(), kTarea);
-  if (it != tareas_.end()) {
-    const int kPosActual = std::distance(tareas_.begin(), it);
-    tareas_.erase(tareas_.begin() + kPosActual);
-    insertarTarea(kTarea, kPos);
-  } else throw std::invalid_argument("La tarea especificada no está en la solución");
+void Solucion::moverTarea(const int kPosTarea, const int kPos) {
+  if (kPosTarea < 0 || kPosTarea >= tareas_.size()) {
+    throw std::invalid_argument("Posición origen de la tarea, inválida");
+  }
+  if (kPos < 0 || kPos >= tareas_.size()) {
+    throw std::invalid_argument("Posición destino de la tarea, inválida");
+  }  
+  const Nodo* kTarea = tareas_[kPosTarea];
+  tareas_.erase(tareas_.begin() + kPosTarea);
+  insertarTarea(kTarea, kPos);
+}
+
+void Solucion::moverTareaEntreMaquinas(
+  const int kPosTareaSolucion1,
+  const int kPosSolucion2,
+  Solucion& solucion2
+) {
+  if (kPosTareaSolucion1 < 0 || kPosTareaSolucion1 >= tareas_.size()) {
+    throw std::invalid_argument("Posición de tarea inválida en la primera solución");
+  }
+  if (kPosSolucion2 < 0 || kPosSolucion2 > solucion2.tareas_.size()) {
+    throw std::invalid_argument("Posición de tarea inválida en la segunda solución");
+  }
+  const Nodo* kTarea = tareas_[kPosTareaSolucion1];
+  tareas_.erase(tareas_.begin() + kPosTareaSolucion1);
+  solucion2.insertarTarea(kTarea, kPosSolucion2);
 }
 
 void Solucion::swapTarea(const int kPosAnterior, const int kPosSiguiente) {

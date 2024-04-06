@@ -20,6 +20,7 @@
 #include "algoritmos_min_TCT/voraz/algoritmo_constructivo_voraz_TCT.h"
 #include "algoritmos_min_TCT/GRASP/algoritmo_GRASP_TCT.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoReInsercionInterGRASP.h"
+#include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoReInsercionIntraGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapInterGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapIntraGRASP.h"
 #include "controlador_tiempo/controlador_tiempo.h"
@@ -55,7 +56,7 @@ int main(int argc, char* argv[]) {
     tabla.insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
     tabla.insertarTiempo(tiempo1.getDuracion());
     tabla.insertarNombreAlgoritmo("GRASP");
-    algoritmo = new MovimientoSwapIntraGRASP;
+    algoritmo = new MovimientoReInsercionIntraGRASP;
     // Crear un objeto ControladorTiempo con una función lambda como argumento
     ControladorTiempo<std::vector<Solucion>, int, Problema&> tiempo2(
       [&](int numeroMaquinas, Problema& grafo) {

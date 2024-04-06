@@ -54,295 +54,48 @@ const std::pair<int, int> MovimientoSwapIntraGRASP::calcularTCTParcial(
   Solucion& solucion_origen_tras_swap,
   Solucion& solucion_destino_tras_swap
 ) const {
-  std::pair<int, int> tct_ambas_maquinas;
-  tct_ambas_maquinas.first = solucion_origen_tras_swap.getTCT();
-  tct_ambas_maquinas.second = solucion_destino_tras_swap.getTCT();
-  const std::vector<const Nodo*> kTareasOrigen = solucion_origen_tras_swap.getTareas();
-  const std::vector<const Nodo*> kTareasDestino = solucion_destino_tras_swap.getTareas();
-  const int kNumTareasOrigen = kTareasOrigen.size();
-  const int kNumTareasDestino = kTareasDestino.size();
+  std::pair<int, int> tct;
+  tct.first = solucion_origen_tras_swap.getTCT();
+  tct.second = solucion_destino_tras_swap.getTCT();
+  const std::vector<const Nodo*> kTareasMaquina1 = solucion_origen_tras_swap.getTareas();
+  const std::vector<const Nodo*> kTareasMaquina2 = solucion_destino_tras_swap.getTareas();
+  // Cada Tarea y anterior y siguiente
+  const Nodo* kTarea1 = kTareasMaquina1[kPosTareaSolucionOrigen];
+  const Nodo* kTarea2 = kTareasMaquina2[kPosTareaSolucionDestino];
+  const Nodo* kTareaSiguienteA1 = kTareasMaquina1[kPosTareaSolucionOrigen + 1];
+  const Nodo* kTareaSiguienteA2 = kTareasMaquina2[kPosTareaSolucionDestino + 1];
+  const Nodo* kTareaAnteriorA1 = kTareasMaquina1[kPosTareaSolucionOrigen - 1];
+  const Nodo* kTareaAnteriorA2 = kTareasMaquina2[kPosTareaSolucionDestino - 1];  
+  const int kNumTareas1 = kTareasMaquina1.size();
+  const int kNumTareas2 = kTareasMaquina2.size();
   // RESTAS CRUZADAS Y SUMAS EN MISMA MAQUINA PORQUE SE HIZO UN SWAP PREVIO
-  if (kPosTareaSolucionOrigen == 0) { // Tarea origen está en la primera pos de la máquina 1
-    if (kPosTareaSolucionDestino == 0) { // Tarea destino está en la primera pos de la máquina 2 CREO QUE BIEN
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= kNumTareasOrigen * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      if (kPosTareaSolucionOrigen < kNumTareasOrigen - 1) {
-        tct_ambas_maquinas.first -= (kNumTareasOrigen - 1) * (
-          kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-        );
-      }
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= kNumTareasDestino * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      if (kPosTareaSolucionDestino < kNumTareasDestino - 1) {
-        tct_ambas_maquinas.second -= (kNumTareasDestino - 1) * (
-          kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-        );
-      }
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += kNumTareasOrigen * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      if (kPosTareaSolucionOrigen < kNumTareasOrigen - 1) {
-        tct_ambas_maquinas.first += (kNumTareasOrigen - 1) * (
-          kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-        );    
-      }
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += kNumTareasDestino * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      if (kPosTareaSolucionDestino < kNumTareasDestino - 1) {
-        tct_ambas_maquinas.second += (kNumTareasDestino - 1) * (
-          kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-        );
-      }
-    } else if (kPosTareaSolucionDestino == kNumTareasDestino - 1) { // Tarea destino está en la última pos de la máquina 2 CREO QUE BIEN
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= kNumTareasOrigen * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      if (kPosTareaSolucionOrigen < kNumTareasOrigen - 1) {
-        tct_ambas_maquinas.first -= (kNumTareasOrigen - 1) * (
-          kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-        );
-      }
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += kNumTareasOrigen * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      if (kPosTareaSolucionOrigen < kNumTareasOrigen - 1) {
-        tct_ambas_maquinas.first += (kNumTareasOrigen - 1) * (
-          kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-        );    
-      }
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );            
-    } else { // La tarea en destino no está ni en 0 ni al final CREO QUE BIEN
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= kNumTareasOrigen * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      if (kPosTareaSolucionOrigen < kNumTareasOrigen - 1) {
-        tct_ambas_maquinas.first -= (kNumTareasOrigen - 1) * (
-          kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-        );    
-      }
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= (kNumTareasDestino - kPosTareaSolucionDestino) * (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      tct_ambas_maquinas.second -= (kNumTareasDestino - kPosTareaSolucionDestino - 1) * (
-        kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-      );
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += kNumTareasOrigen * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      if (kPosTareaSolucionOrigen < kNumTareasOrigen - 1) {
-        tct_ambas_maquinas.first += (kNumTareasOrigen - 1) * (
-          kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-        );    
-      }
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += (kNumTareasDestino - kPosTareaSolucionDestino) * (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      tct_ambas_maquinas.second += (kNumTareasDestino - kPosTareaSolucionDestino - 1) * (
-        kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-      );    
-    }
-  } else if (kPosTareaSolucionOrigen == kNumTareasOrigen - 1) { // Origen al final CREO QUE BIEN
-    if (kPosTareaSolucionDestino == 0) { // Destino al inicio
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= kNumTareasDestino * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );   
-      if (kPosTareaSolucionDestino < kNumTareasDestino - 1) {
-        tct_ambas_maquinas.second -= (kNumTareasDestino - 1) * (
-          kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-        );    
-      }
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += kNumTareasDestino * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      if (kPosTareaSolucionDestino < kNumTareasDestino - 1) {
-        tct_ambas_maquinas.second += (kNumTareasDestino - 1) * (
-          kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-        );
-      }
-    } else if (kPosTareaSolucionDestino == kNumTareasDestino - 1) { // Destino al final
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );    
-    } else { // Destino ni al final ni al inicio
-      /*std::cout << "EY" << std::endl;
-      std::cout << kTareasOrigen[kPosTareaSolucionOrigen - 1]->getId() << std::endl;
-      std::cout << kTareasDestino[kPosTareaSolucionDestino]->getId() << std::endl;
-      std::cout << kTareasDestino[kPosTareaSolucionDestino - 1]->getId() << std::endl;
-      std::cout << kTareasOrigen[kPosTareaSolucionOrigen]->getId() << std::endl;
-      std::cout << kTareasDestino[kPosTareaSolucionDestino + 1]->getId() << std::endl;*/
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= (kNumTareasDestino - kPosTareaSolucionDestino) * (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );  
-      tct_ambas_maquinas.second -= (kNumTareasDestino - kPosTareaSolucionDestino - 1) * (
-        kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-      );
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += (kNumTareasDestino - kPosTareaSolucionDestino) * (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );   
-      tct_ambas_maquinas.second += (kNumTareasDestino - kPosTareaSolucionDestino - 1) * (
-        kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-      );                   
-    }
-  } else { // Origen ni al inicio ni al final CREO QUE BIEN
-    if (kPosTareaSolucionDestino == 0) { // Destino al inicio
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= (kNumTareasOrigen - kPosTareaSolucionOrigen) * (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      tct_ambas_maquinas.first -= (kNumTareasOrigen - kPosTareaSolucionOrigen - 1) * (
-        kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-      );      
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= kNumTareasDestino * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      if (kPosTareaSolucionDestino < kNumTareasDestino - 1) {
-        tct_ambas_maquinas.second -= (kNumTareasDestino - 1) * (
-          kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-        );        
-      }
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += (kNumTareasOrigen - kPosTareaSolucionOrigen) * (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      tct_ambas_maquinas.first += (kNumTareasOrigen - kPosTareaSolucionOrigen - 1) * (
-        kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-      );           
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += kNumTareasDestino * (
-        kNodoRaiz->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      if (kPosTareaSolucionDestino < kNumTareasDestino - 1) {
-        tct_ambas_maquinas.second += (kNumTareasDestino - 1) * (
-          kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-        );        
-      }
-    } else if (kPosTareaSolucionDestino == kNumTareasDestino - 1) { // Destino al final
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= (kNumTareasOrigen - kPosTareaSolucionOrigen) * (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      tct_ambas_maquinas.first -= (kNumTareasOrigen - kPosTareaSolucionOrigen - 1) * (
-        kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-      );
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );      
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += (kNumTareasOrigen - kPosTareaSolucionOrigen) * (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      tct_ambas_maquinas.first += (kNumTareasOrigen - kPosTareaSolucionOrigen - 1) * (
-        kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-      );          
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-    } else { // Destino ni al inicio ni al final
-      // Restar maquina 1
-      tct_ambas_maquinas.first -= (kNumTareasOrigen - kPosTareaSolucionOrigen) * (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      tct_ambas_maquinas.first -= (kNumTareasOrigen - kPosTareaSolucionOrigen - 1) * (
-        kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-      );
-      // Restar maquina 2
-      tct_ambas_maquinas.second -= (kNumTareasDestino - kPosTareaSolucionDestino) * (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      tct_ambas_maquinas.second -= (kNumTareasDestino - kPosTareaSolucionDestino - 1) * (
-        kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-      );
-      // Sumar maquina 1
-      tct_ambas_maquinas.first += (kNumTareasOrigen - kPosTareaSolucionOrigen) * (
-        kTareasOrigen[kPosTareaSolucionOrigen - 1]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen])
-      );
-      tct_ambas_maquinas.first += (kNumTareasOrigen - kPosTareaSolucionOrigen - 1) * (
-        kTareasOrigen[kPosTareaSolucionOrigen]->getCosteHaciaVecino(kTareasOrigen[kPosTareaSolucionOrigen + 1])
-      );
-      // Sumar maquina 2
-      tct_ambas_maquinas.second += (kNumTareasDestino - kPosTareaSolucionDestino) * (
-        kTareasDestino[kPosTareaSolucionDestino - 1]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino])
-      );
-      tct_ambas_maquinas.second += (kNumTareasDestino - kPosTareaSolucionDestino - 1) * (
-        kTareasDestino[kPosTareaSolucionDestino]->getCosteHaciaVecino(kTareasDestino[kPosTareaSolucionDestino + 1])
-      );                           
-    }
+  // Maquina Origen
+  if (kPosTareaSolucionOrigen == 0) { // Cuando es el primero restas y sumas para atrás con Nodo raíz
+    tct.first -= kNumTareas1 * (kNodoRaiz->getCosteHaciaVecino(kTarea2));
+    tct.first += kNumTareas1 * (kNodoRaiz->getCosteHaciaVecino(kTarea1));
   }
-  solucion_origen_tras_swap.setTCT() = tct_ambas_maquinas.first;
-  solucion_destino_tras_swap.setTCT() = tct_ambas_maquinas.second;
-  if (tct_ambas_maquinas.first != solucion_origen_tras_swap.calcularTCT(kNodoRaiz) || 
-  tct_ambas_maquinas.second != solucion_destino_tras_swap.calcularTCT(kNodoRaiz)) {
-    std::cout << std::endl;  
-    for (auto a : solucion_origen_tras_swap.getTareas()) {
-      std::cout << a->getId() << " ";
-    }
-    std::cout << std::endl;
-    for (auto a : solucion_destino_tras_swap.getTareas()) {
-      std::cout << a->getId() << " ";
-    }
-    std::cout << std::endl;    
-    std::cout << "AYUDA POR FAVOR TENGO HAMBRE" << std::endl;
-    std::cout << "tct_ambas_maquinas.first: " << tct_ambas_maquinas.first << std::endl;
-    std::cout << "tct_ambas_maquinas.first: " << tct_ambas_maquinas.second << std::endl;
-    std::cout << "real.first: " << solucion_origen_tras_swap.calcularTCT(kNodoRaiz) << std::endl;
-    std::cout << "real.second: " << solucion_destino_tras_swap.calcularTCT(kNodoRaiz) << std::endl;
-    exit(1);
+  if (kPosTareaSolucionOrigen < kNumTareas1 - 1) { // Cuando son todos menos el último restas y sumas para alante
+    tct.first -= (kNumTareas1 - kPosTareaSolucionOrigen - 1) * (kTarea2->getCosteHaciaVecino(kTareaSiguienteA1));
+    tct.first += (kNumTareas1 - kPosTareaSolucionOrigen - 1) * (kTarea1->getCosteHaciaVecino(kTareaSiguienteA1));
   }
-  return tct_ambas_maquinas;
+  if (kPosTareaSolucionOrigen > 0) { // Cuando son todos menos el primero restar y sumar para atrás
+    tct.first -= (kNumTareas1 - kPosTareaSolucionOrigen) * (kTareaAnteriorA1->getCosteHaciaVecino(kTarea2));
+    tct.first += (kNumTareas1 - kPosTareaSolucionOrigen) * (kTareaAnteriorA1->getCosteHaciaVecino(kTarea1));
+  }  
+  // Maquina Destino
+  if (kPosTareaSolucionDestino == 0) { // Cuando es el primero restas y sumas para atrás con Nodo raíz
+    tct.second -= kNumTareas2 * (kNodoRaiz->getCosteHaciaVecino(kTarea1));
+    tct.second += kNumTareas2 * (kNodoRaiz->getCosteHaciaVecino(kTarea2));
+  }
+  if (kPosTareaSolucionDestino < kNumTareas2 - 1) { // Cuando son todos menos el último restas y sumas para alante
+    tct.second -= (kNumTareas2 - kPosTareaSolucionDestino - 1) * (kTarea1->getCosteHaciaVecino(kTareaSiguienteA2));
+    tct.second += (kNumTareas2 - kPosTareaSolucionDestino - 1) * (kTarea2->getCosteHaciaVecino(kTareaSiguienteA2));
+  }
+  if (kPosTareaSolucionDestino > 0) { // Cuando son todos menos el primero restar y sumar para atrás
+    tct.second -= (kNumTareas2 - kPosTareaSolucionDestino) * (kTareaAnteriorA2->getCosteHaciaVecino(kTarea1));
+    tct.second += (kNumTareas2 - kPosTareaSolucionDestino) * (kTareaAnteriorA2->getCosteHaciaVecino(kTarea2));
+  }  
+  solucion_origen_tras_swap.setTCT() = tct.first;
+  solucion_destino_tras_swap.setTCT() = tct.second;
+  return tct;
 }
