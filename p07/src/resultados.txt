@@ -1,0 +1,82 @@
+Nombre del Archivo          Nombre del Algoritmo  Numero de Nodos  Numero de Maquinas  Tiempo (µs) Funcion Objetivo
+-------------------------------------------------------------------------------------------------------------------
+40_tareas/I40j_2m_S1_1.txt  VORAZ                 40               2                   175724      13709
+40_tareas/I40j_2m_S1_1.txt  Mov. ReInsercionInter 40               2                   5589251     21845
+40_tareas/I40j_2m_S1_1.txt  Mov. ReInsercionIntra 40               2                   12902280    21211
+40_tareas/I40j_2m_S1_1.txt  Mov. SwapInter        40               2                   6358896     21822
+40_tareas/I40j_2m_S1_1.txt  Mov. SwapIntra        40               2                   6993571     21056
+40_tareas/I40j_4m_S1_1.txt  VORAZ                 40               4                   120061      7421
+40_tareas/I40j_4m_S1_1.txt  Mov. ReInsercionInter 40               4                   3249741     11349
+40_tareas/I40j_4m_S1_1.txt  Mov. ReInsercionIntra 40               4                   11593264    11640
+40_tareas/I40j_4m_S1_1.txt  Mov. SwapInter        40               4                   3571980     11201
+40_tareas/I40j_4m_S1_1.txt  Mov. SwapIntra        40               4                   9864199     11486
+40_tareas/I40j_6m_S1_1.txt  VORAZ                 40               6                   94447       5452
+40_tareas/I40j_6m_S1_1.txt  Mov. ReInsercionInter 40               6                   2572679     7974
+40_tareas/I40j_6m_S1_1.txt  Mov. ReInsercionIntra 40               6                   10092650    8134
+40_tareas/I40j_6m_S1_1.txt  Mov. SwapInter        40               6                   2736007     7885
+40_tareas/I40j_6m_S1_1.txt  Mov. SwapIntra        40               6                   11312713    7860
+40_tareas/I40j_8m_S1_1.txt  VORAZ                 40               8                   72770       4497
+40_tareas/I40j_8m_S1_1.txt  Mov. ReInsercionInter 40               8                   2033147     6558
+40_tareas/I40j_8m_S1_1.txt  Mov. ReInsercionIntra 40               8                   9958328     6467
+40_tareas/I40j_8m_S1_1.txt  Mov. SwapInter        40               8                   2197265     6530
+40_tareas/I40j_8m_S1_1.txt  Mov. SwapIntra        40               8                   11508885    6444
+50_tareas/I50j_2m_S1_1.txt  VORAZ                 50               2                   600126      25156
+50_tareas/I50j_2m_S1_1.txt  Mov. ReInsercionInter 50               2                   10361094    40056
+50_tareas/I50j_2m_S1_1.txt  Mov. ReInsercionIntra 50               2                   26791058    41982
+50_tareas/I50j_2m_S1_1.txt  Mov. SwapInter        50               2                   11735030    40184
+50_tareas/I50j_2m_S1_1.txt  Mov. SwapIntra        50               2                   12467161    40686
+50_tareas/I50j_4m_S1_1.txt  VORAZ                 50               4                   334731      13836
+50_tareas/I50j_4m_S1_1.txt  Mov. ReInsercionInter 50               4                   5603746     21248
+50_tareas/I50j_4m_S1_1.txt  Mov. ReInsercionIntra 50               4                   23303035    21480
+50_tareas/I50j_4m_S1_1.txt  Mov. SwapInter        50               4                   6303711     21441
+50_tareas/I50j_4m_S1_1.txt  Mov. SwapIntra        50               4                   17998281    20988
+50_tareas/I50j_6m_S1_1.txt  VORAZ                 50               6                   242755      9855
+50_tareas/I50j_6m_S1_1.txt  Mov. ReInsercionInter 50               6                   3994254     14825
+50_tareas/I50j_6m_S1_1.txt  Mov. ReInsercionIntra 50               6                   20090935    14530
+50_tareas/I50j_6m_S1_1.txt  Mov. SwapInter        50               6                   4463760     14706
+50_tareas/I50j_6m_S1_1.txt  Mov. SwapIntra        50               6                   20082314    14125
+50_tareas/I50j_8m_S1_1.txt  VORAZ                 50               8                   192672      7867
+50_tareas/I50j_8m_S1_1.txt  Mov. ReInsercionInter 50               8                   3300239     11457
+50_tareas/I50j_8m_S1_1.txt  Mov. ReInsercionIntra 50               8                   18897190    11472
+50_tareas/I50j_8m_S1_1.txt  Mov. SwapInter        50               8                   3633390     11483
+50_tareas/I50j_8m_S1_1.txt  Mov. SwapIntra        50               8                   21335175    11340
+60_tareas/I60j_2m_S1_1.txt  VORAZ                 60               2                   1474402     34363
+60_tareas/I60j_2m_S1_1.txt  Mov. ReInsercionInter 60               2                   16932312    56969
+60_tareas/I60j_2m_S1_1.txt  Mov. ReInsercionIntra 60               2                   52504596    57769
+60_tareas/I60j_2m_S1_1.txt  Mov. SwapInter        60               2                   19410275    56297
+60_tareas/I60j_2m_S1_1.txt  Mov. SwapIntra        60               2                   20531941    56463
+60_tareas/I60j_4m_S1_1.txt  VORAZ                 60               4                   766468      18637
+60_tareas/I60j_4m_S1_1.txt  Mov. ReInsercionInter 60               4                   8836854     29629
+60_tareas/I60j_4m_S1_1.txt  Mov. ReInsercionIntra 60               4                   44613790    29394
+60_tareas/I60j_4m_S1_1.txt  Mov. SwapInter        60               4                   10202957    28976
+60_tareas/I60j_4m_S1_1.txt  Mov. SwapIntra        60               4                   30338995    29271
+60_tareas/I60j_6m_S1_1.txt  VORAZ                 60               6                   555903      13276
+60_tareas/I60j_6m_S1_1.txt  Mov. ReInsercionInter 60               6                   6271008     20104
+60_tareas/I60j_6m_S1_1.txt  Mov. ReInsercionIntra 60               6                   38776412    20546
+60_tareas/I60j_6m_S1_1.txt  Mov. SwapInter        60               6                   7189364     19890
+60_tareas/I60j_6m_S1_1.txt  Mov. SwapIntra        60               6                   33540837    20014
+60_tareas/I60j_8m_S1_1.txt  VORAZ                 60               8                   456148      10461
+60_tareas/I60j_8m_S1_1.txt  Mov. ReInsercionInter 60               8                   4950629     15763
+60_tareas/I60j_8m_S1_1.txt  Mov. ReInsercionIntra 60               8                   32942018    15436
+60_tareas/I60j_8m_S1_1.txt  Mov. SwapInter        60               8                   5602601     15737
+60_tareas/I60j_8m_S1_1.txt  Mov. SwapIntra        60               8                   35415916    15413
+70_tareas/I70j_2m_S1_1.txt  VORAZ                 70               2                   2848965     43630
+70_tareas/I70j_2m_S1_1.txt  Mov. ReInsercionInter 70               2                   25718174    73998
+70_tareas/I70j_2m_S1_1.txt  Mov. ReInsercionIntra 70               2                   91666901    74006
+70_tareas/I70j_2m_S1_1.txt  Mov. SwapInter        70               2                   30229513    72844
+70_tareas/I70j_2m_S1_1.txt  Mov. SwapIntra        70               2                   31787217    71507
+70_tareas/I70j_4m_S1_1.txt  VORAZ                 70               4                   1516826     22603
+70_tareas/I70j_4m_S1_1.txt  Mov. ReInsercionInter 70               4                   13327011    37367
+70_tareas/I70j_4m_S1_1.txt  Mov. ReInsercionIntra 70               4                   76078869    37384
+70_tareas/I70j_4m_S1_1.txt  Mov. SwapInter        70               4                   15590166    38049
+70_tareas/I70j_4m_S1_1.txt  Mov. SwapIntra        70               4                   46779199    37951
+70_tareas/I70j_6m_S1_1.txt  VORAZ                 70               6                   1115248     15925
+70_tareas/I70j_6m_S1_1.txt  Mov. ReInsercionInter 70               6                   9289070     26262
+70_tareas/I70j_6m_S1_1.txt  Mov. ReInsercionIntra 70               6                   63136617    25738
+70_tareas/I70j_6m_S1_1.txt  Mov. SwapInter        70               6                   10873283    26195
+70_tareas/I70j_6m_S1_1.txt  Mov. SwapIntra        70               6                   52689817    25603
+70_tareas/I70j_8m_S1_1.txt  VORAZ                 70               8                   875775      12730
+70_tareas/I70j_8m_S1_1.txt  Mov. ReInsercionInter 70               8                   7246653     20275
+70_tareas/I70j_8m_S1_1.txt  Mov. ReInsercionIntra 70               8                   55735186    19468
+70_tareas/I70j_8m_S1_1.txt  Mov. SwapInter        70               8                   8337525     20346
+70_tareas/I70j_8m_S1_1.txt  Mov. SwapIntra        70               8                   56109296    19864
