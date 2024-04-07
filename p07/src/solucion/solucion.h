@@ -5,11 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 1 de Abril de 2024
  * @file solucion.h
  * @brief Definición de la clase Solucion que se encarga
  * de realizar tareas
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once
@@ -29,20 +29,25 @@ namespace fs = std::filesystem;
 class Solucion {
  public:
   static const int cuantasMaquinasACrear(const std::string&);
+  // Movimientos, inserciones de tareas
   void añadirTarea(const Nodo*);
   void insertarTarea(const Nodo*, const int);
   void moverTarea(const int, const int);
   void moverTareaEntreMaquinas(const int, const int, Solucion&);
   void swapTarea(const int, const int);
   void swapTareaEntreMaquinas(const int, const int, Solucion&);
-  static void calcularFuncionObjetivo(const std::vector<Solucion>&);
+  // TCT
   const int calcularTCT(const Nodo*);
-  const std::vector<const Nodo*> getTareas() const { return tareas_; }
-  std::vector<const Nodo*>& setTareas() { return tareas_; }
-  static const int getFuncionObjetivo() { return funcion_objetivo_; }
   const int getTCT() const { return tct_; }
   int& setTCT() { return tct_; }
+  // Función objetivo 
+  static void calcularFuncionObjetivo(const std::vector<Solucion>&);  
+  static const int getFuncionObjetivo() { return funcion_objetivo_; }
   static int& setFuncionObjetivo() { return funcion_objetivo_; }
+  // Getter y Setter tareas
+  const std::vector<const Nodo*> getTareas() const { return tareas_; }
+  std::vector<const Nodo*>& setTareas() { return tareas_; }  
+  // Mostrar tarea de todas las máquinas que recibe
   static void mostrarTareasDeTodasLasMaquinas(const std::vector<Solucion>&);
  private:
   std::vector<const Nodo*> tareas_;

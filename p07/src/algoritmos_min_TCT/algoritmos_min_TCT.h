@@ -10,7 +10,7 @@
  * @brief Clase abstracta AlgoritmoMinimizarTCT para minimizar los TCT
  * y por ende las funciones objetivos para el problema Parallel Machine Scheduling Problem
  * with Dependent Setup Times, con diferentes algoritmos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

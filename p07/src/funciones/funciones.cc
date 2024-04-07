@@ -8,7 +8,7 @@
  * @since 20 de Marzo de 2024
  * @file funciones.cc
  * @brief Implementación de funciones necesarias
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "funciones.h"

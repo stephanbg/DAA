@@ -9,7 +9,7 @@
  * @file algoritmo_constructivo_voraz_TCT.h
  * @brief Implementación de la clase AlgoritmoConstructivoVoraz que hereda de
  * la clase abstracta AlgoritmoMinimizarTCT para minimizar el TCT mediante un algoritmo Voraz
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "./algoritmo_constructivo_voraz_TCT.h"
@@ -34,19 +34,13 @@ const std::vector<Solucion> AlgoritmoConstructivoVoraz::ejecutar(
     const TareaMaquinaPosicion kMejorEleccion = obtenerTareaMaquinaPosicion(
       kNumeroMaquinas, maquinas_copia, tareas_a_realizar, kGrafo
     );
-    maquinas_copia[kMejorEleccion.indice_maquina].insertarTarea(
-      kMejorEleccion.tarea, kMejorEleccion.posicion
-    );
-    auto it = std::find(
-      tareas_a_realizar.begin(), tareas_a_realizar.end(), stoi(kMejorEleccion.tarea->getId())
-    );
+    maquinas_copia[kMejorEleccion.indice_maquina].insertarTarea(kMejorEleccion.tarea, kMejorEleccion.posicion);
+    auto it = std::find(tareas_a_realizar.begin(), tareas_a_realizar.end(), stoi(kMejorEleccion.tarea->getId()));
     tareas_a_realizar.erase(it);
     maquinas = maquinas_copia;
   }
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
-  for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].calcularTCT(kNodoRaiz);
-  }
+  for (int i = 0; i < kNumeroMaquinas; ++i) maquinas[i].calcularTCT(kNodoRaiz);
   Solucion::calcularFuncionObjetivo(maquinas);
   return maquinas;
 }
@@ -114,12 +108,12 @@ const TareaMaquinaPosicion AlgoritmoConstructivoVoraz::obtenerTareaMaquinaPosici
       for (int k = 1; k <= kNumTareas; ++k) {
         Solucion cada_maquina = maquinas_copia[j];
         cada_maquina.insertarTarea(tarea, k);             
-        int incremento_tct = cada_maquina.calcularTCT(kNodoRaiz);
-        if (incremento_tct < mejor_incremento) {
+        const int kIncrementoTct = cada_maquina.calcularTCT(kNodoRaiz);
+        if (kIncrementoTct < mejor_incremento) {
           mejor_eleccion.tarea = tarea;
           mejor_eleccion.indice_maquina = j;
           mejor_eleccion.posicion = k;
-          mejor_incremento = incremento_tct;
+          mejor_incremento = kIncrementoTct;
         }
       }
     }

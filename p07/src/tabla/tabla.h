@@ -5,12 +5,12 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 1 de Abril de 2024
  * @file tabla.h
  * @brief Definición de la clase Tabla
  * que almacena datos de los algoritmos utilizados para resolver el problema
  * Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

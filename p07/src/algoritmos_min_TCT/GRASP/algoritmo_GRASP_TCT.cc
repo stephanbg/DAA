@@ -5,22 +5,23 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 1 de Abril de 2024
  * @file algoritmo_GRASP_TCT.h
  * @brief Implementación de la clase AlgoritmoGRASP que hereda de
  * la clase abstracta AlgoritmoMinimizarTCT para minimizar el TCT mediante un algoritmo GRASP
  * solo haciendo la fase constructiva
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "./algoritmo_GRASP_TCT.h"
 
 /**
- * @brief Ejecuta el algoritmo GRASP para asignar tareas a las máquinas de manera aleatoria.
+ * @brief Ejecuta el algoritmo GRASP. Realiza una fase ontructiva y posteriormente
+ * realiza la búsqueda local para mejorar los resultados y los compara en 100 iteraciones
  * 
  * @param kNumeroMaquinas Número de máquinas disponibles.
  * @param kGrafo Grafo que representa las tareas y sus dependencias.
- * @return Vector que contiene las asignaciones de tareas a las máquinas.
+ * @return Devuelve la máquina con la mejor solución
  */
 const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
   const int kNumeroMaquinas,
@@ -29,17 +30,17 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   std::vector<Solucion> solucion_inicial = faseConstructiva(kGrafo, kNumeroMaquinas),
   mejor_solucion = busquedaLocal(solucion_inicial, kNodoRaiz), solucion_actual, mejor_solucion_aux;
-  int contador = 0, funcion_objetivo_anterior = Solucion::getFuncionObjetivo(), funcion_objetivo_actual;
+  int contador = 0, mejor_funcion_objetivo = Solucion::getFuncionObjetivo(), funcion_objetivo_actual;
   do {
     solucion_actual = faseConstructiva(kGrafo, kNumeroMaquinas);
     mejor_solucion_aux = busquedaLocal(solucion_actual, kNodoRaiz);
     funcion_objetivo_actual = Solucion::getFuncionObjetivo();
-    if (funcion_objetivo_actual < funcion_objetivo_anterior) {
+    if (funcion_objetivo_actual < mejor_funcion_objetivo) {
       mejor_solucion = mejor_solucion_aux;
-      funcion_objetivo_anterior = funcion_objetivo_actual;
+      mejor_funcion_objetivo = funcion_objetivo_actual;
     }
   } while (++contador <= 100);
-  Solucion::setFuncionObjetivo() = funcion_objetivo_anterior;
+  Solucion::setFuncionObjetivo() = mejor_funcion_objetivo;
   return mejor_solucion;
 }
 
@@ -76,15 +77,11 @@ const std::vector<Solucion> AlgoritmoGRASP::faseConstructiva(
   std::vector<Solucion> maquinas(kNumMaquinas);
   // Añadir tareas
   const int kSizeNodosAleatorios = nodos_aleatorios.size();
-  for (int i = 0; i < kSizeNodosAleatorios; i++) {
-    maquinas[i % maquinas.size()].añadirTarea(nodos_aleatorios[i]);   
-  }
+  for (int i = 0; i < kSizeNodosAleatorios; i++) maquinas[i % maquinas.size()].añadirTarea(nodos_aleatorios[i]);
   // Calcula el TCT de cada máquina
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   const int kNumeroMaquinas = maquinas.size();
-  for (int i = 0; i < kNumeroMaquinas; ++i) {
-    maquinas[i].calcularTCT(kNodoRaiz);
-  }
+  for (int i = 0; i < kNumeroMaquinas; ++i) maquinas[i].calcularTCT(kNodoRaiz);
   Solucion::calcularFuncionObjetivo(maquinas);
   return maquinas;
 }
@@ -101,11 +98,11 @@ const double AlgoritmoGRASP::calcularHeurística(const std::vector<Nodo*>& kNodo
 }
 
 /**
- * @brief Identifica las tareas que superan cierto umbral de calidad según la heurística.
+ * @brief Calcula la Lista Restringida de Candidatos (LRC) utilizando una heurística dada.
  * 
- * @param kNodos Vector que contiene las tareas seleccionadas en una solución parcial.
- * @param kHeuristica Valor que define el umbral de calidad.
- * @return Vector que contiene las tareas que superan el umbral de calidad.
+ * @param kNodos El conjunto de nodos del problema.
+ * @param kHeuristica El valor de la heurística utilizado para calcular la LRC.
+ * @return Un vector que contiene punteros a los nodos que forman parte de la LRC.
  */
 const std::vector<const Nodo*> AlgoritmoGRASP::calcularLRC(
   const std::vector<Nodo*>& kNodos, const double kHeuristica
@@ -116,8 +113,6 @@ const std::vector<const Nodo*> AlgoritmoGRASP::calcularLRC(
   std::mt19937 generador(dispositivo_aleatorio());  
   std::uniform_int_distribution<> dis(1, kHeuristica);
   int contador = dis(generador);
-  for (int i = 0; i < contador; ++i) {
-    lista_restringida_candidatos.push_back(kNodos[i]);
-  }
+  for (int i = 0; i < contador; ++i) lista_restringida_candidatos.push_back(kNodos[i]);
   return lista_restringida_candidatos;
 }

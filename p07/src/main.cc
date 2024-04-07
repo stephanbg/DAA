@@ -5,11 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 1 de Abril de 2024
  * @file main.cc
  * @brief Función principal que se encargará de implementar
  * Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "comprobar_parametros/comprobar_parametros.h"

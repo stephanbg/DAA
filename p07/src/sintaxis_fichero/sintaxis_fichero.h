@@ -10,7 +10,7 @@
  * @brief Definición de la clase SintaxisFichero
  * que comprueba la sintaxis de los ficheros que contienen descripciones para
  * el problema Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

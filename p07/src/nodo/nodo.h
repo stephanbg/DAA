@@ -9,7 +9,7 @@
  * @file nodo.h
  * @brief Definición e implementación de la clase Nodo que se encarga
  * de crear nodos para un grafo
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

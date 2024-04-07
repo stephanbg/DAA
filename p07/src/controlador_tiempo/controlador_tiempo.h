@@ -10,7 +10,7 @@
  * @brief Definición e implementación de la clase ControladorTiempo
  * que recibe una función con sus parámetros y se encarga de comprobar
  * el tiempo de ejecución que dura la función
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

@@ -1,5 +1,27 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 1 de Abril de 2024
+ * @file movimientoReInsercionIntraGRASP.cc
+ * @brief Implementación de la clase MovimientoReInsercionIntraGRASP que hereda de
+ * la clase GRASP, para realizar una búsqueda local de reinserción entre máquinas
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ */
+
 #include "movimientoReInsercionIntraGRASP.h"
 
+/**
+ * @brief Realiza una búsqueda local para mejorar una solución actual
+ * mediante movimientos de re-inserción intra-máquinas.
+ * 
+ * @param kSolucionActual La solución actual que se va a mejorar.
+ * @param kNodoRaiz El nodo raíz del problema.
+ * @return Una nueva solución mejorada después de aplicar la búsqueda local.
+ */
 const std::vector<Solucion> MovimientoReInsercionIntraGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
@@ -9,19 +31,19 @@ const std::vector<Solucion> MovimientoReInsercionIntraGRASP::busquedaLocal(
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
   funcion_objetivo = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
-  for (int i = 0; i < kNumMaquinas - 1; ++i) {
+  for (int i = 0; i < kNumMaquinas - 1; ++i) { // Recorre todas las máquinas menos la última
     const int kTctMaquinaI = kSolucionActual[i].getTCT();
     const int kNumTareasI = kSolucionActual[i].getTareas().size();
-    for (int j = 0; j < kNumTareasI; ++j) {
+    for (int j = 0; j < kNumTareasI; ++j) { // Recorro cada tarea que voy a mover
       Solucion copia_solucion_sin_elemento = kSolucionActual[i];
       copia_solucion_sin_elemento.setTareas().erase(copia_solucion_sin_elemento.setTareas().begin() + j);
       // Si es menos que la mitad hago el cálculo parcial sino el entero
       const int kTctTrasEliminarEnMaquinaI = (j < (kSolucionActual.size() / 2)) ?
           calcularTCTParcialMaquina1(kNodoRaiz, j, kSolucionActual[i]) :
           copia_solucion_sin_elemento.calcularTCT(kNodoRaiz);
-      for (int l = i + 1; l < kNumMaquinas; ++l) {
+      for (int l = i + 1; l < kNumMaquinas; ++l) { // Recorro las máquinas siguientes
         const int kNumTareasL = kSolucionActual[l].getTareas().size();
-        for (int k = 0; k <= kNumTareasL; ++k) {
+        for (int k = 0; k <= kNumTareasL; ++k) { // Recorro cada posición de la máquina siguiente
           solucion_vecina = kSolucionActual;
           const int kTctMaquinaL = solucion_vecina[l].getTCT();
           solucion_vecina[i].moverTareaEntreMaquinas(j, k, solucion_vecina[l]);
@@ -46,6 +68,15 @@ const std::vector<Solucion> MovimientoReInsercionIntraGRASP::busquedaLocal(
   return solucion_mejor;
 }
 
+/**
+ * @brief Calcula el tiempo de ciclo total (TCT) parcial de la máquina
+ * en la que se ha eliminado una tarea.
+ * 
+ * @param kNodoRaiz El nodo raíz del problema.
+ * @param kPosTareaOrg La posición de la tarea eliminada.
+ * @param kSolucionActual La solución antes de eliminar la tarea.
+ * @return El nuevo valor del TCT parcial después de eliminar la tarea.
+ */
 const int MovimientoReInsercionIntraGRASP::calcularTCTParcialMaquina1(
   const Nodo* kNodoRaiz,
   const int kPosTareaOrg,
@@ -76,6 +107,15 @@ const int MovimientoReInsercionIntraGRASP::calcularTCTParcialMaquina1(
   return tct;
 }
 
+/**
+ * @brief Calcula el tiempo de ciclo total (TCT) parcial de la máquina
+ * en la que se ha insertado una tarea.
+ * 
+ * @param kNodoRaiz El nodo raíz del problema.
+ * @param kPosTareaDst La posición en la que se ha insertado la tarea.
+ * @param kSolucionTrasInsercion La solución después de insertar la tarea.
+ * @return El nuevo valor del TCT parcial después de insertar la tarea.
+ */
 const int MovimientoReInsercionIntraGRASP::calcularTCTParcialMaquina2(
   const Nodo* kNodoRaiz,
   const int kPosTareaDst,

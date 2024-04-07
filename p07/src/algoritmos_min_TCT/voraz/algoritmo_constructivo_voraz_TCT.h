@@ -9,7 +9,7 @@
  * @file algoritmo_constructivo_voraz_TCT.h
  * @brief Definición de la clase AlgoritmoConstructivoVoraz que hereda de
  * la clase abstracta AlgoritmoMinimizarTCT para minimizar el TCT mediante un algoritmo Voraz
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

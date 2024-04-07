@@ -8,7 +8,7 @@
  * @since 20 de Marzo de 2024
  * @file arco.h
  * @brief Definición e implementación de la clase Arco para enlazar dos nodos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

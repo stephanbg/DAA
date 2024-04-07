@@ -1,5 +1,27 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 1 de Abril de 2024
+ * @file movimientoSwapInterGRASP.cc
+ * @brief Implementación de la clase MovimientoSwapInterGRASP que hereda de
+ * la clase GRASP, para realizar una búsqueda local de intercambio inter-máquina
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ */
+
 #include "movimientoSwapInterGRASP.h"
 
+/**
+ * @brief Realiza una búsqueda local para mejorar una solución actual
+ * mediante movimientos de intercambio inter-máquinas.
+ * 
+ * @param kSolucionActual La solución actual que se va a mejorar.
+ * @param kNodoRaiz El nodo raíz del problema.
+ * @return Una nueva solución mejorada después de aplicar la búsqueda local.
+ */
 const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
@@ -9,16 +31,14 @@ const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
   funcion_objetivo = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
-  for (int i = 0; i < kNumMaquinas; ++i) {
+  for (int i = 0; i < kNumMaquinas; ++i) { // Recorro cada máquina
     const int kTctMaquinaI = kSolucionActual[i].getTCT();
     const int kNumTareas = kSolucionActual[i].getTareas().size();
-    for (int j = 0; j < kNumTareas; ++j) {
-      for (int k = j + 1; k < kNumTareas; ++k) {
+    for (int j = 0; j < kNumTareas; ++j) { // Recorro cada tarea
+      for (int k = j + 1; k < kNumTareas; ++k) { // Recorro a partir de la siguiente tarea para swap
         solucion_vecina = kSolucionActual;
         solucion_vecina[i].swapTarea(j, k);
-        const int kTctVecinoI = calcularTCTParcial(
-          kNodoRaiz, j, k, kSolucionActual[i], solucion_vecina[i]
-        );
+        const int kTctVecinoI = calcularTCTParcial(kNodoRaiz, j, k, kSolucionActual[i], solucion_vecina[i]);
         funcion_objetivo_vecino = funcion_objetivo_inicial - kTctMaquinaI + kTctVecinoI;
         if (funcion_objetivo_vecino < funcion_objetivo) {
           solucion_mejor = solucion_vecina;
@@ -32,6 +52,17 @@ const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
   return solucion_mejor;
 }
 
+/**
+ * @brief Calcula el tiempo de ciclo total (TCT) parcial de la máquina
+ * después de realizar un swap entre tareas.
+ * 
+ * @param kNodoRaiz El nodo raíz del problema.
+ * @param kPosOrigen La posición de la tarea original en la solución actual.
+ * @param kPosDestino La posición de la tarea destino después del swap.
+ * @param kSolucionActual La solución antes de realizar el swap.
+ * @param solucion_tras_swap La solución después de realizar el swap.
+ * @return El nuevo valor del TCT parcial después de realizar el swap.
+ */
 const int MovimientoSwapInterGRASP::calcularTCTParcial(
   const Nodo* kNodoRaiz,
   const int kPosOrigen,

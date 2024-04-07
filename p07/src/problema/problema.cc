@@ -9,7 +9,7 @@
  * @file problema.cc
  * @brief Implementación de la clase Problema que se encarga
  * de leer los datos de un fichero y crear el grafo
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "problema.h"
@@ -47,9 +47,7 @@ Problema::Problema(
  * @brief Destructor de la clase Problema.
  */
 Problema::~Problema() {
-  for (auto nodo : grafo_) {
-    delete nodo;
-  }
+  for (auto nodo : grafo_) delete nodo;
 }
 
 /**

@@ -5,12 +5,12 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 1 de Abril de 2024
  * @file tabla.cc
  * @brief Implementación de la clase Tabla
  * que almacena datos de los algoritmos utilizados para resolver el problema
  * Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "tabla.h"
@@ -22,6 +22,13 @@ int Tabla::numero_maquinas_ = 0;
 std::vector<int> Tabla::funcion_objetivo_ = {};
 std::vector<int> Tabla::tiempos_ = {};
 
+/**
+ * @brief Inserta los datos iniciales en la tabla.
+ * 
+ * @param kNombreFichero El nombre del fichero que contiene los datos del problema.
+ * @param kNumNodos El número de nodos en el problema.
+ * @param kNumMaquinas El número de máquinas en el problema.
+ */
 void Tabla::insertarDatosIniciales(
   const std::string& kNombreFichero,
   const int kNumNodos,
@@ -32,6 +39,12 @@ void Tabla::insertarDatosIniciales(
   insertarNumeroMaquinas(kNumMaquinas);
 }
 
+/**
+ * @brief Inserta los datos de un algoritmo (nombre y función objetivo) y su tiempo de ejecución en la tabla.
+ * 
+ * @param kNombreAlgoritmo El nombre del algoritmo utilizado.
+ * @param ktiempoEjecucion El tiempo de ejecución del algoritmo.
+ */
 void Tabla::insertarDatos(const std::string& kNombreAlgoritmo, const int ktiempoEjecucion) {
   insertarNombreAlgoritmo(kNombreAlgoritmo);    
   insertarFuncionObjetivo(Solucion::getFuncionObjetivo());
@@ -45,15 +58,6 @@ void Tabla::insertarDatos(const std::string& kNombreAlgoritmo, const int ktiempo
  */
 void Tabla::insertarNombreFichero(const std::string& kNombreFichero) {
   nombre_fichero_ = kNombreFichero;
-}
-
-/**
- * @brief Inserta el nombre de un algoritmo en la tabla de resultados.
- * 
- * @param kNombreAlgoritmo Nombre del algoritmo.
- */
-void Tabla::insertarNombreAlgoritmo(const std::string& kNombreAlgoritmo) {
-  nombres_algoritmos_.push_back(kNombreAlgoritmo);
 }
 
 /**
@@ -74,13 +78,14 @@ void Tabla::insertarNumeroMaquinas(const int kNumeroMaquinas) {
   numero_maquinas_ = kNumeroMaquinas;
 }
 
+
 /**
- * @brief Inserta el tiempo de ejecución en la tabla de resultados
+ * @brief Inserta el nombre de un algoritmo en la tabla de resultados.
  * 
- * @param kTiempo el tiempo de ejecución
+ * @param kNombreAlgoritmo Nombre del algoritmo.
  */
-void Tabla::insertarTiempo(const int kTiempo) {
-  tiempos_.push_back(kTiempo);
+void Tabla::insertarNombreAlgoritmo(const std::string& kNombreAlgoritmo) {
+  nombres_algoritmos_.push_back(kNombreAlgoritmo);
 }
 
 /**
@@ -90,6 +95,15 @@ void Tabla::insertarTiempo(const int kTiempo) {
  */
 void Tabla::insertarFuncionObjetivo(const int kFuncionObjetivo) {
   funcion_objetivo_.push_back(kFuncionObjetivo);
+}
+
+/**
+ * @brief Inserta el tiempo de ejecución en la tabla de resultados
+ * 
+ * @param kTiempo el tiempo de ejecución
+ */
+void Tabla::insertarTiempo(const int kTiempo) {
+  tiempos_.push_back(kTiempo);
 }
 
 /**

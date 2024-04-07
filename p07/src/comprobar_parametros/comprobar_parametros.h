@@ -8,7 +8,7 @@
  * @since 20 de Marzo de 2024
  * @file comprobar_aprametros.h
  * @brief Definición de la clase ComprobarParametros, que comprueba la línea de comandos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once

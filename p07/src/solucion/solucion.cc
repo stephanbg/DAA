@@ -5,11 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 1 de Abril de 2024
  * @file solucion.cc
  * @brief Implementación de la clase Solucion que se encarga
  * de realizar tareas
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #include "solucion.h"
@@ -65,7 +65,6 @@ const int Solucion::calcularTCT(
     const int kCoeficiente = kNumTareas - i;
     tct_ += kCoeficiente * kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]);
   }
-  //std::cout << "TCT: " << tct_ << std::endl;
   return tct_;
 }
 
@@ -92,6 +91,12 @@ void Solucion::insertarTarea(const Nodo* kTarea, const int kPos) {
   }
 }
 
+/**
+ * @brief Mueve una tarea dentro de la misma máquina.
+ * 
+ * @param kPosTarea La posición de la tarea que se moverá.
+ * @param kPos La posición a la que se moverá la tarea.
+ */
 void Solucion::moverTarea(const int kPosTarea, const int kPos) {
   if (kPosTarea < 0 || kPosTarea >= tareas_.size()) {
     throw std::invalid_argument("Posición origen de la tarea, inválida");
@@ -104,6 +109,13 @@ void Solucion::moverTarea(const int kPosTarea, const int kPos) {
   insertarTarea(kTarea, kPos);
 }
 
+/**
+ * @brief Mueve una tarea de la máquina actual a otra máquina.
+ * 
+ * @param kPosTareaSolucion1 La posición de la tarea en la solución actual.
+ * @param kPosSolucion2 La posición en la otra solución donde se insertará la tarea.
+ * @param solucion2 La solución a la que se moverá la tarea.
+ */
 void Solucion::moverTareaEntreMaquinas(
   const int kPosTareaSolucion1,
   const int kPosSolucion2,
@@ -113,8 +125,6 @@ void Solucion::moverTareaEntreMaquinas(
     throw std::invalid_argument("Posición de tarea inválida en la primera solución");
   }
   if (kPosSolucion2 < 0 || kPosSolucion2 > solucion2.tareas_.size()) {
-    std::cout << kPosSolucion2 << std::endl;
-    std::cout << solucion2.tareas_.size() << std::endl;
     throw std::invalid_argument("Posición de tarea inválida en la segunda solución");
   }
   const Nodo* kTarea = tareas_[kPosTareaSolucion1];
@@ -122,6 +132,12 @@ void Solucion::moverTareaEntreMaquinas(
   solucion2.insertarTarea(kTarea, kPosSolucion2);
 }
 
+/**
+ * @brief Intercambia dos tareas dentro de la misma máquina.
+ * 
+ * @param kPosAnterior La posición de la primera tarea a intercambiar.
+ * @param kPosSiguiente La posición de la segunda tarea a intercambiar.
+ */
 void Solucion::swapTarea(const int kPosAnterior, const int kPosSiguiente) {
   if (kPosAnterior < 0 || kPosAnterior >= tareas_.size()) {
     throw std::out_of_range("La posición inicial no se encuentra en el vector");
@@ -132,6 +148,13 @@ void Solucion::swapTarea(const int kPosAnterior, const int kPosSiguiente) {
   std::swap(tareas_[kPosAnterior], tareas_[kPosSiguiente]);
 }
 
+/**
+ * @brief Intercambia una tarea entre dos máquinas.
+ * 
+ * @param kPosTareaSolucion1 La posición de la tarea en la primera solución.
+ * @param kPosTareaSolucion2 La posición de la tarea en la segunda solución.
+ * @param solucion2 La otra solución con la que se intercambiará la tarea.
+ */
 void Solucion::swapTareaEntreMaquinas(
   const int kPosTareaSolucion1,
   const int kPosTareaSolucion2,

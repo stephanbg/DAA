@@ -9,7 +9,7 @@
  * @file problema.h
  * @brief Definición de la clase Problema que se encarga
  * de leer los datos de un fichero y crear el grafo
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07_parcial_1/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
 #pragma once
@@ -26,7 +26,7 @@
 namespace fs = std::filesystem;
 
 /**
- * @brief Clase que genera un grafo dirigido completo
+ * @brief Clase que genera un Problema (grafo dirigido completo)
  */
 class Problema {
  public:
