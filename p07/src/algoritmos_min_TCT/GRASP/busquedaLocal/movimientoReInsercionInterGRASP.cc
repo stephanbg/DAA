@@ -26,38 +26,45 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
 ) const {
-  std::vector<Solucion> solucion_vecina, solucion_mejor;
+  std::vector<Solucion> solucion_vecina, solucion_mejor = kSolucionActual;
   Solucion solucion_vecina_anterior;
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
   funcion_objetivo = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
-  for (int i = 0; i < kNumMaquinas - 1; ++i) { // Recorre todas las máquinas menos la última
+  for (int i = 0; i < kNumMaquinas; ++i) { // Recorre todas las máquinas menos la última
     const int kTctMaquinaI = kSolucionActual[i].getTCT();
     const int kNumTareasI = kSolucionActual[i].getTareas().size();
     for (int j = 0; j < kNumTareasI; ++j) { // Recorro cada tarea que voy a mover
       Solucion copia_solucion_sin_elemento = kSolucionActual[i];
       copia_solucion_sin_elemento.setTareas().erase(copia_solucion_sin_elemento.setTareas().begin() + j);
       // Si es menos que la mitad hago el cálculo parcial sino el entero
-      const int kTctTrasEliminarEnMaquinaI = (j < (kSolucionActual.size() / 2)) ?
-          calcularTCTParcialMaquina1(kNodoRaiz, j, kSolucionActual[i]) :
+      int tct_tras_eliminar_en_maquina_i = 0;
+      if (copia_solucion_sin_elemento.getTareas().size() != 0) {
+        tct_tras_eliminar_en_maquina_i = (j < (kSolucionActual.size() / 2)) ?
+          calcularTCTParcialMaquina1AntesDeExtraerRealmente(kNodoRaiz, j, kSolucionActual[i]) :
           copia_solucion_sin_elemento.calcularTCT(kNodoRaiz);
-      for (int l = i + 1; l < kNumMaquinas; ++l) { // Recorro las máquinas siguientes
+      }
+      for (int l = 0; l < kNumMaquinas; ++l) { // Recorro las máquinas siguientes
+        if (i == l) continue;
         const int kNumTareasL = kSolucionActual[l].getTareas().size();
         for (int k = 0; k <= kNumTareasL; ++k) { // Recorro cada posición de la máquina siguiente
           solucion_vecina = kSolucionActual;
           const int kTctMaquinaL = solucion_vecina[l].getTCT();
           solucion_vecina[i].moverTareaEntreMaquinas(j, k, solucion_vecina[l]);
-          // Si es menos que la mitad hago el cálculo parcial sino el entero
-          const int kTctTrasInsertarEnMaquinaL = (k < (solucion_vecina[l].getTareas().size() / 2)) ?
-              calcularTCTParcialMaquina2(kNodoRaiz, k, solucion_vecina[l]) :
+          int tct_tras_insertar_en_maquina_l = 0;
+          if (solucion_vecina[l].getTareas().size() != 0) {
+            // Si es menos que la mitad hago el cálculo parcial sino el entero
+            tct_tras_insertar_en_maquina_l = (k < (solucion_vecina[l].getTareas().size() / 2)) ?
+              calcularTCTParcialMaquina2DespuesDeExtraer(kNodoRaiz, k, solucion_vecina[l]) :
               solucion_vecina[l].calcularTCT(kNodoRaiz);
+          }
           funcion_objetivo_vecino = (
-            funcion_objetivo_inicial - kTctMaquinaI - kTctMaquinaL + kTctTrasEliminarEnMaquinaI + kTctTrasInsertarEnMaquinaL
+            funcion_objetivo_inicial - kTctMaquinaI - kTctMaquinaL + tct_tras_eliminar_en_maquina_i + tct_tras_insertar_en_maquina_l
           );
           if (funcion_objetivo_vecino < funcion_objetivo) {
             solucion_mejor = solucion_vecina;
-            solucion_mejor[i].setTCT() = kTctTrasEliminarEnMaquinaI;
-            solucion_mejor[l].setTCT() = kTctTrasInsertarEnMaquinaL;
+            solucion_mejor[i].setTCT() = tct_tras_eliminar_en_maquina_i;
+            solucion_mejor[l].setTCT() = tct_tras_insertar_en_maquina_l;
             funcion_objetivo = funcion_objetivo_vecino;
           }
         }
@@ -73,38 +80,84 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
   const int kCantidadVecinosAMover,
   const Nodo* kNodoRaiz
 ) const {
+  //std::cout << "AMAI" << std::endl;
+  int funcion_objetivo = Solucion::getFuncionObjetivo();
   std::vector<Solucion> solucion_a_perturbar = kSolucionAPerturbar;
-  Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
-  std::cout << std::endl;
   std::random_device dispositivo_aleatorio;
   std::mt19937 generador(dispositivo_aleatorio());
   std::vector<const Nodo*> nodos_movidos;
   for (int i = 0; i < kCantidadVecinosAMover; ++i) {
-    std::uniform_int_distribution<> dis1(0, solucion_a_perturbar.size() - 1);
-    const int kIndiceMaquinaOrigen = dis1(generador);
-    int indice_maquina_destino;
+    int indice_maquina_origen, indice_maquina_destino;
+    do {
+      std::uniform_int_distribution<> dis1(0, solucion_a_perturbar.size() - 1);
+      indice_maquina_origen = dis1(generador);
+    } while(solucion_a_perturbar[indice_maquina_origen].getTareas().size() == 0);
     do {
       std::uniform_int_distribution<> dis2(0, solucion_a_perturbar.size() - 1);
       indice_maquina_destino = dis2(generador);      
-    } while (kIndiceMaquinaOrigen == indice_maquina_destino);
+    } while (indice_maquina_origen == indice_maquina_destino);
+    //std::cout << solucion_a_perturbar[indice_maquina_destino].getTareas().size() << std::endl;
     int indice_tarea;
+    std::vector<const Nodo *>::iterator it;
     do {
-      std::uniform_int_distribution<> dis3(0, solucion_a_perturbar[kIndiceMaquinaOrigen].getTareas().size() - 1);
+      std::uniform_int_distribution<> dis3(0, solucion_a_perturbar[indice_maquina_origen].getTareas().size() - 1);
       indice_tarea = dis3(generador);
-    } while (nodos_movidos);
+      it = std::find(nodos_movidos.begin(), nodos_movidos.end(), solucion_a_perturbar[indice_maquina_origen].getTareas()[indice_tarea]);
+    } while (it != nodos_movidos.end());
     std::uniform_int_distribution<> dis4(0, solucion_a_perturbar[indice_maquina_destino].getTareas().size());
     const int kPosDestino = dis4(generador);    
     //std::cout << "Maquina " << kIndiceMaquinaOrigen << " de la que se extrae la tarea " << solucion_a_perturbar[kIndiceMaquinaOrigen].getTareas()[indice_tarea]->getId() << " y va a la máquina " << indice_maquina_destino << " en la pos " << kPosDestino << std::endl; 
-    nodos_movidos.push_back(solucion_a_perturbar[kIndiceMaquinaOrigen].getTareas()[indice_tarea]);
-    solucion_a_perturbar[kIndiceMaquinaOrigen].moverTareaEntreMaquinas(
+    //std::cout << std::endl;    
+    nodos_movidos.push_back(solucion_a_perturbar[indice_maquina_origen].getTareas()[indice_tarea]);
+    funcion_objetivo =
+        funcion_objetivo - solucion_a_perturbar[indice_maquina_origen].getTCT() - solucion_a_perturbar[indice_maquina_destino].getTCT();
+    // Hacer eliminación (no real) CÁLCULO TCT PARCIAL MÁQUINA ORIGINAL
+    Solucion copia_solucion_sin_elemento = solucion_a_perturbar[indice_maquina_origen];  
+    copia_solucion_sin_elemento.setTareas().erase(copia_solucion_sin_elemento.setTareas().begin() + indice_tarea);
+    int tct_tras_eliminar_en_maquina_origen = 0;
+    if (copia_solucion_sin_elemento.getTareas().size() != 0) {      
+    // Si es menos que la mitad hago el cálculo parcial sino el entero
+    tct_tras_eliminar_en_maquina_origen = (indice_maquina_origen < (solucion_a_perturbar.size() / 2)) ?
+      calcularTCTParcialMaquina1AntesDeExtraerRealmente(
+        kNodoRaiz, indice_tarea, solucion_a_perturbar[indice_maquina_origen]
+      ) : copia_solucion_sin_elemento.calcularTCT(kNodoRaiz);
+    }
+    // Mover tarea entre máquinas
+    //std::cout << "ANTES DE MOVER: " << std::endl;
+    //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
+    //std::cout << std::endl;
+    solucion_a_perturbar[indice_maquina_origen].moverTareaEntreMaquinas(
       indice_tarea, kPosDestino, solucion_a_perturbar[indice_maquina_destino]
     );
-    calcularTCTParcialMaquina1(kNodoRaiz, indice_tarea, solucion_a_perturbar[kIndiceMaquinaOrigen]);
-    calcularTCTParcialMaquina2(kNodoRaiz, kPosDestino, solucion_a_perturbar[indice_maquina_destino]);
+    //std::cout << "TRAS A MOVER: " << std::endl;
+    //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
+    //std::cout << std::endl;
+    solucion_a_perturbar[indice_maquina_origen].setTCT() = tct_tras_eliminar_en_maquina_origen;
+    // CÁLCULO TCT PARCIAL MÁQUINA DESTINO
+    const int kTctTrasInsertarEnMaquinaDestino = (
+      kPosDestino < (solucion_a_perturbar[indice_maquina_destino].getTareas().size() / 2)
+    ) ? calcularTCTParcialMaquina2DespuesDeExtraer(kNodoRaiz, kPosDestino, solucion_a_perturbar[indice_maquina_destino]):
+        solucion_a_perturbar[indice_maquina_destino].calcularTCT(kNodoRaiz);
+    solucion_a_perturbar[indice_maquina_destino].setTCT() = kTctTrasInsertarEnMaquinaDestino;
+    funcion_objetivo += tct_tras_eliminar_en_maquina_origen + kTctTrasInsertarEnMaquinaDestino;
+    /*if (kTctTrasEliminarEnMaquinaOrigen != solucion_a_perturbar[kIndiceMaquinaOrigen].calcularTCT(kNodoRaiz)) {
+      std::cout << "ERROR 1" << std::endl;
+    }
+    if (kTctTrasInsertarEnMaquinaDestino != solucion_a_perturbar[indice_maquina_destino].calcularTCT(kNodoRaiz)) {
+      std::cout << "ERROR 2" << std::endl;
+    } */
   }
-  std::cout << std::endl;
-  Solucion::calcularFuncionObjetivo(solucion_a_perturbar);
-  return solucion_a_perturbar;
+  Solucion::setFuncionObjetivo() = funcion_objetivo;
+  //std::cout << "Ay" << std::endl;
+  //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
+  //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
+  //std::cout << "Uy" << std::endl;
+    //std::cout << "nodos_movidos: " << std::endl;
+    //for (auto a : nodos_movidos) {
+    //  std::cout << a->getId() << " ";
+    //}
+    //std::cout << std::endl;  
+  return busquedaLocal(solucion_a_perturbar, kNodoRaiz);;
 }
 
 /** EVALUACIÓN DEL MOVIMIENTO
@@ -117,7 +170,7 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
  * @param kSolucionActual La solución antes de eliminar la tarea.
  * @return El nuevo valor del TCT parcial después de eliminar la tarea.
  */
-const int MovimientoReInsercionInterGRASP::calcularTCTParcialMaquina1(
+const int MovimientoReInsercionInterGRASP::calcularTCTParcialMaquina1AntesDeExtraerRealmente(
   const Nodo* kNodoRaiz,
   const int kPosTareaOrg,
   const Solucion& kSolucionActual
@@ -157,7 +210,7 @@ const int MovimientoReInsercionInterGRASP::calcularTCTParcialMaquina1(
  * @param kSolucionTrasInsercion La solución después de insertar la tarea.
  * @return El nuevo valor del TCT parcial después de insertar la tarea.
  */
-const int MovimientoReInsercionInterGRASP::calcularTCTParcialMaquina2(
+const int MovimientoReInsercionInterGRASP::calcularTCTParcialMaquina2DespuesDeExtraer(
   const Nodo* kNodoRaiz,
   const int kPosTareaDst,
   const Solucion& kSolucionTrasInsercion

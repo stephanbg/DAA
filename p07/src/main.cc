@@ -41,10 +41,7 @@ int main(int argc, char* argv[]) {
     ComprobarParametros::comprobar(argc, argv);
     SintaxisFichero::comprobarSintaxisFichero(argv[1]);
     Problema grafo(argv[1]);
-    int numero_maquinas = Solucion::cuantasMaquinasACrear(argv[1]);
-    MultiArranqueGVNS GVNS;
-    GVNS.ejecutar(numero_maquinas, grafo);
-    /*
+    int numero_maquinas = Solucion::cuantasMaquinasACrear(argv[1]);    
     Tabla::insertarDatosIniciales(argv[1], grafo.getGrafo().size() - 1, numero_maquinas);
     AlgoritmoMinimizarTCT* algoritmo;
     // Se define un mapa que asocia nombres de algoritmos con funciones para crear instancias
@@ -53,10 +50,11 @@ int main(int argc, char* argv[]) {
       {"Mov. ReInsercionInter", [](){ return new MovimientoReInsercionInterGRASP; }},
       {"Mov. ReInsercionIntra", [](){ return new MovimientoReInsercionIntraGRASP; }},
       {"Mov. SwapInter", [](){ return new MovimientoSwapInterGRASP; }},
-      {"Mov. SwapIntra", [](){ return new MovimientoSwapIntraGRASP; }}
+      {"Mov. SwapIntra", [](){ return new MovimientoSwapIntraGRASP; }},
+      {"GVNS", [](){ return new MultiArranqueGVNS; }}
     };
     const std::vector<std::string> kOrdenAlgoritmos = {
-      "VORAZ", "Mov. ReInsercionInter", "Mov. ReInsercionIntra", "Mov. SwapInter", "Mov. SwapIntra"
+      "VORAZ", "Mov. ReInsercionInter", "Mov. ReInsercionIntra", "Mov. SwapInter", "Mov. SwapIntra", "GVNS"
     };
     // Itera sobre los nombres de algoritmos y crea instancias dinámicamente
     for (const auto& kNombre : kOrdenAlgoritmos) {
@@ -66,7 +64,7 @@ int main(int argc, char* argv[]) {
     }       
     const std::string kOpcion = peticionUsuarioTablaPantallaOFichero();
     if (kOpcion == "P") Tabla::mostrarTablaEnPantalla();
-    else Tabla::mostrarTablaEnFichero();*/
+    else Tabla::mostrarTablaEnFichero();
   } catch (const std::string& kError) {
     std::cout << "Error: " << kError << "." << std::endl << std::endl;
     ComprobarParametros::ayuda();

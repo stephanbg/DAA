@@ -18,31 +18,74 @@ const std::vector<Solucion> MultiArranqueGVNS::ejecutar(
       mejor_solucion = mejor_solucion_auxiliar;
       mejor_funcion_objetivo = funcion_objetivo_actual;
     }
-  } while (++iteraciones < 100);
+  } while (++iteraciones < 1);
   return mejor_solucion;
 }
 
 void MultiArranqueGVNS::GVNS(std::vector<Solucion>& solucion_a_mejorar, const Nodo* kNodoRaiz) const {
   const int kMAX = 5;
-  std::vector<Solucion> mejor_solucion_GVNS = solucion_a_mejorar;
+  int funcion_objetivo_inicial = Solucion::getFuncionObjetivo();
+  std::vector<Solucion>& mejor_solucion_GVNS = solucion_a_mejorar;
+  int contador = 0;
   for (int k = 1; k <= kMAX; ++k) {
-    mejor_solucion_GVNS = perturbacion(mejor_solucion_GVNS, k, kNodoRaiz);
-    //VND();
+    perturbacion(mejor_solucion_GVNS, k, kNodoRaiz);
+    VND(mejor_solucion_GVNS, kNodoRaiz);
+    if (Solucion::getFuncionObjetivo() < funcion_objetivo_inicial) {
+      k = 1;
+      funcion_objetivo_inicial = Solucion::getFuncionObjetivo();
+    }
   }
-  exit(1);
 }
 
-const std::vector<Solucion> MultiArranqueGVNS::perturbacion(
-  const std::vector<Solucion>& kSolucionAPerturbar,
+void MultiArranqueGVNS::perturbacion(
+  std::vector<Solucion>& solucion_a_perturbar,
   const int kCantidadVecinosAMover,
   const Nodo* kNodoRaiz
 ) const {
   MovimientoReInsercionInterGRASP algoritmoParaPerturbarEntorno;
-  return algoritmoParaPerturbarEntorno.busquedaLocalPerturbandoEntorno(
-    kSolucionAPerturbar, kCantidadVecinosAMover, kNodoRaiz
+  solucion_a_perturbar = algoritmoParaPerturbarEntorno.busquedaLocalPerturbandoEntorno(
+    solucion_a_perturbar, kCantidadVecinosAMover, kNodoRaiz
   );
 }
 
-void MultiArranqueGVNS::VND() const {
-  
+void MultiArranqueGVNS::VND(std::vector<Solucion>& mejor_solucion, const Nodo* kNodoRaiz) const {
+  int funcion_objetivo = Solucion::getFuncionObjetivo();
+  MovimientoReInsercionInterGRASP algoritmoReInsercionInter;
+  MovimientoSwapIntraGRASP algoritmoSwapIntra;
+  MovimientoReInsercionIntraGRASP algoritmoReInsercionIntra;
+  MovimientoSwapInterGRASP algoritmoSwapInter;
+  do {
+    do {
+      do {
+        mejor_solucion = algoritmoReInsercionInter.busquedaLocal(
+          mejor_solucion, kNodoRaiz
+        );
+        //std::cout << "N1: ";
+        //Solucion::mostrarTareasDeTodasLasMaquinas(mejor_solucion);
+        //std::cout << std::endl;
+        funcion_objetivo = Solucion::getFuncionObjetivo();
+        mejor_solucion = algoritmoSwapIntra.busquedaLocal(
+          mejor_solucion, kNodoRaiz
+        );
+        //std::cout << "N2: ";
+        //Solucion::mostrarTareasDeTodasLasMaquinas(mejor_solucion);
+        //std::cout << std::endl;
+      } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
+      funcion_objetivo = Solucion::getFuncionObjetivo();
+      mejor_solucion = algoritmoReInsercionIntra.busquedaLocal(
+        mejor_solucion, kNodoRaiz
+      );
+      //std::cout << "N3: ";
+      //Solucion::mostrarTareasDeTodasLasMaquinas(mejor_solucion);
+      //std::cout << std::endl;
+    } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
+    funcion_objetivo = Solucion::getFuncionObjetivo();
+    mejor_solucion = algoritmoSwapInter.busquedaLocal(
+      mejor_solucion, kNodoRaiz
+    );
+    //std::cout << "N4: ";
+    //Solucion::mostrarTareasDeTodasLasMaquinas(mejor_solucion);
+    //std::cout << std::endl;
+  } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
+  Solucion::setFuncionObjetivo() = funcion_objetivo;
 }

@@ -30,11 +30,11 @@ class MovimientoReInsercionInterGRASP : public AlgoritmoGRASP {
   ) const;  
  private:  
   /// EVALUACIÓN DEL MOVIMIENTO
-  const int calcularTCTParcialMaquina1(
+  const int calcularTCTParcialMaquina1AntesDeExtraerRealmente(
     const Nodo*, const int, const Solucion&
   ) const; 
   /// EVALUACIÓN DEL MOVIMIENTO
-  const int calcularTCTParcialMaquina2(
+  const int calcularTCTParcialMaquina2DespuesDeExtraer(
     const Nodo*, const int, const Solucion&
   ) const;
 };

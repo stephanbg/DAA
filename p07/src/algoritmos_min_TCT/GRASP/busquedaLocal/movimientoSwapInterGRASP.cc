@@ -26,7 +26,7 @@ const std::vector<Solucion> MovimientoSwapInterGRASP::busquedaLocal(
   const std::vector<Solucion>& kSolucionActual,
   const Nodo* kNodoRaiz
 ) const {
-  std::vector<Solucion> solucion_vecina, solucion_mejor;
+  std::vector<Solucion> solucion_vecina, solucion_mejor = kSolucionActual;
   Solucion solucion_vecina_anterior;
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
