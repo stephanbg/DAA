@@ -23,6 +23,7 @@
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoReInsercionIntraGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapInterGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapIntraGRASP.h"
+#include "algoritmos_min_TCT/MultiArranqueGVNS/multiArranqueGVNS.h"
 #include "ejecutar_algoritmos/ejecutar_algoritmos.h"
 #include "controlador_tiempo/controlador_tiempo.h"
 #include "tabla/tabla.h"
@@ -41,6 +42,9 @@ int main(int argc, char* argv[]) {
     SintaxisFichero::comprobarSintaxisFichero(argv[1]);
     Problema grafo(argv[1]);
     int numero_maquinas = Solucion::cuantasMaquinasACrear(argv[1]);
+    MultiArranqueGVNS GVNS;
+    GVNS.ejecutar(numero_maquinas, grafo);
+    /*
     Tabla::insertarDatosIniciales(argv[1], grafo.getGrafo().size() - 1, numero_maquinas);
     AlgoritmoMinimizarTCT* algoritmo;
     // Se define un mapa que asocia nombres de algoritmos con funciones para crear instancias
@@ -62,7 +66,7 @@ int main(int argc, char* argv[]) {
     }       
     const std::string kOpcion = peticionUsuarioTablaPantallaOFichero();
     if (kOpcion == "P") Tabla::mostrarTablaEnPantalla();
-    else Tabla::mostrarTablaEnFichero();
+    else Tabla::mostrarTablaEnFichero();*/
   } catch (const std::string& kError) {
     std::cout << "Error: " << kError << "." << std::endl << std::endl;
     ComprobarParametros::ayuda();

@@ -8,7 +8,7 @@
  * @since 1 de Abril de 2024
  * @file movimientoSwapIntraGRASP.h
  * @brief Definición de la clase MovimientoSwapIntraGRASP que hereda de
- * la clase GRASP, para realizar una búsqueda local de intercambio intra-máquinas
+ * la clase GRASP, para realizar una búsqueda local de intercambio intra-máquina
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
@@ -18,14 +18,14 @@
 
 /**
  * @brief Clase MovimientoSwapIntraGRASP que realiza la búsqueda local
- * intercambio intra-máquinas de GRASP para mejorar resultados
+ * intercambio Intra-máquina de GRASP para mejorar resultados
  */
 class MovimientoSwapIntraGRASP : public AlgoritmoGRASP {
- private:
+ public:
   virtual const std::vector<Solucion> busquedaLocal(
     const std::vector<Solucion>&, const Nodo*
   ) const override;
-  const std::pair<int, int> calcularTCTParcial(
-    const Nodo*, const int, const int, Solucion&, Solucion&
-  ) const;
+ private:  
+  /// EVALUACIÓN DEL MOVIMIENTO
+  const int calcularTCTParcial(const Nodo*, const int, const int, const Solucion&, Solucion&) const;
 };

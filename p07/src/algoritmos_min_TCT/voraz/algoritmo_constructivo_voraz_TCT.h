@@ -34,7 +34,7 @@ struct TareaMaquinaPosicion {
  */
 class AlgoritmoConstructivoVoraz : public AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Solucion> ejecutar(const int, const Problema&) override;
+  virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int kIteraciones = 100) override;
  private:
   void seleccionarTareasInciales(
     std::vector<Solucion>&, const Problema&, std::vector<int>&

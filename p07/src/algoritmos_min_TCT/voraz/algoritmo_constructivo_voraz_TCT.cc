@@ -23,7 +23,8 @@
  */
 const std::vector<Solucion> AlgoritmoConstructivoVoraz::ejecutar(
   const int kNumeroMaquinas,
-  const Problema& kGrafo
+  const Problema& kGrafo,
+  const int kIteraciones
 ) {
   std::vector<Solucion> maquinas(kNumeroMaquinas); // m Maquinas
   std::vector<int> tareas_a_realizar(kGrafo.getGrafo().size() - 1);

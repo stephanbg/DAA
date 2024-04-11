@@ -6,9 +6,9 @@
  *
  * @author Stephan Brommer Gutiérrez
  * @since 1 de Abril de 2024
- * @file movimientoReInsercionIntraGRASP.cc
- * @brief Implementación de la clase MovimientoReInsercionIntraGRASP que hereda de
- * la clase GRASP, para realizar una búsqueda local de reinserción entre máquinas
+ * @file movimientoReInsercionInterGRASP.cc
+ * @brief Implementación de la clase MovimientoReInsercionInterGRASP que hereda de
+ * la clase GRASP, para realizar una búsqueda local de reinserción en la misma máquina
  * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
  */
 
@@ -31,35 +31,22 @@ const std::vector<Solucion> MovimientoReInsercionIntraGRASP::busquedaLocal(
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
   funcion_objetivo = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
-  for (int i = 0; i < kNumMaquinas - 1; ++i) { // Recorre todas las máquinas menos la última
+  for (int i = 0; i < kNumMaquinas; ++i) { // Se recorren las máquinas
     const int kTctMaquinaI = kSolucionActual[i].getTCT();
-    const int kNumTareasI = kSolucionActual[i].getTareas().size();
-    for (int j = 0; j < kNumTareasI; ++j) { // Recorro cada tarea que voy a mover
-      Solucion copia_solucion_sin_elemento = kSolucionActual[i];
-      copia_solucion_sin_elemento.setTareas().erase(copia_solucion_sin_elemento.setTareas().begin() + j);
-      // Si es menos que la mitad hago el cálculo parcial sino el entero
-      const int kTctTrasEliminarEnMaquinaI = (j < (kSolucionActual.size() / 2)) ?
-          calcularTCTParcialMaquina1(kNodoRaiz, j, kSolucionActual[i]) :
-          copia_solucion_sin_elemento.calcularTCT(kNodoRaiz);
-      for (int l = i + 1; l < kNumMaquinas; ++l) { // Recorro las máquinas siguientes
-        const int kNumTareasL = kSolucionActual[l].getTareas().size();
-        for (int k = 0; k <= kNumTareasL; ++k) { // Recorro cada posición de la máquina siguiente
-          solucion_vecina = kSolucionActual;
-          const int kTctMaquinaL = solucion_vecina[l].getTCT();
-          solucion_vecina[i].moverTareaEntreMaquinas(j, k, solucion_vecina[l]);
-          // Si es menos que la mitad hago el cálculo parcial sino el entero
-          const int kTctTrasInsertarEnMaquinaL = (k < (solucion_vecina[l].getTareas().size() / 2)) ?
-              calcularTCTParcialMaquina2(kNodoRaiz, k, solucion_vecina[l]) :
-              solucion_vecina[l].calcularTCT(kNodoRaiz);
-          funcion_objetivo_vecino = (
-            funcion_objetivo_inicial - kTctMaquinaI - kTctMaquinaL + kTctTrasEliminarEnMaquinaI + kTctTrasInsertarEnMaquinaL
-          );
-          if (funcion_objetivo_vecino < funcion_objetivo) {
-            solucion_mejor = solucion_vecina;
-            solucion_mejor[i].setTCT() = kTctTrasEliminarEnMaquinaI;
-            solucion_mejor[l].setTCT() = kTctTrasInsertarEnMaquinaL;
-            funcion_objetivo = funcion_objetivo_vecino;
-          }
+    const int kNumTareas = kSolucionActual[i].getTareas().size();
+    for (int j = 0; j < kNumTareas; ++j) { // Se recorren las tareas
+      solucion_vecina = kSolucionActual;
+      for (int k = j + 1; k < kNumTareas; ++k) { // Posición a donde se mueve la tarea
+        solucion_vecina_anterior = solucion_vecina[i];      
+        solucion_vecina[i].moverTarea(k - 1, k);
+        const int kTctVecinoI = calcularTCTParcial(
+          kNodoRaiz, k - 1, k, solucion_vecina_anterior, solucion_vecina[i]
+        );
+        funcion_objetivo_vecino = funcion_objetivo_inicial - kTctMaquinaI + kTctVecinoI;
+        if (funcion_objetivo_vecino < funcion_objetivo) {
+          solucion_mejor = solucion_vecina;
+          solucion_mejor[i].setTCT() = kTctVecinoI;
+          funcion_objetivo = funcion_objetivo_vecino;
         }
       }
     }
@@ -68,80 +55,42 @@ const std::vector<Solucion> MovimientoReInsercionIntraGRASP::busquedaLocal(
   return solucion_mejor;
 }
 
-/**
- * @brief Calcula el tiempo de ciclo total (TCT) parcial de la máquina
- * en la que se ha eliminado una tarea.
+/** EVALUACIÓN DEL MOVIMIENTO
+ * 
+ * @brief Calcula el tiempo de ciclo total (TCT) parcial después de
+ * realizar un movimiento de re-inserción inter-máquinas.
  * 
  * @param kNodoRaiz El nodo raíz del problema.
- * @param kPosTareaOrg La posición de la tarea eliminada.
- * @param kSolucionActual La solución antes de eliminar la tarea.
- * @return El nuevo valor del TCT parcial después de eliminar la tarea.
+ * @param kPosTareaOriginal La posición original de la tarea que se ha movido.
+ * @param kPosTareaMovida La posición a la que se ha movido la tarea.
+ * @param kSolucionAnterior La solución antes de realizar el movimiento.
+ * @param solucion_tras_movimiento La solución después de realizar el movimiento.
+ * @return El nuevo valor del TCT parcial después del movimiento.
  */
-const int MovimientoReInsercionIntraGRASP::calcularTCTParcialMaquina1(
+const int MovimientoReInsercionIntraGRASP::calcularTCTParcial(
   const Nodo* kNodoRaiz,
-  const int kPosTareaOrg,
-  const Solucion& kSolucionActual
+  const int kPosTareaOriginal,
+  const int kPosTareaMovida,
+  const Solucion& kSolucionAnterior,
+  Solucion& solucion_tras_movimiento
 ) const {
-  int tct = kSolucionActual.getTCT(); // Tct antes de eliminar tarea
-  const std::vector<const Nodo*> kTareas = kSolucionActual.getTareas();
-  const int kTareasAntes = kTareas.size(), kTareasDespues = kTareasAntes - 1;
-  const int kNumPasos1 = kPosTareaOrg - 1; // Un paso menos porque no cuento el nodo raíz
-  tct -= kTareasAntes * kNodoRaiz->getCosteHaciaVecino(kTareas[0]); // Resto del nodo raíz al primero
-  // Si extraigo el primero resto de él al siguiente y luego sumo del raíz al siguiente
-  if (kPosTareaOrg == 0) {
-    tct -= (kTareasAntes - 1) * kTareas[0]->getCosteHaciaVecino(kTareas[1]);
-    tct += kTareasDespues * kNodoRaiz->getCosteHaciaVecino(kTareas[1]); // Hago el nodo raíz
-  } else {
-    if (kPosTareaOrg < kTareasAntes - 1) { // Resto antes y después del nodo que extraigo y luego sumo el enlace que queda
-      tct -= (kTareasAntes - kPosTareaOrg) * (kTareas[kPosTareaOrg - 1]->getCosteHaciaVecino(kTareas[kPosTareaOrg]));
-      tct -= (kTareasAntes - kPosTareaOrg - 1) * (kTareas[kPosTareaOrg]->getCosteHaciaVecino(kTareas[kPosTareaOrg + 1]));
-      tct += (kTareasDespues - kPosTareaOrg) * (kTareas[kPosTareaOrg - 1]->getCosteHaciaVecino(kTareas[kPosTareaOrg + 1]));  
-      // Si extraigo el último solo resto del último al nodo que extraigo
-    } else tct -= (kTareas[kPosTareaOrg - 1]->getCosteHaciaVecino(kTareas[kPosTareaOrg]));
-    tct += kTareasDespues * kNodoRaiz->getCosteHaciaVecino(kTareas[0]); // Hago el nodo raíz al primero
+  // No calculo el valor absoluto entre kPosTareaOriginal y kPosTareaMovida, para ver si es
+  // más eficiente calcular todo el TCT de nuevo porque siempre entra a está función los elementos contiguos
+  const std::vector<const Nodo*> kTareasAnterior = kSolucionAnterior.getTareas();
+  const std::vector<const Nodo*> kTareas = solucion_tras_movimiento.getTareas();
+  const int kNumTareas = kTareasAnterior.size();//, kNumPasos = kPosTareaMovida + 1;
+  int tct = kSolucionAnterior.getTCT(), inf = kPosTareaOriginal - 1, sup = kPosTareaMovida;
+  // Resto del kNodoRaiz al que muevo y sumo al siguiente, actualizo el limite inferior del for
+  if (kPosTareaOriginal == 0) {
+    inf = kPosTareaOriginal;
+    tct -= kNumTareas * kNodoRaiz->getCosteHaciaVecino(kTareasAnterior[0]);
+    tct += kNumTareas * kNodoRaiz->getCosteHaciaVecino(kTareas[0]);
   }
-  for (int i = 1; i <= kNumPasos1; ++i) { // Hago lo común sin el nodo raíz y sin llegar al que extraigo
-    tct -= (kTareasAntes - i) * (kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]));
-    tct += (kTareasDespues - i) * (kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]));
+  if (kPosTareaMovida == kNumTareas - 1) sup--; // Si se mueve al último resto el índice superior 
+  for (; inf <= sup; ++inf) { // Son 3 restas y 3 sumas porque siempre están contiguos
+    tct -= (kNumTareas - inf - 1) * kTareasAnterior[inf]->getCosteHaciaVecino(kTareasAnterior[inf + 1]);
+    tct += (kNumTareas - inf - 1) * kTareas[inf]->getCosteHaciaVecino(kTareas[inf + 1]);
   }
-  return tct;
-}
-
-/**
- * @brief Calcula el tiempo de ciclo total (TCT) parcial de la máquina
- * en la que se ha insertado una tarea.
- * 
- * @param kNodoRaiz El nodo raíz del problema.
- * @param kPosTareaDst La posición en la que se ha insertado la tarea.
- * @param kSolucionTrasInsercion La solución después de insertar la tarea.
- * @return El nuevo valor del TCT parcial después de insertar la tarea.
- */
-const int MovimientoReInsercionIntraGRASP::calcularTCTParcialMaquina2(
-  const Nodo* kNodoRaiz,
-  const int kPosTareaDst,
-  const Solucion& kSolucionTrasInsercion
-) const {
-  int tct = kSolucionTrasInsercion.getTCT(); // Tct antes de insertar
-  const std::vector<const Nodo*> kTareas = kSolucionTrasInsercion.getTareas();  
-  const int kTareasDespues = kTareas.size(), kTareasAntes = kTareasDespues - 1;
-  const int kNumPasos = kPosTareaDst - 1; // Un paso menos porque no cuento el nodo raíz
-  tct += kTareasDespues * kNodoRaiz->getCosteHaciaVecino(kTareas[0]); // Hago del nodo raíz al primero
-  // Si inserto en la primera pos resto de él raíz al siguiente y sumo del primero al siguiente
-  if (kPosTareaDst == 0) {
-    tct -= kTareasAntes * kNodoRaiz->getCosteHaciaVecino(kTareas[1]);
-    tct += (kTareasDespues - 1) * kTareas[0]->getCosteHaciaVecino(kTareas[1]);
-  } else {
-    tct -= kTareasAntes * kNodoRaiz->getCosteHaciaVecino(kTareas[0]); // Resto del raíz al primero
-    if (kPosTareaDst < kTareasDespues - 1) { // Resto lo que había y sumo de atrás al nodo insertado y de este al siguiente
-      tct -= (kTareasAntes - kPosTareaDst) * (kTareas[kPosTareaDst - 1]->getCosteHaciaVecino(kTareas[kPosTareaDst + 1]));
-      tct += (kTareasDespues - kPosTareaDst) * (kTareas[kPosTareaDst - 1]->getCosteHaciaVecino(kTareas[kPosTareaDst]));
-      tct += (kTareasDespues - kPosTareaDst - 1) * (kTareas[kPosTareaDst]->getCosteHaciaVecino(kTareas[kPosTareaDst + 1]));
-      // Solamente sumo del último al insertado
-    } else tct += (kTareas[kPosTareaDst - 1]->getCosteHaciaVecino(kTareas[kPosTareaDst]));
-  }
-  for (int i = 1; i <= kNumPasos; ++i) { // Hago lo común sin el nodo raíz y sin llegar al que inserto
-    tct -= (kTareasAntes - i) * (kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]));
-    tct += (kTareasDespues - i) * (kTareas[i - 1]->getCosteHaciaVecino(kTareas[i]));
-  }
+  solucion_tras_movimiento.setTCT() = tct;
   return tct;
 }

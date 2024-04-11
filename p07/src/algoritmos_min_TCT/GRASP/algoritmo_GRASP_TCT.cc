@@ -25,13 +25,14 @@
  */
 const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
   const int kNumeroMaquinas,
-  const Problema& kGrafo
+  const Problema& kGrafo,
+  const int kIteraciones
 ) {
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   std::vector<Solucion> solucion_inicial = faseConstructiva(kGrafo, kNumeroMaquinas),
   mejor_solucion = busquedaLocal(solucion_inicial, kNodoRaiz), solucion_actual, mejor_solucion_aux;
   int contador = 0, mejor_funcion_objetivo = Solucion::getFuncionObjetivo(), funcion_objetivo_actual;
-  do {
+  while (++contador < kIteraciones) {
     solucion_actual = faseConstructiva(kGrafo, kNumeroMaquinas);
     mejor_solucion_aux = busquedaLocal(solucion_actual, kNodoRaiz);
     funcion_objetivo_actual = Solucion::getFuncionObjetivo();
@@ -39,7 +40,7 @@ const std::vector<Solucion> AlgoritmoGRASP::ejecutar(
       mejor_solucion = mejor_solucion_aux;
       mejor_funcion_objetivo = funcion_objetivo_actual;
     }
-  } while (++contador <= 100);
+  }
   Solucion::setFuncionObjetivo() = mejor_funcion_objetivo;
   return mejor_solucion;
 }
