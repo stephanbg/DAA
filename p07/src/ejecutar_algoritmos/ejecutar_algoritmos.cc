@@ -29,7 +29,7 @@ std::pair<std::vector<Solucion>, int> ejecutarAlgoritmo(
 ) {
   // Crear un objeto ControladorTiempo con una función lambda como argumento
   ControladorTiempo<std::vector<Solucion>, int, Problema&> tiempo(
-    [&](int numeroMaquinas, Problema& grafo) { return algoritmo->ejecutar(numeroMaquinas, grafo); }
+    [&](int numeroMaquinas, Problema& grafo) { return algoritmo->ejecutar(numeroMaquinas, grafo, 100); }
   );
   // Medir el tiempo de ejecución y obtener las soluciones
   std::vector<Solucion> maquinas = tiempo.medirTiempoFuncion(std::move(numero_maquinas), grafo);
