@@ -80,7 +80,6 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
   const int kCantidadVecinosAMover,
   const Nodo* kNodoRaiz
 ) const {
-  //std::cout << "AMAI" << std::endl;
   int funcion_objetivo = Solucion::getFuncionObjetivo();
   std::vector<Solucion> solucion_a_perturbar = kSolucionAPerturbar;
   std::random_device dispositivo_aleatorio;

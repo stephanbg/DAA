@@ -25,6 +25,6 @@
  */
 class AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int kIteraciones = 100) = 0;
+  virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int) = 0;
   virtual ~AlgoritmoMinimizarTCT() {}
 };

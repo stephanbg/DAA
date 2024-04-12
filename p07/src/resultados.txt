@@ -1,11 +1,11 @@
 Nombre del Archivo          Nombre del Algoritmo  Numero de Nodos  Numero de Maquinas  Tiempo (µs) Funcion Objetivo
 -------------------------------------------------------------------------------------------------------------------
-40_tareas/I40j_2m_S1_1.txt  VORAZ                 40               2                   253675      13709
-40_tareas/I40j_2m_S1_1.txt  Mov. ReInsercionInter 40               2                   3179977     21849
-40_tareas/I40j_2m_S1_1.txt  Mov. ReInsercionIntra 40               2                   759539      22868
-40_tareas/I40j_2m_S1_1.txt  Mov. SwapInter        40               2                   941116      22494
-40_tareas/I40j_2m_S1_1.txt  Mov. SwapIntra        40               2                   866711      22500
-40_tareas/I40j_2m_S1_1.txt  GVNS                  40               2                   9291788     13552
+40_tareas/I40j_2m_S1_1.txt  VORAZ                 40               2                   274125      13709
+40_tareas/I40j_2m_S1_1.txt  Mov. ReInsercionInter 40               2                   3484549     22802
+40_tareas/I40j_2m_S1_1.txt  Mov. ReInsercionIntra 40               2                   799636      22670
+40_tareas/I40j_2m_S1_1.txt  Mov. SwapInter        40               2                   954001      22478
+40_tareas/I40j_2m_S1_1.txt  Mov. SwapIntra        40               2                   865671      22307
+40_tareas/I40j_2m_S1_1.txt  GVNS                  40               2                   24670174    13273
 40_tareas/I40j_4m_S1_1.txt  VORAZ                 40               4                   120061      7421
 40_tareas/I40j_4m_S1_1.txt  Mov. ReInsercionInter 40               4                   3249741     11349
 40_tareas/I40j_4m_S1_1.txt  Mov. ReInsercionIntra 40               4                   11593264    11640

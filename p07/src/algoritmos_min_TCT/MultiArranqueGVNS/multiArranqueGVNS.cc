@@ -8,17 +8,17 @@ const std::vector<Solucion> MultiArranqueGVNS::ejecutar(
   const Nodo* kNodoRaiz = kGrafo.getGrafo()[0];
   MovimientoReInsercionInterGRASP algoritmoGRASP;
   std::vector<Solucion> mejor_solucion =
-      algoritmoGRASP.ejecutar(kNumeroMaquinas, kGrafo, kIteracionesGRASP), mejor_solucion_auxiliar;
+      algoritmoGRASP.ejecutar(kNumeroMaquinas, kGrafo, 1), mejor_solucion_auxiliar;
   int iteraciones = 0, mejor_funcion_objetivo = Solucion::getFuncionObjetivo(), funcion_objetivo_actual;
-  do {
-    mejor_solucion_auxiliar = algoritmoGRASP.ejecutar(kNumeroMaquinas, kGrafo, kIteracionesGRASP);
+  while (++iteraciones <= 10) {
+    mejor_solucion_auxiliar = algoritmoGRASP.ejecutar(kNumeroMaquinas, kGrafo, 1);
     GVNS(mejor_solucion_auxiliar, kNodoRaiz);
     funcion_objetivo_actual = Solucion::getFuncionObjetivo();
     if (funcion_objetivo_actual < mejor_funcion_objetivo) {
       mejor_solucion = mejor_solucion_auxiliar;
       mejor_funcion_objetivo = funcion_objetivo_actual;
     }
-  } while (++iteraciones < 1);
+  }
   return mejor_solucion;
 }
 

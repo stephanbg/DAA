@@ -32,7 +32,7 @@
  */
 class AlgoritmoGRASP : public AlgoritmoMinimizarTCT {
  public:
-  virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int kIteraciones = 100) override;
+  virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int) override;
   const std::vector<Solucion> faseConstructiva(const Problema&, const int) const;
   virtual const std::vector<Solucion> busquedaLocal(const std::vector<Solucion>&, const Nodo*) const = 0;
  private:

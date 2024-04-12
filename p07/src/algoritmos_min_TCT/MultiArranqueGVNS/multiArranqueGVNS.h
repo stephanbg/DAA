@@ -9,7 +9,7 @@
 
 class MultiArranqueGVNS: public AlgoritmoMinimizarTCT {
   public:
-    virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int kIteraciones = 1) override;
+    virtual const std::vector<Solucion> ejecutar(const int, const Problema&, const int) override;
   private:
    void GVNS(std::vector<Solucion>&, const Nodo*) const;
    void perturbacion(std::vector<Solucion>&, const int, const Nodo*) const;
