@@ -9,8 +9,9 @@ const std::vector<Solucion> MultiArranqueGVNS::ejecutar(
   MovimientoReInsercionInterGRASP algoritmoGRASP;
   std::vector<Solucion> mejor_solucion =
       algoritmoGRASP.ejecutar(kNumeroMaquinas, kGrafo, 1), mejor_solucion_auxiliar;
+  GVNS(mejor_solucion, kNodoRaiz);
   int iteraciones = 0, mejor_funcion_objetivo = Solucion::getFuncionObjetivo(), funcion_objetivo_actual;
-  while (++iteraciones <= 1) {
+  while (++iteraciones < 3) {
     mejor_solucion_auxiliar = algoritmoGRASP.ejecutar(kNumeroMaquinas, kGrafo, 1);
     GVNS(mejor_solucion_auxiliar, kNodoRaiz);
     funcion_objetivo_actual = Solucion::getFuncionObjetivo();
@@ -49,32 +50,35 @@ void MultiArranqueGVNS::perturbacion(
   );
 }
 
-void MultiArranqueGVNS::VND(std::vector<Solucion>& mejor_solucion, const Nodo* kNodoRaiz) const {
+void MultiArranqueGVNS::VND(std::vector<Solucion>& solucion, const Nodo* kNodoRaiz) const {
   int funcion_objetivo = Solucion::getFuncionObjetivo();
   MovimientoReInsercionInterGRASP algoritmoReInsercionInter;
   MovimientoSwapIntraGRASP algoritmoSwapIntra;
   MovimientoReInsercionIntraGRASP algoritmoReInsercionIntra;
   MovimientoSwapInterGRASP algoritmoSwapInter;
+  std::vector<Solucion> solucion_aux_1, solucion_aux_2;
   do {
     do {
       do {
-        mejor_solucion = algoritmoReInsercionInter.busquedaLocal(
-          mejor_solucion, kNodoRaiz
+        solucion_aux_1 = algoritmoReInsercionInter.busquedaLocal(
+          solucion, kNodoRaiz
+        );        
+        funcion_objetivo = Solucion::getFuncionObjetivo();     
+        solucion_aux_2 = algoritmoSwapIntra.busquedaLocal(
+          solucion_aux_1, kNodoRaiz
         );
-        funcion_objetivo = Solucion::getFuncionObjetivo();
-        mejor_solucion = algoritmoSwapIntra.busquedaLocal(
-          mejor_solucion, kNodoRaiz
-        );
+        if (Solucion::getFuncionObjetivo() < funcion_objetivo) solucion = solucion_aux_2;
       } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
-      funcion_objetivo = Solucion::getFuncionObjetivo();
-      mejor_solucion = algoritmoReInsercionIntra.busquedaLocal(
-        mejor_solucion, kNodoRaiz
-      );
+      solucion = solucion_aux_1;
+      solucion_aux_2 = algoritmoReInsercionIntra.busquedaLocal(
+        solucion, kNodoRaiz
+      );   
+      if (Solucion::getFuncionObjetivo() < funcion_objetivo) solucion = solucion_aux_2;
     } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
-    funcion_objetivo = Solucion::getFuncionObjetivo();
-    mejor_solucion = algoritmoSwapInter.busquedaLocal(
-      mejor_solucion, kNodoRaiz
-    );
+      solucion_aux_2 = algoritmoSwapInter.busquedaLocal(
+        solucion, kNodoRaiz
+      );
+    if (Solucion::getFuncionObjetivo() < funcion_objetivo) solucion = solucion_aux_2;
   } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
   Solucion::setFuncionObjetivo() = funcion_objetivo;
 }

@@ -31,7 +31,7 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(
   const int kNumMaquinas = kSolucionActual.size();
   int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(),
   funcion_objetivo = funcion_objetivo_inicial, funcion_objetivo_vecino = 0;
-  for (int i = 0; i < kNumMaquinas; ++i) { // Recorre todas las máquinas menos la última
+  for (int i = 0; i < kNumMaquinas; ++i) { // Recorre todas las máquinas
     const int kTctMaquinaI = kSolucionActual[i].getTCT();
     const int kNumTareasI = kSolucionActual[i].getTareas().size();
     for (int j = 0; j < kNumTareasI; ++j) { // Recorro cada tarea que voy a mover
@@ -95,7 +95,6 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
       std::uniform_int_distribution<> dis2(0, solucion_a_perturbar.size() - 1);
       indice_maquina_destino = dis2(generador);      
     } while (indice_maquina_origen == indice_maquina_destino);
-    //std::cout << solucion_a_perturbar[indice_maquina_destino].getTareas().size() << std::endl;
     int indice_tarea;
     std::vector<const Nodo *>::iterator it;
     do {
@@ -104,9 +103,7 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
       it = std::find(nodos_movidos.begin(), nodos_movidos.end(), solucion_a_perturbar[indice_maquina_origen].getTareas()[indice_tarea]);
     } while (it != nodos_movidos.end());
     std::uniform_int_distribution<> dis4(0, solucion_a_perturbar[indice_maquina_destino].getTareas().size());
-    const int kPosDestino = dis4(generador);    
-    //std::cout << "Maquina " << kIndiceMaquinaOrigen << " de la que se extrae la tarea " << solucion_a_perturbar[kIndiceMaquinaOrigen].getTareas()[indice_tarea]->getId() << " y va a la máquina " << indice_maquina_destino << " en la pos " << kPosDestino << std::endl; 
-    //std::cout << std::endl;    
+    const int kPosDestino = dis4(generador);     
     nodos_movidos.push_back(solucion_a_perturbar[indice_maquina_origen].getTareas()[indice_tarea]);
     funcion_objetivo =
         funcion_objetivo - solucion_a_perturbar[indice_maquina_origen].getTCT() - solucion_a_perturbar[indice_maquina_destino].getTCT();
@@ -122,15 +119,9 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
       ) : copia_solucion_sin_elemento.calcularTCT(kNodoRaiz);
     }
     // Mover tarea entre máquinas
-    //std::cout << "ANTES DE MOVER: " << std::endl;
-    //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
-    //std::cout << std::endl;
     solucion_a_perturbar[indice_maquina_origen].moverTareaEntreMaquinas(
       indice_tarea, kPosDestino, solucion_a_perturbar[indice_maquina_destino]
     );
-    //std::cout << "TRAS A MOVER: " << std::endl;
-    //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
-    //std::cout << std::endl;
     solucion_a_perturbar[indice_maquina_origen].setTCT() = tct_tras_eliminar_en_maquina_origen;
     // CÁLCULO TCT PARCIAL MÁQUINA DESTINO
     const int kTctTrasInsertarEnMaquinaDestino = (
@@ -139,23 +130,8 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
         solucion_a_perturbar[indice_maquina_destino].calcularTCT(kNodoRaiz);
     solucion_a_perturbar[indice_maquina_destino].setTCT() = kTctTrasInsertarEnMaquinaDestino;
     funcion_objetivo += tct_tras_eliminar_en_maquina_origen + kTctTrasInsertarEnMaquinaDestino;
-    /*if (kTctTrasEliminarEnMaquinaOrigen != solucion_a_perturbar[kIndiceMaquinaOrigen].calcularTCT(kNodoRaiz)) {
-      std::cout << "ERROR 1" << std::endl;
-    }
-    if (kTctTrasInsertarEnMaquinaDestino != solucion_a_perturbar[indice_maquina_destino].calcularTCT(kNodoRaiz)) {
-      std::cout << "ERROR 2" << std::endl;
-    } */
   }
   Solucion::setFuncionObjetivo() = funcion_objetivo;
-  //std::cout << "Ay" << std::endl;
-  //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
-  //Solucion::mostrarTareasDeTodasLasMaquinas(solucion_a_perturbar);
-  //std::cout << "Uy" << std::endl;
-    //std::cout << "nodos_movidos: " << std::endl;
-    //for (auto a : nodos_movidos) {
-    //  std::cout << a->getId() << " ";
-    //}
-    //std::cout << std::endl;  
   return busquedaLocal(solucion_a_perturbar, kNodoRaiz);;
 }
 
