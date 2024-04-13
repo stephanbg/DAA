@@ -75,6 +75,14 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocal(
   return solucion_mejor;
 }
 
+/**
+ * @brief Ejecuta una búsqueda local perturbando el entorno para mejorar la solución.
+ * 
+ * @param kSolucionAPerturbar La solución inicial que se va a perturbar.
+ * @param kCantidadVecinosAMover El número de vecinos que se moverán durante la perturbación.
+ * @param kNodoRaiz El nodo raíz del grafo.
+ * @return Un vector de soluciones mejoradas después de la búsqueda local.
+ */
 const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPerturbandoEntorno(
   const std::vector<Solucion>& kSolucionAPerturbar,
   const int kCantidadVecinosAMover,
@@ -85,29 +93,30 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
   std::random_device dispositivo_aleatorio;
   std::mt19937 generador(dispositivo_aleatorio());
   std::vector<const Nodo*> nodos_movidos;
-  for (int i = 0; i < kCantidadVecinosAMover; ++i) {
+  for (int i = 0; i < kCantidadVecinosAMover; ++i) { // Se recorro el número de vecinos a mover
     int indice_maquina_origen, indice_maquina_destino;
-    do {
+    do { // Se elije aleatoriamente una máquina origen (Tiene que tener m´nimo una tarea)
       std::uniform_int_distribution<> dis1(0, solucion_a_perturbar.size() - 1);
       indice_maquina_origen = dis1(generador);
     } while(solucion_a_perturbar[indice_maquina_origen].getTareas().size() == 0);
-    do {
+    do { // Se elije aleatoriamente una máquina destino (No puede ser la máquina origen)
       std::uniform_int_distribution<> dis2(0, solucion_a_perturbar.size() - 1);
       indice_maquina_destino = dis2(generador);      
     } while (indice_maquina_origen == indice_maquina_destino);
     int indice_tarea;
     std::vector<const Nodo *>::iterator it;
-    do {
+    do { // Se elije aleatoriamente una tarea a mover (No puede haber sido movida previamente)
       std::uniform_int_distribution<> dis3(0, solucion_a_perturbar[indice_maquina_origen].getTareas().size() - 1);
       indice_tarea = dis3(generador);
       it = std::find(nodos_movidos.begin(), nodos_movidos.end(), solucion_a_perturbar[indice_maquina_origen].getTareas()[indice_tarea]);
     } while (it != nodos_movidos.end());
     std::uniform_int_distribution<> dis4(0, solucion_a_perturbar[indice_maquina_destino].getTareas().size());
-    const int kPosDestino = dis4(generador);     
+    const int kPosDestino = dis4(generador); // Se elije donde insertar   
     nodos_movidos.push_back(solucion_a_perturbar[indice_maquina_origen].getTareas()[indice_tarea]);
+    // Eliminar de la función objetivo lo que se va a modificar
     funcion_objetivo =
         funcion_objetivo - solucion_a_perturbar[indice_maquina_origen].getTCT() - solucion_a_perturbar[indice_maquina_destino].getTCT();
-    // Hacer eliminación (no real) CÁLCULO TCT PARCIAL MÁQUINA ORIGINAL
+    // CÁLCULO TCT PARCIAL MÁQUINA ORIGEN
     Solucion copia_solucion_sin_elemento = solucion_a_perturbar[indice_maquina_origen];  
     copia_solucion_sin_elemento.setTareas().erase(copia_solucion_sin_elemento.setTareas().begin() + indice_tarea);
     int tct_tras_eliminar_en_maquina_origen = 0;
@@ -132,7 +141,7 @@ const std::vector<Solucion> MovimientoReInsercionInterGRASP::busquedaLocalPertur
     funcion_objetivo += tct_tras_eliminar_en_maquina_origen + kTctTrasInsertarEnMaquinaDestino;
   }
   Solucion::setFuncionObjetivo() = funcion_objetivo;
-  return busquedaLocal(solucion_a_perturbar, kNodoRaiz);;
+  return busquedaLocal(solucion_a_perturbar, kNodoRaiz); // Realizar la búsqueda local a la solución perturbada
 }
 
 /** EVALUACIÓN DEL MOVIMIENTO

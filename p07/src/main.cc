@@ -23,7 +23,7 @@
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoReInsercionIntraGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapInterGRASP.h"
 #include "algoritmos_min_TCT/GRASP/busquedaLocal/movimientoSwapIntraGRASP.h"
-#include "algoritmos_min_TCT/MultiArranqueGVNS/multiArranqueGVNS.h"
+#include "algoritmos_min_TCT/GVNS/GVNS.h"
 #include "ejecutar_algoritmos/ejecutar_algoritmos.h"
 #include "controlador_tiempo/controlador_tiempo.h"
 #include "tabla/tabla.h"
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
       {"Mov. ReInsercionIntra", [](){ return new MovimientoReInsercionIntraGRASP; }},
       {"Mov. SwapInter", [](){ return new MovimientoSwapInterGRASP; }},
       {"Mov. SwapIntra", [](){ return new MovimientoSwapIntraGRASP; }},
-      {"GVNS", [](){ return new MultiArranqueGVNS; }}
+      {"GVNS", [](){ return new GVNS; }}
     };
     const std::vector<std::string> kOrdenAlgoritmos = {
       "VORAZ", "Mov. ReInsercionInter", "Mov. ReInsercionIntra", "Mov. SwapInter", "Mov. SwapIntra", "GVNS"
