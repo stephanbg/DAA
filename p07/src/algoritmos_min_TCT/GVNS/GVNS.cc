@@ -54,18 +54,17 @@ const std::vector<Solucion> GVNS::ejecutar(
  * @param kNodoRaiz Nodo raíz del grafo.
  */
 void GVNS::AlgoritmoGVNS(std::vector<Solucion>& solucion_a_mejorar, const Nodo* kNodoRaiz) const {
-  const int kMAX = 6;
-  int funcion_objetivo_inicial = Solucion::getFuncionObjetivo();
+  int funcion_objetivo_inicial = Solucion::getFuncionObjetivo(), contador = 0, k = 1;
   std::vector<Solucion>& mejor_solucion_GVNS = solucion_a_mejorar;
-  int contador = 0;
-  for (int k = 1; k <= kMAX; ++k) {
+  const int kMAX = 6;
+  do {
     perturbacion(mejor_solucion_GVNS, k, kNodoRaiz);
     VND(mejor_solucion_GVNS, kNodoRaiz);
     if (Solucion::getFuncionObjetivo() < funcion_objetivo_inicial) {
       k = 1;
       funcion_objetivo_inicial = Solucion::getFuncionObjetivo();
-    }
-  }
+    } else k++;
+  } while (k < kMAX);
   Solucion::setFuncionObjetivo() = funcion_objetivo_inicial;
 }
 
@@ -94,38 +93,37 @@ void GVNS::perturbacion(
  * @param kNodoRaiz Nodo raíz del grafo.
  */
 void GVNS::VND(std::vector<Solucion>& solucion, const Nodo* kNodoRaiz) const {
-  int funcion_objetivo = Solucion::getFuncionObjetivo();
   MovimientoReInsercionInterGRASP algoritmoReInsercionInter;
   MovimientoSwapIntraGRASP algoritmoSwapIntra;
   MovimientoReInsercionIntraGRASP algoritmoReInsercionIntra;
   MovimientoSwapInterGRASP algoritmoSwapInter;
-  std::vector<Solucion> solucion_aux_1, solucion_aux_2;
+  std::vector<Solucion> solucion_aux_1, solucion_aux_2, solucion_aux;
+  const int lMax = 4;
+  int funcion_objetivo, l = 1;
   do {
-    do {
-      do {
-        // Primer entorno
-        solucion_aux_1 = algoritmoReInsercionInter.busquedaLocal(
-          solucion, kNodoRaiz
-        );        
-        funcion_objetivo = Solucion::getFuncionObjetivo();     
-        // Segundo entorno
-        solucion_aux_2 = algoritmoSwapIntra.busquedaLocal(
-          solucion_aux_1, kNodoRaiz
-        );
-        if (Solucion::getFuncionObjetivo() < funcion_objetivo) solucion = solucion_aux_2;
-      } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
-      solucion = solucion_aux_1;
-      // Tercer entorno
-      solucion_aux_2 = algoritmoReInsercionIntra.busquedaLocal(
-        solucion, kNodoRaiz
-      );   
-      if (Solucion::getFuncionObjetivo() < funcion_objetivo) solucion = solucion_aux_2;
-    } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
-      // Cuarto entorno
-      solucion_aux_2 = algoritmoSwapInter.busquedaLocal(
+    if (l == 1) {
+      solucion_aux = algoritmoReInsercionInter.busquedaLocal(
         solucion, kNodoRaiz
       );
-    if (Solucion::getFuncionObjetivo() < funcion_objetivo) solucion = solucion_aux_2;
-  } while (Solucion::getFuncionObjetivo() < funcion_objetivo);
+      funcion_objetivo = Solucion::getFuncionObjetivo();
+    } else if (l == 2) {
+      solucion_aux = algoritmoSwapIntra.busquedaLocal(
+        solucion, kNodoRaiz
+      );
+    } else if (l == 3) {
+      solucion_aux = algoritmoReInsercionIntra.busquedaLocal(
+        solucion, kNodoRaiz
+      );
+    } else if (l == 4) {
+      solucion_aux = algoritmoSwapInter.busquedaLocal(
+        solucion, kNodoRaiz
+      );
+    }
+    solucion = solucion_aux;
+    if (l > 1 && Solucion::getFuncionObjetivo() < funcion_objetivo) {
+      funcion_objetivo = Solucion::getFuncionObjetivo();
+      l = 1;
+    } else l++;
+  } while (l <= lMax);
   Solucion::setFuncionObjetivo() = funcion_objetivo;
 }
