@@ -1,6 +1,8 @@
 #include "algoritmosDiversidadMaxima.h"
 
-const std::vector<double> AlgoritmosDiversidadMaxima::centroGravedad(const Matriz& kCoordenadas) const {
+const std::vector<double> AlgoritmosDiversidadMaxima::calcularCentroGravedad(
+  const Matriz& kCoordenadas
+) const {
   const int kNumElementos = kCoordenadas.getMatriz().size();
   const int kNumDimensiones = kCoordenadas.getMatriz()[0].size();
   std::vector<double> coordenadas_centro_gravedad(kNumDimensiones);
@@ -13,23 +15,6 @@ const std::vector<double> AlgoritmosDiversidadMaxima::centroGravedad(const Matri
     coordenadas_centro_gravedad[columna] = (sumatorio_coordenadas / kNumElementos);
   }
   return coordenadas_centro_gravedad;
-}
-
-const double AlgoritmosDiversidadMaxima::maximizarFuncionObjetivo(
-  const Solucion& kSolucion,
-  const Matriz& kDistancias,
-  const int kIndiceElementoMasLejano
-) {
-  Solucion solucion_tras_insertar_elemento_mas_lejano = kSolucion;
-  solucion_tras_insertar_elemento_mas_lejano.setIndicesElementosIntroducidos(kIndiceElementoMasLejano);
-  const std::vector<int>& kIndices =  solucion_tras_insertar_elemento_mas_lejano.getIndicesElementosIntroducidos();
-  const int kSizeIndices = kIndices.size();
-  for (int i = 0; i < kSizeIndices; ++i) {
-    for (int j = i + 1; i < kSizeIndices; ++i) {
-      funcion_objetivo_ += kDistancias[kIndices[i]][kIndices[j]];
-    } 
-  }
-  return funcion_objetivo_;
 }
 
 const std::vector<double> AlgoritmosDiversidadMaxima::obtenerElementoMasAlejadoDeCentroGravedad(
@@ -55,4 +40,19 @@ const std::vector<double> AlgoritmosDiversidadMaxima::obtenerElementoMasAlejadoD
     }
   }
   return elemento_mas_lejano;
+}
+
+const double AlgoritmosDiversidadMaxima::calcularFuncionObjetivo(
+  const Solucion& kSolucion,
+  const Matriz& kDistancias
+) {
+  solucion_.setFuncionObjetivo() = 0;
+  const std::vector<int>& kIndices = kSolucion.getIndicesElementosIntroducidos();
+  const int kSizeIndices = kIndices.size();
+  for (int i = 0; i < kSizeIndices; ++i) {
+    for (int j = i + 1; j < kSizeIndices; ++j) {
+      solucion_.setFuncionObjetivo() += kDistancias[kIndices[i]][kIndices[j]];
+    }
+  }
+  return solucion_.getFuncionObjetivo();
 }

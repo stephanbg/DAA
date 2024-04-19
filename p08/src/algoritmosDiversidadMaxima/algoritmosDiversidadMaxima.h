@@ -6,14 +6,13 @@
 
 class AlgoritmosDiversidadMaxima {
  public:
-  virtual Solucion ejecutar(const Problema&) = 0;
-  const double getFuncionObjetivo() const { return funcion_objetivo_; }
+  virtual Solucion ejecutar(const Problema&, const int) = 0;
  protected:
-  const std::vector<double> centroGravedad(const Matriz&) const;
+  Solucion solucion_;
+  const double calcularFuncionObjetivo(const Solucion&, const Matriz&);
+  const std::vector<double> calcularCentroGravedad(const Matriz&) const;
   const std::vector<double> obtenerElementoMasAlejadoDeCentroGravedad(
     const std::vector<double>&,
     const Matriz&
   ) const;
-  const double maximizarFuncionObjetivo(const Solucion&, const Matriz&, const int);
-  double funcion_objetivo_ = 0;
 };

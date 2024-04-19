@@ -16,25 +16,6 @@ std::vector<std::string> extraerFicherosEjemplo(const std::string& kNombreDir) {
   return nombres_ficheros;
 }
 
-const int cuantosFicherosAEjecutar(const std::string& kNombreDir) {
-  const int kNumMaximoFicheros = cantidadMaximaFicheros(kNombreDir);
-  int cantidad;
-  std::cout << "¿Cuántos ficheros quieres ejecutar? ";
-  do {
-    std::string input;
-    std::getline(std::cin, input);
-    if (input.empty()) return cantidadMaximaFicheros(kNombreDir);
-    std::stringstream ss(input);
-    if (!(ss >> cantidad)) std::cout << "Por favor, introduce un número válido: ";
-    else if (cantidad < 1) std::cout << "Por favor, introduce un número mayor que 0: ";
-    else {
-      if (cantidad > kNumMaximoFicheros) {
-        std::cout << "El número debe ser como máximo " << kNumMaximoFicheros << ": ";
-      } else return cantidad;
-    }
-  } while (true);
-}
-
 const int cantidadMaximaFicheros(const std::string& kNombreDir) {
   int num_ficheros = 0;
   for (const auto& kEntrada : fs::directory_iterator(kNombreDir)) {
@@ -68,8 +49,9 @@ const int contarDecimales(const double kNumero, const int kPrecisionMax) {
     }
     else contador_ceros++;
   } 
-
-
-
   return contador_decimales;
+}
+
+std::string extraerNombreFicheroDeRuta(const std::string& kRuta) {
+  return std::filesystem::path(kRuta).filename().string();
 }

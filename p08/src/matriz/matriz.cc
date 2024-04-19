@@ -20,3 +20,14 @@ void Matriz::eliminarElemento(const std::vector<double>& kElementoAEliminar) {
   auto it = std::find(matriz_.begin(), matriz_.end(), kElementoAEliminar);
   if (it != matriz_.end()) matriz_.erase(it);
 }
+
+void Matriz::swapFilas(const int kIndiceFila1, const int kIndiceFila2) {
+  const int kSizeMatriz = matriz_.size();
+  if (kIndiceFila1 < 0 || kIndiceFila1 >= kSizeMatriz) {
+    throw std::out_of_range("No existe la fila origen en la matriz");
+  }
+  if (kIndiceFila2 < 0 || kIndiceFila2 >= kSizeMatriz) {
+    throw std::out_of_range("No existe la fila destino en la matriz");
+  }
+  std::swap(matriz_[kIndiceFila1], matriz_[kIndiceFila2]);
+}
