@@ -14,6 +14,6 @@ class AlgoritmosDiversidadMaxima {
     const std::vector<double>&,
     const Matriz&
   ) const;
-  const double maximizarFuncionObjetivo(const Solucion&, const Matriz&, const int) const;
+  const double maximizarFuncionObjetivo(const Solucion&, const Matriz&, const int);
   double funcion_objetivo_ = 0;
 };

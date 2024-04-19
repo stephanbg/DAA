@@ -19,11 +19,17 @@ const double AlgoritmosDiversidadMaxima::maximizarFuncionObjetivo(
   const Solucion& kSolucion,
   const Matriz& kDistancias,
   const int kIndiceElementoMasLejano
-) const {
+) {
   Solucion solucion_tras_insertar_elemento_mas_lejano = kSolucion;
   solucion_tras_insertar_elemento_mas_lejano.setIndicesElementosIntroducidos(kIndiceElementoMasLejano);
-  kSolucion.getIndicesElementosIntroducidos();
-  exit(1);
+  const std::vector<int>& kIndices =  solucion_tras_insertar_elemento_mas_lejano.getIndicesElementosIntroducidos();
+  const int kSizeIndices = kIndices.size();
+  for (int i = 0; i < kSizeIndices; ++i) {
+    for (int j = i + 1; i < kSizeIndices; ++i) {
+      funcion_objetivo_ += kDistancias[kIndices[i]][kIndices[j]];
+    } 
+  }
+  return funcion_objetivo_;
 }
 
 const std::vector<double> AlgoritmosDiversidadMaxima::obtenerElementoMasAlejadoDeCentroGravedad(
