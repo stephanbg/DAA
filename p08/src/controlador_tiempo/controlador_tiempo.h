@@ -5,12 +5,12 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 19 de Abril de 2024
  * @file controlador_tiempo.h
  * @brief Definición e implementación de la clase ControladorTiempo
  * que recibe una función con sus parámetros y se encarga de comprobar
  * el tiempo de ejecución que dura la función
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
  */
 
 #pragma once

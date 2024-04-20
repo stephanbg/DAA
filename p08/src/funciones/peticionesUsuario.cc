@@ -1,5 +1,24 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 19 de Abril de 2024
+ * @file peticionesUsuario.cc
+ * @brief Implementación de funciones que hacen solicitudes al usuario
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
+ */
+
 #include "peticionesUsuario.h"
 
+/**
+ * @brief Solicita al usuario la cantidad de archivos que desea ejecutar.
+ * 
+ * @param kNombreDir El nombre del directorio donde se encuentran los archivos.
+ * @return La cantidad de archivos a ejecutar.
+ */
 const int cuantosFicherosAEjecutar(const std::string& kNombreDir) {
   const int kNumMaximoFicheros = cantidadMaximaFicheros(kNombreDir);
   int cantidad;
@@ -19,6 +38,12 @@ const int cuantosFicherosAEjecutar(const std::string& kNombreDir) {
   } while (true);
 }
 
+/**
+ * @brief Solicita al usuario la cantidad de elementos que desea incluir en la solución.
+ * 
+ * @param kNombreFichero El nombre del archivo del cual se extrae el número máximo posible de elementos.
+ * @return La cantidad de elementos para la solución.
+ */
 const int cuantosElementosParaSolucion(const std::string& kNombreFichero) {
   std::ifstream archivo(kNombreFichero);
   int numero_maximo_posible, cantidad;
@@ -40,7 +65,6 @@ const int cuantosElementosParaSolucion(const std::string& kNombreFichero) {
 
 /**
  * @brief Pregunta al usuario si desea mostrar las tablas por pantalla o por fichero.
- * 
  * @return La respuesta del usuario (P para pantalla, F para fichero).
  */
 const std::string peticionUsuarioTablaPantallaOFichero() {

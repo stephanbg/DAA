@@ -1,3 +1,18 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 19 de Abril de 2024
+ * @file main.cc
+ * @brief Implementación del programa principal que ejecuta algoritmos para resolver Maximum diversity problem.
+ * Este programa procesa una serie de archivos que contienen descripciones de problemas y ejecuta algoritmos para
+ * resolverlos. Luego, muestra los resultados en una tabla.
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
+ */
+
 #include <map>
 #include <functional> 
 
@@ -10,6 +25,13 @@
 #include "comprobar_parametros/comprobar_parametros.h"
 #include "sintaxis_fichero/sintaxis_fichero.h"
 
+/**
+ * @brief Función principal del programa.
+ * 
+ * @param argc Cantidad de argumentos de la línea de comandos.
+ * @param argv Vector de argumentos de la línea de comandos.
+ * @return Devuelve 0 si el programa se ejecuta correctamente, o un código de error si hay algún problema.
+ */
 int main(int argc, char* argv[]) {
   try {
     ComprobarParametros::comprobar(argc, argv);
@@ -38,7 +60,7 @@ int main(int argc, char* argv[]) {
         auto resultado = ejecutarAlgoritmo(algoritmo, problema, kNumElementosEnSolucion);
         Tabla::insertarDatos(kNombre, resultado);
       }
-    }  
+    }
     const std::string kOpcion = peticionUsuarioTablaPantallaOFichero();
     if (kOpcion == "P") Tabla::mostrarTablaEnPantalla();
     else Tabla::mostrarTablaEnFichero();

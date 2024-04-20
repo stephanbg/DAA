@@ -5,17 +5,17 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 1 de Abril de 2024
+ * @since 19 de Abril de 2024
  * @file ejecutar_algoritmos.h
  * @brief Definición de la función que se encarga de ejecutar cualquier algoritmo
- * para minimizar el TCT
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ * para maximizar la diversidad
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
  */
 
 #pragma once
 
-#include <functional> // Para std::function
-#include <utility>    // Para std::move
+#include <functional>
+#include <utility>
 
 #include "../solucion/solucion.h"
 #include "../problema/problema.h"

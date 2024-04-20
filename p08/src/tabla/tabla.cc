@@ -5,12 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 1 de Abril de 2024
+ * @since 19 de Abril de 2024
  * @file tabla.cc
  * @brief Implementación de la clase Tabla
- * que almacena datos de los algoritmos utilizados para resolver el problema
- * Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ * que almacena datos de los algoritmos utilizados para resolver el Maximum Diversity Problem
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
  */
 
 #include "tabla.h"
@@ -23,6 +22,14 @@ std::vector<std::string> Tabla::nombres_algoritmos_ = {};
 std::vector<int> Tabla::tiempos_ = {};
 std::vector<double> Tabla::funcion_objetivo_ = {};
 
+/**
+ * @brief Inserta los datos iniciales de la tabla.
+ * 
+ * @param kNombreFichero El nombre del archivo.
+ * @param kNumElementosProblema El número de elementos del problema.
+ * @param kDimensionesProblema Las dimensiones del problema.
+ * @param kNumElementosSolucion El número de elementos de la solución.
+ */
 void Tabla::insertarDatosIniciales(
   const std::string& kNombreFichero,
   const int kNumElementosProblema,
@@ -35,6 +42,12 @@ void Tabla::insertarDatosIniciales(
   insertarNumeroElementosSolucion(kNumElementosSolucion);
 }
 
+/**
+ * @brief Inserta los datos de un resultado de algoritmo en la tabla.
+ * 
+ * @param kNombreAlgoritmo El nombre del algoritmo.
+ * @param kResultado El resultado del algoritmo.
+ */
 void Tabla::insertarDatos( 
   const std::string& kNombreAlgoritmo,
   const std::pair<const Solucion&, const int>& kResultado
@@ -44,30 +57,65 @@ void Tabla::insertarDatos(
   insertarTiempo(kResultado.second);
 }
 
+/**
+ * @brief Inserta el nombre del fichero en la tabla.
+ * 
+ * @param kNombreFichero El nombre del fichero.
+ */
 void Tabla::insertarNombreFichero(const std::string& kNombreFichero) {
   nombre_fichero_.push_back(kNombreFichero);
 }
- 
+
+/**
+ * @brief Inserta el número de elementos del problema en la tabla.
+ * 
+ * @param kNumElementosProblema El número de elementos del problema.
+ */
 void Tabla::insertarNumeroElementosProblema(const int kNumElementosProblema) {
   numero_elementos_problema_.push_back(kNumElementosProblema);
 }
 
+/**
+ * @brief Inserta las dimensiones del problema en la tabla.
+ * 
+ * @param kDimensionesProblema Las dimensiones del problema.
+ */
 void Tabla::insertarDimensionesProblema(const int kDimensionesProblema) {
   dimensiones_problema_.push_back(kDimensionesProblema);
 }
 
+/**
+ * @brief Inserta el número de elementos de la solución en la tabla.
+ * 
+ * @param kNumElementosSolucion El número de elementos de la solución.
+ */
 void Tabla::insertarNumeroElementosSolucion(const int kNumElementosSolucion) {
   numero_elementos_solucion_.push_back(kNumElementosSolucion);
 }
 
+/**
+ * @brief Inserta el nombre del algoritmo en la tabla.
+ * 
+ * @param kNombreAlgoritmo El nombre del algoritmo.
+ */
 void Tabla::insertarNombreAlgoritmo(const std::string& kNombreAlgoritmo) {
   nombres_algoritmos_.push_back(kNombreAlgoritmo);
 }
 
+/**
+ * @brief Inserta la función objetivo en la tabla.
+ * 
+ * @param kFuncionObjetivo La función objetivo.
+ */
 void Tabla::insertarFuncionObjetivo(const double kFuncionObjetivo) {
   funcion_objetivo_.push_back(kFuncionObjetivo);
 }
 
+/**
+ * @brief Inserta el tiempo en la tabla.
+ * 
+ * @param kTiempo El tiempo.
+ */
 void Tabla::insertarTiempo(const int kTiempo) {
   tiempos_.push_back(kTiempo);
 }

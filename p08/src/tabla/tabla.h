@@ -5,12 +5,11 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 1 de Abril de 2024
+ * @since 19 de Abril de 2024
  * @file tabla.h
  * @brief Definición de la clase Tabla
- * que almacena datos de los algoritmos utilizados para resolver el problema
- * Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ * que almacena datos de los algoritmos utilizados para resolver el Maximum Diversity Problem
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
  */
 
 #pragma once
@@ -27,7 +26,8 @@
  * @brief Clase para almacenar y mostrar los resultados de las diferentes ejecuciones.
  * 
  * Esta clase proporciona métodos para insertar datos de resultados, como nombre de archivo,
- * nombres de algoritmos, número de nodos y máquinas, funciones objetivo y los tiempos de ejecución.
+ * nombres de algoritmos, número de elementos del problema y de la solución, las dimensiones,
+ * las funciones objetivo y los tiempos de ejecución.
  * También puede mostrar la tabla de resultados en pantalla
  * o guardarla en un archivo.
  */

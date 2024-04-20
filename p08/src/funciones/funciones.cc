@@ -1,5 +1,24 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 19 de Abril de 2024
+ * @file funciones.cc
+ * @brief Implementación de funciones necesarias
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
+ */
+
 #include "funciones.h"
 
+/**
+ * @brief Extrae los nombres de los archivos de ejemplo del directorio especificado.
+ * 
+ * @param kNombreDir El nombre del directorio del cual se extraen los nombres de los archivos.
+ * @return Un vector de cadenas que contiene los nombres de los archivos de ejemplo (ordenados alfabéticamente).
+ */
 std::vector<std::string> extraerFicherosEjemplo(const std::string& kNombreDir) {
   std::vector<std::string> nombres_ficheros;
   int num_ficheros = 0;
@@ -16,6 +35,12 @@ std::vector<std::string> extraerFicherosEjemplo(const std::string& kNombreDir) {
   return nombres_ficheros;
 }
 
+/**
+ * @brief Obtiene la cantidad máxima de archivos en el directorio especificado.
+ * 
+ * @param kNombreDir El nombre del directorio del cual se desea obtener la cantidad máxima de archivos.
+ * @return La cantidad máxima de archivos en el directorio.
+ */
 const int cantidadMaximaFicheros(const std::string& kNombreDir) {
   int num_ficheros = 0;
   for (const auto& kEntrada : fs::directory_iterator(kNombreDir)) {
@@ -24,6 +49,12 @@ const int cantidadMaximaFicheros(const std::string& kNombreDir) {
   return num_ficheros;
 }
 
+/**
+ * @brief Reemplaza la primera coma decimal por punto en una cadena dada.
+ * 
+ * @param kCadena La cadena en la que se desea reemplazar la coma decimal.
+ * @return La cadena con la coma decimal reemplazada por punto si es que hubiese.
+ */
 const std::string reemplazarComaDecimalPorPunto(const std::string& kCadena) {
   std::string cadena = kCadena;
   const size_t kPos = cadena.find(',');
@@ -31,6 +62,13 @@ const std::string reemplazarComaDecimalPorPunto(const std::string& kCadena) {
   return cadena;
 }
 
+/**
+ * @brief Cuenta la cantidad de decimales en un número dado.
+ * 
+ * @param kNumero El número del cual se desea contar la cantidad de decimales.
+ * @param kPrecisionMax La precisión máxima para la cuenta de decimales.
+ * @return La cantidad de decimales en el número dado.
+ */
 const int contarDecimales(const double kNumero, const int kPrecisionMax) {
   std::stringstream ss;
   ss << std::fixed << std::setprecision(kPrecisionMax) << kNumero;
@@ -52,10 +90,22 @@ const int contarDecimales(const double kNumero, const int kPrecisionMax) {
   return contador_decimales;
 }
 
+/**
+ * @brief Extrae el nombre de un archivo de una ruta completa.
+ * 
+ * @param kRuta La ruta del archivo del cual se desea extraer el nombre.
+ * @return El nombre del archivo extraído de la ruta.
+ */
 std::string extraerNombreFicheroDeRuta(const std::string& kRuta) {
   return std::filesystem::path(kRuta).filename().string();
 }
 
+/**
+ * @brief Verifica si una palabra contiene solo caracteres numéricos y un único punto decimal.
+ * 
+ * @param palabra La palabra que se desea verificar.
+ * @return true si la palabra contiene solo caracteres numéricos y un único punto decimal, false en caso contrario.
+ */
 bool tieneCaracteresNumericosYUnPuntoDecimal(const std::string& palabra) {
   bool punto_decimal_encontrado = false;
   for (char caracter : palabra) {

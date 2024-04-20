@@ -5,10 +5,10 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
- * @file comprobar_aprametros.h
+ * @since 19 de Abril de 2024
+ * @file comprobar_parametros.h
  * @brief Definición de la clase ComprobarParametros, que comprueba la línea de comandos
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
  */
 
 #pragma once

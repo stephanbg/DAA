@@ -5,13 +5,14 @@
  * Diseño y Análisis de Algoritmos
  *
  * @author Stephan Brommer Gutiérrez
- * @since 20 de Marzo de 2024
+ * @since 19 de Abril de 2024
  * @file sintaxis_fichero.cc
  * @brief Implementación de la clase SintaxisFichero
  * que comprueba la sintaxis de los ficheros que contienen descripciones para
- * el problema Parallel Machine Scheduling Problem with Dependent Setup Times
- * @see {@link https://github.com/stephanbg/DAA/tree/main/p07/src}
+ * el Maximum Diversity Problem
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
  */
+
 
 #include "sintaxis_fichero.h"
 
@@ -47,6 +48,13 @@ void SintaxisFichero::comprobarSintaxisFichero(const std::string& kNombreDirYFic
   if (error != "(sintaxis) ") throw(error);
 }
 
+/**
+ * @brief Verifica si el número de puntos (en el espacio) en una línea de texto es válido.
+ * 
+ * @param kCadaLinea La línea de texto que contiene el número de puntos.
+ * @param numero_de_puntos La variable donde se almacenará el número de puntos si es válido.
+ * @return true si el número de puntos es válido y mayor que cero, false en caso contrario.
+ */
 bool SintaxisFichero::numeroPuntosValidos(const std::string& kCadaLinea, int& numero_de_puntos) {
   try {
     numero_de_puntos = std::stoi(kCadaLinea);
@@ -58,6 +66,13 @@ bool SintaxisFichero::numeroPuntosValidos(const std::string& kCadaLinea, int& nu
   }
 }
 
+/**
+ * @brief Verifica si el número de dimensiones en una línea de texto es válido.
+ * 
+ * @param kCadaLinea La línea de texto que contiene el número de dimensiones.
+ * @param numero_de_dimensiones La variable donde se almacenará el número de dimensiones si es válido.
+ * @return true si el número de dimensiones es válido y mayor que cero, false en caso contrario.
+ */
 bool SintaxisFichero::numeroDimensionesValidas(const std::string& kCadaLinea, int& numero_de_dimensiones) {
   try {
     numero_de_dimensiones = std::stoi(kCadaLinea);
@@ -69,6 +84,13 @@ bool SintaxisFichero::numeroDimensionesValidas(const std::string& kCadaLinea, in
   }
 }
 
+/**
+ * @brief Verifica si las coordenadas en una línea de texto son válidas.
+ * 
+ * @param kCadaLinea La línea de texto que contiene las coordenadas.
+ * @param kNumDimensiones El número de dimensiones esperado para cada punto.
+ * @return true si las coordenadas son válidas, false en caso contrario.
+ */
 bool SintaxisFichero::coordenadasValidas(
   const std::string& kCadaLinea, const int kNumDimensiones
 ) {
