@@ -55,3 +55,14 @@ const int contarDecimales(const double kNumero, const int kPrecisionMax) {
 std::string extraerNombreFicheroDeRuta(const std::string& kRuta) {
   return std::filesystem::path(kRuta).filename().string();
 }
+
+bool tieneCaracteresNumericosYUnPuntoDecimal(const std::string& palabra) {
+  bool punto_decimal_encontrado = false;
+  for (char caracter : palabra) {
+    if (!std::isdigit(caracter)) {
+      if ((caracter == '.' ||caracter == ',') && !punto_decimal_encontrado) punto_decimal_encontrado = true;
+      else return false; // Caracter no numérico o más de un punto decimal
+    }
+  }
+  return true; // La palabra contiene solo caracteres numéricos y un único punto decimal
+}

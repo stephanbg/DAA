@@ -17,3 +17,4 @@ std::string extraerNombreFicheroDeRuta(const std::string&);
 const int cantidadMaximaFicheros(const std::string&);
 const std::string reemplazarComaDecimalPorPunto(const std::string&);
 const int contarDecimales(const double, const int);
+bool tieneCaracteresNumericosYUnPuntoDecimal(const std::string&);

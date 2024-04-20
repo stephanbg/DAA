@@ -11,7 +11,7 @@ class Matriz {
   Matriz() {};
   Matriz(const int kFilas, const int kColumnas) :
       matriz_(kFilas, std::vector<double>(kColumnas, 0.0)) {};
-  const int size() { return matriz_.size(); }
+  const int size() const { return matriz_.size(); }
   void swapFilas(const int, const int);
   void eliminarElemento(const std::vector<double>&);   
   const std::vector<std::vector<double>>& getMatriz() const { return matriz_; }

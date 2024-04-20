@@ -1,8 +1,8 @@
 Nombre del Archivo  Nombre del Algoritmo  Nº puntos (Problema)  Dimensiones problema  Nº puntos (Solución)  Tiempo (µs)  Función Objetivo
 -----------------------------------------------------------------------------------------------------------------------------------------
-max_div_15_2.txt    VORAZ                 15                    2                     15                    105          638.066
-max_div_15_3.txt    VORAZ                 15                    3                     15                    104          754.526
-max_div_20_2.txt    VORAZ                 20                    2                     20                    155          833.642
-max_div_20_3.txt    VORAZ                 20                    3                     20                    199          1189.7
-max_div_30_2.txt    VORAZ                 30                    2                     30                    287          2239.04
-max_div_30_3.txt    VORAZ                 30                    3                     30                    307          2928.96
+max_div_15_2.txt    VORAZ                 15                    2                     8                     191          200.06083
+max_div_15_3.txt    VORAZ                 15                    3                     8                     189          239.58891
+max_div_20_2.txt    VORAZ                 20                    2                     8                     278          162.33801
+max_div_20_3.txt    VORAZ                 20                    3                     8                     283          232.58547
+max_div_30_2.txt    VORAZ                 30                    2                     8                     457          200.65161
+max_div_30_3.txt    VORAZ                 30                    3                     8                     482          252.06816

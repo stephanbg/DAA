@@ -11,8 +11,9 @@
 
 class Problema {
  public:
+  Problema() {}
   Problema(const std::string&);
-  const int getIndiceElemento(const std::vector<double>&) const;
+  const std::vector<int> getIndicesProblema() const;
   const Matriz& getCoordenadas() const { return coordenadas_; }
   const Matriz& getDistancias() const { return distancias_; }
   friend std::ostream& operator<<(std::ostream&, const Problema&);

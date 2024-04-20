@@ -12,16 +12,16 @@
 class Solucion {
  public:
   Solucion(): funcion_objetivo_(0) {};
-  void añadirElemento(const std::vector<double> kElemento) { coordenadas_.setMatriz().push_back(kElemento); }
-  void añadirIndiceElemento(const int kIndiceElemento) { 
-    indices_elementos_introducidos_.push_back(kIndiceElemento); 
-  }  
-  void swapPuntosDelEspacio(const int, const int);
+  void añadirNuevoElementoEIndice(const std::vector<double>, const int);
+  void insertarNuevoPuntoEIndice(const int, const std::vector<double>&, const int);
+  void insertarNuevoPunto(const int kIndice, const std::vector<double>&);
+  const int size() const { return coordenadas_.size(); }
   const double getFuncionObjetivo() const { return funcion_objetivo_; }
   double& setFuncionObjetivo() { return funcion_objetivo_; }
   const std::vector<int>& getIndicesElementosIntroducidos() const { return indices_elementos_introducidos_; } 
   const Matriz& getCoordenadas() const { return coordenadas_; }
   Matriz& setCoordenadas() { return coordenadas_; }
+  const std::vector<double>& operator[](const int kFila) const { return coordenadas_[kFila]; }
   friend std::ostream& operator<<(std::ostream&, const Solucion&);
  private:
   Matriz coordenadas_;

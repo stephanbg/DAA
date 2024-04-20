@@ -1,15 +1,19 @@
 #include "solucion.h"
 
-void Solucion::swapPuntosDelEspacio(const int kPosAnterior, const int kPosSiguiente) {
-  const int kCantidadDePuntos = coordenadas_.size();
-  if (kPosAnterior < 0 || kPosAnterior >= kCantidadDePuntos) {
-    throw std::out_of_range("No existe el punto origen en la solución");
-  }
-  if (kPosSiguiente < 0 || kPosSiguiente >= kCantidadDePuntos) {
-    throw std::out_of_range("No existe el punto destino en la solución");
-  }
-  std::swap(coordenadas_[kPosAnterior], coordenadas_[kPosSiguiente]);
-  std::swap(indices_elementos_introducidos_[kPosAnterior], indices_elementos_introducidos_[kPosSiguiente]);
+void Solucion::insertarNuevoPuntoEIndice(
+  const int kIndice,
+  const std::vector<double>& kFilaElementoFueraDeSolucion,
+  const int kNuevoIndice
+) {
+  coordenadas_[kIndice] = kFilaElementoFueraDeSolucion;
+  indices_elementos_introducidos_[kIndice] = kNuevoIndice;
+}
+
+void Solucion::añadirNuevoElementoEIndice(
+  const std::vector<double> kElemento, const int kIndiceElemento
+) { 
+  coordenadas_.setMatriz().push_back(kElemento);
+  indices_elementos_introducidos_.push_back(kIndiceElemento); 
 }
 
 std::ostream& operator<<(std::ostream& salida, const Solucion& kSolucion) {

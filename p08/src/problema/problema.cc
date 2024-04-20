@@ -51,11 +51,11 @@ void Problema::rellenarDatosDistancias() {
   }
 }
 
-const int Problema::getIndiceElemento(const std::vector<double>& kElemento) const {
-  const std::vector<std::vector<double>>& matriz = coordenadas_.getMatriz();
-  auto it = std::find(matriz.begin(), matriz.end(), kElemento);
-  if (it != matriz.end()) return std::distance(matriz.begin(), it);
-  else return -1;
+const std::vector<int> Problema::getIndicesProblema() const {
+  std::vector<int> indices;
+  const int kSizeMatriz = coordenadas_.size();
+  for (int indice = 0; indice < kSizeMatriz; ++indice) indices.push_back(indice);
+  return indices;
 }
 
 std::ostream& operator<<(std::ostream& salida, const Problema& kProblema) {

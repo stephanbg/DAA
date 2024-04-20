@@ -9,9 +9,10 @@ class AlgoritmosDiversidadMaxima {
   virtual Solucion ejecutar(const Problema&, const int) = 0;
  protected:
   Solucion solucion_;
-  const double calcularFuncionObjetivo(const Solucion&, const Matriz&);
+  const double calcularFuncionObjetivo(const Matriz&);
+  const double calcularFuncionObjetivoParcial(const Solucion&, const int, const Matriz&);
   const std::vector<double> calcularCentroGravedad(const Matriz&) const;
-  const std::vector<double> obtenerElementoMasAlejadoDeCentroGravedad(
+  const std::pair<std::vector<double>, int> obtenerElementoEIndiceRealMasAlejadoDeCentroGravedad(
     const std::vector<double>&,
     const Matriz&
   ) const;
