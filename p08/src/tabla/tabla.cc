@@ -141,7 +141,7 @@ void Tabla::mostrarTablaEnPantalla() {
               << std::setw(22) << dimensiones_problema_[i]
               << std::setw(22) << numero_elementos_solucion_[i]
               << std::setw(13) << tiempos_[i]
-              << std::fixed << std::setprecision(contarDecimales(funcion_objetivo_[i], 5)) << funcion_objetivo_[i]
+              << std::fixed << std::setprecision(contarDecimales(funcion_objetivo_[i], 4)) << funcion_objetivo_[i]
               << std::endl;
   }
 }
@@ -175,7 +175,7 @@ void Tabla::mostrarTablaEnFichero() {
             << std::setw(22) << dimensiones_problema_[i]
             << std::setw(22) << numero_elementos_solucion_[i]
             << std::setw(13) << tiempos_[i]
-            << std::fixed << std::setprecision(contarDecimales(funcion_objetivo_[i], 5)) << funcion_objetivo_[i]
+            << std::fixed << std::setprecision(contarDecimales(funcion_objetivo_[i], 4)) << funcion_objetivo_[i]
             << std::endl;
   }
   archivo.close();
