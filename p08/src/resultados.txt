@@ -1,8 +1,14 @@
 Nombre del Archivo  Nombre del Algoritmo  Nº puntos (Problema)  Dimensiones problema  Nº puntos (Solución)  Tiempo (µs)  Función Objetivo
 -----------------------------------------------------------------------------------------------------------------------------------------
-max_div_15_2.txt    VORAZ                 15                    2                     8                     558          200.6026
-max_div_15_3.txt    VORAZ                 15                    3                     8                     461          239.5889
-max_div_20_2.txt    VORAZ                 20                    2                     8                     711          162.338
-max_div_20_3.txt    VORAZ                 20                    3                     8                     766          232.5855
-max_div_30_2.txt    VORAZ                 30                    2                     8                     1264         200.6516
-max_div_30_3.txt    VORAZ                 30                    3                     8                     1296         252.0682
+max_div_15_2.txt    VORAZ                 15                    2                     8                     532          200.6026
+max_div_15_2.txt    GRASP                 15                    2                     8                     538152       204.9397
+max_div_15_3.txt    VORAZ                 15                    3                     8                     437          239.5889
+max_div_15_3.txt    GRASP                 15                    3                     8                     436903       245.5017
+max_div_20_2.txt    VORAZ                 20                    2                     8                     519          162.338
+max_div_20_2.txt    GRASP                 20                    2                     8                     465461       161.373
+max_div_20_3.txt    VORAZ                 20                    3                     8                     460          232.5855
+max_div_20_3.txt    GRASP                 20                    3                     8                     569279       236.3441
+max_div_30_2.txt    VORAZ                 30                    2                     8                     878          200.6516
+max_div_30_2.txt    GRASP                 30                    2                     8                     608834       202.4112
+max_div_30_3.txt    VORAZ                 30                    3                     8                     853          252.0682
+max_div_30_3.txt    GRASP                 30                    3                     8                     620104       255.6638

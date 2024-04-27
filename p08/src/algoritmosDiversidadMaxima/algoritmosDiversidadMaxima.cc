@@ -80,7 +80,6 @@ AlgoritmosDiversidadMaxima::obtenerElementoEIndiceFicticioMasAlejadoDeCentroGrav
  */
 const double AlgoritmosDiversidadMaxima::calcularFuncionObjetivo(const Matriz& kDistancias) {
   double& funcion_objetivo = solucion_.setFuncionObjetivo();
-  funcion_objetivo = 0;
   const std::vector<int>& kIndices = solucion_.getIndicesElementosIntroducidos();
   const int kSizeIndices = kIndices.size();
   for (int i = 0; i < kSizeIndices; ++i) {
