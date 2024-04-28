@@ -20,6 +20,7 @@
 #include <cmath>
 #include <limits>
 #include <filesystem>
+#include <list>
 
 #include "peticionesUsuario.h"
 
@@ -31,3 +32,4 @@ const int cantidadMaximaFicheros(const std::string&);
 const std::string reemplazarComaDecimalPorPunto(const std::string&);
 const int contarDecimales(const double, const int);
 bool tieneCaracteresNumericosYUnPuntoDecimal(const std::string&);
+bool contienePar(const std::list<std::pair<int, int>>&, const std::pair<int, int>&);

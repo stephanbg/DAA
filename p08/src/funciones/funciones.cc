@@ -116,3 +116,13 @@ bool tieneCaracteresNumericosYUnPuntoDecimal(const std::string& palabra) {
   }
   return true; // La palabra contiene solo caracteres numéricos y un único punto decimal
 }
+
+bool contienePar(const std::list<std::pair<int, int>>& kLista, const std::pair<int, int>& kParAComprobar) {
+  for (const auto& kPar : kLista) {
+    if (
+      (kPar.first == kParAComprobar.first && kPar.second == kParAComprobar.second) ||
+      (kPar.second == kParAComprobar.first && kPar.first == kParAComprobar.second)
+    ) return true;
+  }
+  return false;
+}

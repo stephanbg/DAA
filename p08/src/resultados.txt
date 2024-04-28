@@ -1,14 +1,20 @@
 Nombre del Archivo  Nombre del Algoritmo  Nº puntos (Problema)  Dimensiones problema  Nº puntos (Solución)  Tiempo (µs)  Función Objetivo
 -----------------------------------------------------------------------------------------------------------------------------------------
-max_div_15_2.txt    VORAZ                 15                    2                     8                     532          200.6026
-max_div_15_2.txt    GRASP                 15                    2                     8                     538152       204.9397
-max_div_15_3.txt    VORAZ                 15                    3                     8                     437          239.5889
-max_div_15_3.txt    GRASP                 15                    3                     8                     436903       245.5017
-max_div_20_2.txt    VORAZ                 20                    2                     8                     519          162.338
-max_div_20_2.txt    GRASP                 20                    2                     8                     465461       161.373
-max_div_20_3.txt    VORAZ                 20                    3                     8                     460          232.5855
-max_div_20_3.txt    GRASP                 20                    3                     8                     569279       236.3441
-max_div_30_2.txt    VORAZ                 30                    2                     8                     878          200.6516
-max_div_30_2.txt    GRASP                 30                    2                     8                     608834       202.4112
-max_div_30_3.txt    VORAZ                 30                    3                     8                     853          252.0682
-max_div_30_3.txt    GRASP                 30                    3                     8                     620104       255.6638
+max_div_15_2.txt    VORAZ                 15                    2                     8                     364          200.6026
+max_div_15_2.txt    GRASP                 15                    2                     8                     520761       202.546
+max_div_15_2.txt    BusquedaTabu          15                    2                     8                     390927       202.655
+max_div_15_3.txt    VORAZ                 15                    3                     8                     208          239.5889
+max_div_15_3.txt    GRASP                 15                    3                     8                     477333       239.5889
+max_div_15_3.txt    BusquedaTabu          15                    3                     8                     417470       239.5889
+max_div_20_2.txt    VORAZ                 20                    2                     8                     352          162.338
+max_div_20_2.txt    GRASP                 20                    2                     8                     410225       161.7132
+max_div_20_2.txt    BusquedaTabu          20                    2                     8                     351375       163.3102
+max_div_20_3.txt    VORAZ                 20                    3                     8                     540          232.5855
+max_div_20_3.txt    GRASP                 20                    3                     8                     604777       227.7849
+max_div_20_3.txt    BusquedaTabu          20                    3                     8                     411201       233.1235
+max_div_30_2.txt    VORAZ                 30                    2                     8                     549          200.6516
+max_div_30_2.txt    GRASP                 30                    2                     8                     422741       190.5882
+max_div_30_2.txt    BusquedaTabu          30                    2                     8                     451379       200.6516
+max_div_30_3.txt    VORAZ                 30                    3                     8                     816          252.0682
+max_div_30_3.txt    GRASP                 30                    3                     8                     624311       241.7414
+max_div_30_3.txt    BusquedaTabu          30                    3                     8                     592537       253.5334

@@ -30,7 +30,7 @@ std::pair<Solucion, int> ejecutarAlgoritmo(
   // Crear un objeto ControladorTiempo con una función lambda como argumento
   ControladorTiempo<Solucion, Problema&, int> tiempo(
     [&](Problema& problema, int num_elementos_en_solucion) { 
-      return algoritmo->ejecutar(problema, num_elementos_en_solucion);
+      return algoritmo->ejecutar(problema, num_elementos_en_solucion, 1000);
     }
   );
   Solucion solucion = tiempo.medirTiempoFuncion(problema, std::move(num_elementos_en_solucion));

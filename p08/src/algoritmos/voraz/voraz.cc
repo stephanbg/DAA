@@ -21,7 +21,7 @@
  * @param kNumElementosEnSolucion El número de elementos a seleccionar en la solución.
  * @return La solución obtenida por el algoritmo voraz.
  */
-Solucion Voraz::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion) {
+Solucion Voraz::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {
   std::pair<Matriz, std::vector<int>> elementos_problema(
     kProblema.getCoordenadas(), kProblema.getIndicesProblema()
   );
@@ -87,7 +87,6 @@ void Voraz::busquedaLocal(
         mejor_funcion_objetivo = funcion_objetivo_actual;
         mejor_solucion = solucion_;
       }
-      solucion_ = kSolucionInicial;
     }
   }
   solucion_ = mejor_solucion;

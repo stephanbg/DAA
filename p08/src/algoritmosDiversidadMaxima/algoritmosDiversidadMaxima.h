@@ -30,7 +30,7 @@
  */
 class AlgoritmosDiversidadMaxima {
  public:
-  virtual Solucion ejecutar(const Problema&, const int) = 0;
+  virtual Solucion ejecutar(const Problema&, const int, const int) = 0;
  protected:
   Solucion solucion_;
   const double calcularFuncionObjetivo(const Matriz&);

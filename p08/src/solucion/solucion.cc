@@ -42,6 +42,15 @@ void Solucion::añadirNuevoElementoEIndice(
   indices_elementos_introducidos_.push_back(kIndiceElemento); 
 }
 
+void Solucion::swapPuntoEIndice(
+  const int kIndiceEnSolucion,
+  const int kIndiceEnEntorno,
+  std::pair<Matriz, std::vector<int>>& puntosFueraDeSolucion
+) {
+  std::swap(coordenadas_[kIndiceEnSolucion], puntosFueraDeSolucion.first[kIndiceEnEntorno]);
+  std::swap(indices_elementos_introducidos_[kIndiceEnSolucion], puntosFueraDeSolucion.second[kIndiceEnEntorno]);
+}
+
 /**
  * @brief Sobrecarga del operador de inserción en flujo para imprimir la solución.
  * 

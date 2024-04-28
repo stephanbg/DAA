@@ -1,6 +1,6 @@
 #include "GRASP.h"
 
-Solucion GRASP::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion) {  
+Solucion GRASP::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {  
   const Matriz& kCoordenadas = kProblema.getCoordenadas();
   const std::vector<int>& kInidcesProblema = kProblema.getIndicesProblema();
   std::pair<Matriz, std::vector<int>> elementos_problema(
@@ -10,8 +10,8 @@ Solucion GRASP::ejecutar(const Problema& kProblema, const int kNumElementosEnSol
   faseConstructiva(kProblema, elementos_problema, kNumElementosEnSolucion, kMedidaCalidad);
   Solucion mejor_solucion = solucion_;
   double mejor_funcion_objetivo = solucion_.getFuncionObjetivo();
-  int contador = 0;
-  do {
+  int iter = 0;
+  while (++iter < kIteraciones) {
     std::pair<Matriz, std::vector<int>> elementos_problema(kCoordenadas, kInidcesProblema);
     faseConstructiva(kProblema, elementos_problema, kNumElementosEnSolucion, kMedidaCalidad);
     const double kFuncionObjetivoCadaIter = solucion_.getFuncionObjetivo();
@@ -19,7 +19,7 @@ Solucion GRASP::ejecutar(const Problema& kProblema, const int kNumElementosEnSol
       mejor_funcion_objetivo = kFuncionObjetivoCadaIter;
       mejor_solucion = solucion_;
     }
-  } while (++contador < 1000);
+  }
   solucion_ = mejor_solucion;
   solucion_.setFuncionObjetivo() = mejor_funcion_objetivo;
   return solucion_;  
@@ -35,10 +35,11 @@ void GRASP::faseConstructiva(
   const Matriz& kDistancias = kProblema.getDistancias();
   Solucion solucion_fase_constructiva;
   do {
-    const std::vector<int> kLRC = calcularLRC(elementos_problema, kDistancias, kMedidaCalidad); // Indices de elementos
+    // Indices de elementos
+    const std::vector<int> kLRC = calcularLRC(elementos_problema, kDistancias, kMedidaCalidad);
     const int kIndiceElemento = seleccionarAleatoriamenteElementoDeLRC(kLRC);
     solucion_fase_constructiva.añadirNuevoElementoEIndice(
-      elementos_problema.first[kIndiceElemento], kIndiceElemento
+      elementos_problema.first[kIndiceElemento], elementos_problema.second[kIndiceElemento]
     );
     elementos_problema.first.eliminarElemento(kIndiceElemento);
     elementos_problema.second.erase(elementos_problema.second.begin() + kIndiceElemento);    
