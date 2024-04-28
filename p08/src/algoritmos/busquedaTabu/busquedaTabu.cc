@@ -23,20 +23,17 @@ void BusquedaTabu::busquedaTabu(
   const int kSizeElementosSolucion = kSolucionInicial.size();
   int mejor_indice_solucion, mejor_indice_entorno, iter = 0;
   std::list<std::pair<int, int>> lista_tabu;
-  //std::cout << mejor_solucion << std::endl;
   do {
     for (int i = 0; i < kSizeElementosSolucion; ++i) {
       for (int j = 0; j < kSizeElementosRestantes; ++j) {
+        const int kIndiceEnSolucion = cada_solucion_inicial.getIndicesElementosIntroducidos()[i];
+        const int kIndiceEnEntorno = elementos_restantes.second[j];        
+        if (contienePar(lista_tabu, std::make_pair(kIndiceEnSolucion, kIndiceEnEntorno))) continue;
         solucion_ = cada_solucion_inicial;
         elementos_restantes = cada_elementos_restantes;
         solucion_.swapPuntoEIndice(i, j, elementos_restantes);    
         funcion_objetivo_actual = calcularFuncionObjetivoParcial(cada_solucion_inicial, i, kDistancias);
-        const int kIndiceEnSolucion = cada_solucion_inicial.getIndicesElementosIntroducidos()[i];
-        const int kIndiceEnEntorno = solucion_.getIndicesElementosIntroducidos()[i];
-        if (
-          !contienePar(lista_tabu, std::make_pair(kIndiceEnSolucion, kIndiceEnEntorno)) &&
-          criterio_aspiracion < funcion_objetivo_actual
-        ) {   
+        if (criterio_aspiracion < funcion_objetivo_actual) {   
           criterio_aspiracion = funcion_objetivo_actual;
           mejor_solucion = solucion_;
           mejor_indice_solucion = kIndiceEnSolucion;
@@ -45,17 +42,12 @@ void BusquedaTabu::busquedaTabu(
         }
       }
     }
-    if (lista_tabu.size() == kTenenciaTabu) lista_tabu.pop_front();
-    lista_tabu.push_back(std::make_pair(mejor_indice_solucion, mejor_indice_entorno));
-    /*std::cout << "Lista Tabu:\n";
-    for (auto a : lista_tabu) {
-      std::cout << "(" << a.first << ", " << a.second << ") ";
-    }
-    std::cout << std::endl;    */
     if (criterio_aspiracion > cada_solucion_inicial.getFuncionObjetivo()) {
       cada_solucion_inicial = mejor_solucion;
       cada_elementos_restantes = mejor_elementos_restantes;
-    }
+    } else break;
+    if (lista_tabu.size() == kTenenciaTabu) lista_tabu.pop_front();
+    lista_tabu.push_back(std::make_pair(mejor_indice_solucion, mejor_indice_entorno));    
   } while (++iter <= kIteracionesTabu);
   solucion_ = mejor_solucion;
   solucion_.setFuncionObjetivo() = criterio_aspiracion;
