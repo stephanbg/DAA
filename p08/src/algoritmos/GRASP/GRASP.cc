@@ -1,5 +1,27 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 19 de Abril de 2024
+ * @file GRASP.cc
+ * @brief Implementación de la clase GRASP que hereda de AlgoritmosDiversidadMaxima
+ * para resolver el problema de Maximum diversity problem.
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
+ */
+
 #include "GRASP.h"
 
+/**
+ * @brief Ejecuta el algoritmo GRASP para resolver un problema dado.
+ * 
+ * @param kProblema El problema que se va a resolver.
+ * @param kNumElementosEnSolucion El número de elementos en la solución generada por GRASP.
+ * @param kIteraciones El número máximo de iteraciones para ejecutar el algoritmo GRASP.
+ * @return La mejor solución encontrada por GRASP.
+ */
 Solucion GRASP::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {  
   const Matriz& kCoordenadas = kProblema.getCoordenadas();
   const std::vector<int>& kInidcesProblema = kProblema.getIndicesProblema();
@@ -25,6 +47,14 @@ Solucion GRASP::ejecutar(const Problema& kProblema, const int kNumElementosEnSol
   return solucion_;  
 }
 
+/**
+ * @brief Realiza la fase constructiva de GRASP para construir una solución inicial.
+ * 
+ * @param kProblema El problema que se va a resolver.
+ * @param elementos_problema Los elementos del problema con sus coordenadas e índices.
+ * @param kNumElementosEnSolucion El número de elementos que debe tener la solución inicial.
+ * @param kMedidaCalidad El vector que contiene la medida de calidad de cada elemento del problema.
+ */
 void GRASP::faseConstructiva(
   const Problema& kProblema,
   std::pair<Matriz, std::vector<int>>& elementos_problema,
@@ -48,6 +78,15 @@ void GRASP::faseConstructiva(
   calcularFuncionObjetivo(kDistancias);
 }
 
+/**
+ * @brief Calcula la lista restringida de candidatos (LRC) basada en la medida de calidad
+ *        de los elementos del problema.
+ * 
+ * @param kElementosProblema Los elementos del problema con sus coordenadas e índices.
+ * @param kDistancias La matriz de distancias entre los elementos del problema.
+ * @param kMedidaCalidad El vector que contiene la medida de calidad de cada elemento del problema.
+ * @return La lista restringida de candidatos (LRC).
+ */
 std::vector<int> GRASP::calcularLRC(
   const std::pair<Matriz, std::vector<int>>& kElementosProblema,
   const Matriz& kDistancias,
@@ -64,6 +103,13 @@ std::vector<int> GRASP::calcularLRC(
   return LRC;
 }
 
+/**
+ * @brief Calcula la medida de calidad para cada elemento del problema en base a las distancias.
+ * 
+ * @param kElementosProblema Los elementos del problema con sus coordenadas e índices.
+ * @param kDistancias La matriz de distancias entre los elementos del problema.
+ * @return Un vector que contiene la medida de calidad de cada elemento del problema.
+ */
 std::vector<double> GRASP::calcularMedidaCalidad(
   const std::pair<Matriz, std::vector<int>>& kElementosProblema,
   const Matriz& kDistancias
@@ -82,6 +128,12 @@ std::vector<double> GRASP::calcularMedidaCalidad(
   return diversidadPuntosRestantes;
 }
 
+/**
+ * @brief Selecciona aleatoriamente un elemento de la lista restringida de candidatos (LRC).
+ * 
+ * @param kLRC La lista restringida de candidatos (LRC) de donde se seleccionará el elemento.
+ * @return El índice del elemento seleccionado aleatoriamente de la LRC.
+ */
 const int GRASP::seleccionarAleatoriamenteElementoDeLRC(const std::vector<int>& kLRC) const {
   std::random_device dispositivo_aleatorio;
   std::mt19937 generador(dispositivo_aleatorio());  

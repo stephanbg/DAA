@@ -19,6 +19,7 @@
  * 
  * @param kProblema El problema a resolver.
  * @param kNumElementosEnSolucion El número de elementos a seleccionar en la solución.
+ * @param kIteraciones No se usa.
  * @return La solución obtenida por el algoritmo voraz.
  */
 Solucion Voraz::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {

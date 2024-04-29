@@ -1,5 +1,27 @@
+/**
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Diseño y Análisis de Algoritmos
+ *
+ * @author Stephan Brommer Gutiérrez
+ * @since 19 de Abril de 2024
+ * @file busquedaTabu.cc
+ * @brief Implementación de la clase BusquedaTabu que hereda de AlgoritmosDiversidadMaxima
+ * para resolver el problema de Maximum diversity problem.
+ * @see {@link https://github.com/stephanbg/DAA/tree/main/p08/src}
+ */
+
 #include "busquedaTabu.h"
 
+/**
+ * @brief Ejecuta el algoritmo de Búsqueda Tabú para encontrar una solución al problema dado.
+ * 
+ * @param kProblema El problema sobre el cual se ejecutará el algoritmo.
+ * @param kNumElementosEnSolucion El número de elementos que se desea en la solución.
+ * @param kIteraciones No se usa.
+ * @return La mejor solución encontrada por el algoritmo.
+ */
 Solucion BusquedaTabu::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {  
   GRASP algortimoGRASP;
   const Solucion& kMejorSolucion = algortimoGRASP.ejecutar(kProblema, kNumElementosEnSolucion, kIteraciones);
@@ -9,6 +31,15 @@ Solucion BusquedaTabu::ejecutar(const Problema& kProblema, const int kNumElement
   return solucion_;
 }
 
+/**
+ * @brief Realiza la Búsqueda Tabú para mejorar una solución inicial.
+ * 
+ * @param kSolucionInicial La solución inicial a mejorar mediante Búsqueda Tabú.
+ * @param elementos_restantes Los elementos que quedan fuera de la solución inicial.
+ * @param kDistancias La matriz de distancias entre los elementos del problema.
+ * @param kTenenciaTabu El tamaño de la lista tabú.
+ * @param kIteracionesTabu El número máximo de iteraciones que realizará la Búsqueda Tabú.
+ */
 void BusquedaTabu::busquedaTabu(
   const Solucion& kSolucionInicial,
   std::pair<Matriz, std::vector<int>>& elementos_restantes,
@@ -53,6 +84,13 @@ void BusquedaTabu::busquedaTabu(
   solucion_.setFuncionObjetivo() = criterio_aspiracion;
 }
 
+/**
+ * @brief Obtiene los elementos que están fuera de la solución dada.
+ * 
+ * @param kProblema El problema sobre el cual se está trabajando.
+ * @param kMejorSolucion La mejor solución encontrada hasta el momento.
+ * @return Un par que contiene la matriz de elementos fuera de la solución y sus índices.
+ */
 std::pair<Matriz, std::vector<int>> BusquedaTabu::obtenerElementosFueraDeSolucion(
   const Problema& kProblema,
   const Solucion& kMejorSolucion
