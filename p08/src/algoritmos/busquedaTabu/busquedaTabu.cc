@@ -24,14 +24,15 @@
  */
 Solucion BusquedaTabu::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {  
   GRASP algortimoGRASP;
-  solucion_ = algortimoGRASP.ejecutar(kProblema, kNumElementosEnSolucion, 1);
-  Solucion mejor_solucion = solucion_;
+  solucion_ = algortimoGRASP.ejecutar(kProblema, kNumElementosEnSolucion, 1);  
   std::pair<Matriz, std::vector<int>> elementos_restantes = obtenerElementosFueraDeSolucion(kProblema, solucion_);
-  const int kTenenciaTabu = 4, kIteracionesTabu = 1000;
+  const int kTenenciaTabu = 5, kIteracionesTabu = 3;
   double mejor_funcion_objetivo = solucion_.getFuncionObjetivo();
   int iter = 0;
+  Solucion mejor_solucion = solucion_;
+  const Matriz& kDistancias = kProblema.getDistancias();
   while (++iter < kIteraciones) {
-    busquedaTabu(solucion_, elementos_restantes, kProblema.getDistancias(), kTenenciaTabu, kIteracionesTabu);
+    busquedaTabu(solucion_, elementos_restantes, kDistancias, kTenenciaTabu, kIteracionesTabu);
     const double kFuncionObjetivoCadaIter = solucion_.getFuncionObjetivo();
     if (kFuncionObjetivoCadaIter > mejor_funcion_objetivo) {
       mejor_funcion_objetivo = kFuncionObjetivoCadaIter;
@@ -70,17 +71,17 @@ void BusquedaTabu::busquedaTabu(
   std::list<std::pair<int, int>> lista_tabu;
   do {
     for (int i = 0; i < kSizeElementosSolucion; ++i) {
+      const int kIndiceEnSolucion = cada_solucion_inicial.getIndicesElementosIntroducidos()[i];       
       for (int j = 0; j < kSizeElementosRestantes; ++j) {
-        const int kIndiceEnSolucion = cada_solucion_inicial.getIndicesElementosIntroducidos()[i];
-        const int kIndiceEnEntorno = elementos_restantes.second[j];        
+        const int kIndiceEnEntorno = cada_elementos_restantes.second[j];      
         if (contienePar(lista_tabu, std::make_pair(kIndiceEnSolucion, kIndiceEnEntorno))) continue;
         solucion_ = cada_solucion_inicial;
-        elementos_restantes = cada_elementos_restantes;
+        elementos_restantes = cada_elementos_restantes;         
         solucion_.swapPuntoEIndice(i, j, elementos_restantes); 
         funcion_objetivo_actual = calcularFuncionObjetivoParcial(cada_solucion_inicial, i, kDistancias);       
         if (criterio_aspiracion < funcion_objetivo_actual) {   
           criterio_aspiracion = funcion_objetivo_actual;
-          mejor_solucion = solucion_;
+          mejor_solucion = solucion_;       
           mejor_indice_solucion = kIndiceEnSolucion;
           mejor_indice_entorno = kIndiceEnEntorno;
           mejor_elementos_restantes = elementos_restantes;
@@ -91,12 +92,10 @@ void BusquedaTabu::busquedaTabu(
       cada_solucion_inicial = mejor_solucion;
       cada_elementos_restantes = mejor_elementos_restantes;
       iteraciones_sin_mejorar = 0;
-    } else {
-      iteraciones_sin_mejorar++; 
-    }
-    if (lista_tabu.size() == kTenenciaTabu) lista_tabu.pop_front();
+    } else if (++iteraciones_sin_mejorar > 3) break;
+    if (lista_tabu.size() == kTenenciaTabu) lista_tabu.pop_front();  
     lista_tabu.push_back(std::make_pair(mejor_indice_solucion, mejor_indice_entorno));    
-  } while (++iter <= kIteracionesTabu && iteraciones_sin_mejorar < 3);
+  } while (++iter <= kIteracionesTabu);
   solucion_ = mejor_solucion;
   solucion_.setFuncionObjetivo() = criterio_aspiracion;
 }
