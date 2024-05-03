@@ -21,6 +21,7 @@
 #include "algoritmos/voraz/voraz.h"
 #include "algoritmos/GRASP/GRASP.h"
 #include "algoritmos/busquedaTabu/busquedaTabu.h"
+#include "algoritmos/ramificacionYPoda/ramificacionYPoda.h"
 #include "problema/problema.h"
 #include "tabla/tabla.h"
 #include "funciones/funciones.h"
@@ -42,10 +43,11 @@ int main(int argc, char* argv[]) {
     std::map<std::string, std::function<AlgoritmosDiversidadMaxima*()>> constructores = {
       {"VORAZ", [](){ return new Voraz; }},
       {"GRASP", [](){ return new GRASP; }},
-      {"BusquedaTabu", [](){ return new BusquedaTabu; }}
+      {"BusquedaTabu", [](){ return new BusquedaTabu; }},
+      {"RamificacionYPoda", [](){ return new RamificacionYPoda; }}
     };
     const std::vector<std::string> kOrdenAlgoritmos = {
-      "VORAZ", "GRASP", "BusquedaTabu"
+      "VORAZ", "GRASP", "BusquedaTabu", "RamificacionYPoda"
     };
     const std::vector<std::string> kNombreFicheros = extraerFicherosEjemplo(argv[1]);
     for (const auto& kNombreFichero : kNombreFicheros) {

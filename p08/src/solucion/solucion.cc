@@ -42,6 +42,11 @@ void Solucion::añadirNuevoElementoEIndice(
   indices_elementos_introducidos_.push_back(kIndiceElemento); 
 }
 
+void Solucion::eliminarUltimoElementoEIndice() { 
+  coordenadas_.setMatriz().pop_back();
+  indices_elementos_introducidos_.pop_back(); 
+}
+
 void Solucion::swapPuntoEIndice(
   const int kIndiceEnSolucion,
   const int kIndiceEnEntorno,

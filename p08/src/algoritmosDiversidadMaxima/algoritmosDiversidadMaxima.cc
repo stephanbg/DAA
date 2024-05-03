@@ -82,6 +82,7 @@ const double AlgoritmosDiversidadMaxima::calcularFuncionObjetivo(const Matriz& k
   double& funcion_objetivo = solucion_.setFuncionObjetivo();
   const std::vector<int>& kIndices = solucion_.getIndicesElementosIntroducidos();
   const int kSizeIndices = kIndices.size();
+  funcion_objetivo = 0;
   for (int i = 0; i < kSizeIndices; ++i) {
     for (int j = i + 1; j < kSizeIndices; ++j) {
       funcion_objetivo += kDistancias[kIndices[i]][kIndices[j]];

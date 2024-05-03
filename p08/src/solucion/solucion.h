@@ -33,6 +33,7 @@ class Solucion {
  public:
   Solucion(): funcion_objetivo_(0) {};
   void añadirNuevoElementoEIndice(const std::vector<double>, const int);
+  void eliminarUltimoElementoEIndice();
   void insertarNuevoPuntoEIndice(const int, const std::vector<double>&, const int);
   void swapPuntoEIndice(const int, const int, std::pair<Matriz, std::vector<int>>&);
   const int size() const { return coordenadas_.size(); }
