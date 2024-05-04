@@ -26,7 +26,7 @@ Solucion BusquedaTabu::ejecutar(const Problema& kProblema, const int kNumElement
   GRASP algortimoGRASP;
   solucion_ = algortimoGRASP.ejecutar(kProblema, kNumElementosEnSolucion, 1);  
   std::pair<Matriz, std::vector<int>> elementos_restantes = obtenerElementosFueraDeSolucion(kProblema, solucion_);
-  const int kTenenciaTabu = 5, kIteracionesTabu = 3;
+  const int kTenenciaTabu = 5, kIteracionesTabu = 10;
   double mejor_funcion_objetivo = solucion_.getFuncionObjetivo();
   int iter = 0;
   Solucion mejor_solucion = solucion_;

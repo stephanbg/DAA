@@ -1,19 +1,23 @@
-#include "ramificacionYPoda.h"
+#include "ramificacionYPodaProfundidad.h"
 
-Solucion RamificacionYPoda::ejecutar(const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones) {  
+Solucion RamificacionYPodaProfundidad::ejecutar(
+  const Problema& kProblema, const int kNumElementosEnSolucion, const int kIteraciones
+) {  
   const Matriz& kDistancias = kProblema.getDistancias();
   const std::pair<Matriz, std::vector<int>>& kElementosProblema = std::make_pair(
     kProblema.getCoordenadas(), kProblema.getIndicesProblema()
   );
-  Solucion mejor_solucion;
-  double mejor_funcion_objetivo = 0.0;
-  ramificacionYPoda(kDistancias, kElementosProblema, kNumElementosEnSolucion, mejor_solucion, mejor_funcion_objetivo, 0);
+  GRASP algortimo;
+  Solucion mejor_solucion = algortimo.ejecutar(kProblema, kNumElementosEnSolucion, 1);
+  double mejor_funcion_objetivo = mejor_solucion.getFuncionObjetivo();
+  ramificacionYPoda(
+    kDistancias, kElementosProblema, kNumElementosEnSolucion, mejor_solucion, mejor_funcion_objetivo, 0
+  );
   solucion_ = mejor_solucion;
-  solucion_.setFuncionObjetivo() = mejor_funcion_objetivo;
   return solucion_;
 }
 
-void RamificacionYPoda::ramificacionYPoda(
+void RamificacionYPodaProfundidad::ramificacionYPoda(
   const Matriz& kDistancias, const std::pair<Matriz, std::vector<int>>& kElementosProblema,
   const int kNumElementosEnSolucion, Solucion& mejor_solucion, double& mejor_funcion_objetivo,
   const int kIndice
