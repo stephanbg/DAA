@@ -43,13 +43,13 @@ int main(int argc, char* argv[]) {
     // Se define un mapa que asocia nombres de algoritmos con funciones para crear instancias
     std::map<std::string, std::function<AlgoritmosDiversidadMaxima*()>> constructores = {
       //{"VORAZ", [](){ return new Voraz; }},
-      //{"GRASP", [](){ return new GRASP; }},
+      {"GRASP", [](){ return new GRASP; }},
       //{"BusquedaTabu", [](){ return new BusquedaTabu; }},
       //{"RamificacionYPodaProf.", [](){ return new RamificacionYPodaProfundidad; }},
       {"RamificacionYPodaAmpl.", [](){ return new RamificacionYPodaAmplitud; }}
     };
     const std::vector<std::string> kOrdenAlgoritmos = {
-      /*"VORAZ", "GRASP", "BusquedaTabu", "RamificacionYPodaProf.", */"RamificacionYPodaAmpl."
+      /*"VORAZ",*/ "GRASP", /*"BusquedaTabu", "RamificacionYPodaProf.",*/ "RamificacionYPodaAmpl."
     };
     const std::vector<std::string> kNombreFicheros = extraerFicherosEjemplo(argv[1]);
     for (const auto& kNombreFichero : kNombreFicheros) {
