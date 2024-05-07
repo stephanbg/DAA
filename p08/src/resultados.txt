@@ -1,26 +1,32 @@
 Nombre del Archivo  Nombre del Algoritmo  Nº puntos (Problema)  Dimensiones problema  Nº puntos (Solución)  Tiempo (µs)  Función Objetivo
 -----------------------------------------------------------------------------------------------------------------------------------------
-max_div_15_2.txt    VORAZ                 15                    2                     8                     422          200.6026
-max_div_15_2.txt    GRASP                 15                    2                     8                     560624       201.6509
-max_div_15_2.txt    BusquedaTabu          15                    2                     8                     1299669      202.655
-max_div_15_2.txt    RamificacionYPoda     15                    2                     8                     17661        202.655
-max_div_15_3.txt    VORAZ                 15                    3                     4                     243          59.7638
-max_div_15_3.txt    GRASP                 15                    3                     4                     292764       59.7638
-max_div_15_3.txt    BusquedaTabu          15                    3                     4                     974074       59.7638
-max_div_15_3.txt    RamificacionYPoda     15                    3                     4                     1566         59.7638
-max_div_20_2.txt    VORAZ                 20                    2                     11                    646          299.2226
-max_div_20_2.txt    GRASP                 20                    2                     11                    730886       295.8432
-max_div_20_2.txt    BusquedaTabu          20                    2                     11                    2148888      299.2226
-max_div_20_2.txt    RamificacionYPoda     20                    2                     11                    621420       299.2226
-max_div_20_3.txt    VORAZ                 20                    3                     15                    699          754.2476
-max_div_20_3.txt    GRASP                 20                    3                     15                    1057920      748.1408
-max_div_20_3.txt    BusquedaTabu          20                    3                     15                    2217616      754.2476
-max_div_20_3.txt    RamificacionYPoda     20                    3                     15                    627691       754.2476
-max_div_30_2.txt    VORAZ                 30                    2                     9                     1464         249.9406
-max_div_30_2.txt    GRASP                 30                    2                     9                     733332       238.2712
-max_div_30_2.txt    BusquedaTabu          30                    2                     9                     4454398      252.5945
-max_div_30_2.txt    RamificacionYPoda     30                    2                     9                     23386446     252.5945
-max_div_30_3.txt    VORAZ                 30                    3                     6                     598          141.9952
-max_div_30_3.txt    GRASP                 30                    3                     6                     512459       137.7758
-max_div_30_3.txt    BusquedaTabu          30                    3                     6                     3529397      142.5346
-max_div_30_3.txt    RamificacionYPoda     30                    3                     6                     600678       142.5346
+max_div_15_2.txt    VORAZ                 15                    2                     8                     192          200.6026
+max_div_15_2.txt    GRASP                 15                    2                     8                     223815       202.546
+max_div_15_2.txt    BusquedaTabu          15                    2                     8                     1407966      202.655
+max_div_15_2.txt    RamificacionYPodaProf.15                    2                     8                     247239       202.655
+max_div_15_2.txt    RamificacionYPodaAmpl.15                    2                     8                     465516       202.655
+max_div_15_3.txt    VORAZ                 15                    3                     8                     221          239.5889
+max_div_15_3.txt    GRASP                 15                    3                     8                     241182       239.5889
+max_div_15_3.txt    BusquedaTabu          15                    3                     8                     1226815      239.5889
+max_div_15_3.txt    RamificacionYPodaProf.15                    3                     8                     246037       239.5889
+max_div_15_3.txt    RamificacionYPodaAmpl.15                    3                     8                     429072       239.5889
+max_div_20_2.txt    VORAZ                 20                    2                     8                     280          162.338
+max_div_20_2.txt    GRASP                 20                    2                     8                     251733       162.338
+max_div_20_2.txt    BusquedaTabu          20                    2                     8                     2666049      162.338
+max_div_20_2.txt    RamificacionYPodaProf.20                    2                     8                     408466       162.338
+max_div_20_2.txt    RamificacionYPodaAmpl.20                    2                     8                     2303054      162.338
+max_div_20_3.txt    VORAZ                 20                    3                     8                     233          232.5855
+max_div_20_3.txt    GRASP                 20                    3                     8                     244148       227.6972
+max_div_20_3.txt    BusquedaTabu          20                    3                     8                     2760514      232.5855
+max_div_20_3.txt    RamificacionYPodaProf.20                    3                     8                     377103       232.5855
+max_div_20_3.txt    RamificacionYPodaAmpl.20                    3                     8                     1869085      232.5855
+max_div_30_2.txt    VORAZ                 30                    2                     8                     388          200.6516
+max_div_30_2.txt    GRASP                 30                    2                     8                     285583       194.4377
+max_div_30_2.txt    BusquedaTabu          30                    2                     8                     7326212      200.6516
+max_div_30_2.txt    RamificacionYPodaProf.30                    2                     8                     4004138      200.6516
+max_div_30_2.txt    RamificacionYPodaAmpl.30                    2                     8                     73971435     200.6516
+max_div_30_3.txt    VORAZ                 30                    3                     8                     382          252.0682
+max_div_30_3.txt    GRASP                 30                    3                     8                     268488       237.3693
+max_div_30_3.txt    BusquedaTabu          30                    3                     8                     7365435      252.0682
+max_div_30_3.txt    RamificacionYPodaProf.30                    3                     8                     4767886      252.0682
+max_div_30_3.txt    RamificacionYPodaAmpl.30                    3                     8                     100722247    252.0682
