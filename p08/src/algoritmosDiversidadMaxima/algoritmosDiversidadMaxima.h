@@ -35,6 +35,7 @@ class AlgoritmosDiversidadMaxima {
   Solucion solucion_;
   const double calcularFuncionObjetivo(const Matriz&);
   const double calcularFuncionObjetivoParcial(const Solucion&, const int, const Matriz&);
+  const double calcularFuncionObjetivoParcialConInsercion(const Matriz&);
   const std::vector<double> calcularCentroGravedad(const Matriz&) const;
   const std::pair<std::vector<double>, int> obtenerElementoEIndiceFicticioMasAlejadoDeCentroGravedad(
     const std::vector<double>&,

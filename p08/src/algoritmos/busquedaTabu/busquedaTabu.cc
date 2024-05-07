@@ -95,10 +95,6 @@ void BusquedaTabu::busquedaTabu(
     } else if (++iteraciones_sin_mejorar > 3) break;
     if (lista_tabu.size() == kTenenciaTabu) lista_tabu.pop_front();  
     lista_tabu.push_back(std::make_pair(mejor_indice_solucion, mejor_indice_entorno));
-    /*for (auto a : lista_tabu) {
-      std::cout << "(" << a.first << ", " << a.second << ") ";
-    }
-    std::cout << std::endl;*/
   } while (++iter <= kIteracionesTabu);
   solucion_ = mejor_solucion;
   solucion_.setFuncionObjetivo() = criterio_aspiracion;

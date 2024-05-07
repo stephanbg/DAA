@@ -116,3 +116,21 @@ const double AlgoritmosDiversidadMaxima::calcularFuncionObjetivoParcial(
   }
   return funcion_objetivo;
 }
+
+/**
+ * @brief Calcula y actualiza parcialmente la función objetivo de la solución
+ * considerando la inserción del último elemento.
+ *
+ * @param kDistancias Matriz de distancias entre elementos.
+ * @return El valor actualizado de la función objetivo parcial después de la inserción del último elemento.
+ */
+const double AlgoritmosDiversidadMaxima::calcularFuncionObjetivoParcialConInsercion(const Matriz& kDistancias) {
+  const int kSizeSolucion = solucion_.size();
+  double& funcion_objetivo = solucion_.setFuncionObjetivo(); 
+  const std::vector<int>& kIndices =  solucion_.getIndicesElementosIntroducidos();
+  const int kIndiceElementoIntroducido = kIndices[kSizeSolucion - 1];
+  for (int i = 0; i < kSizeSolucion - 1; ++i) {
+    funcion_objetivo += kDistancias[kIndices[i]][kIndiceElementoIntroducido];
+  }
+  return funcion_objetivo;
+}
